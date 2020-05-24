@@ -6,9 +6,9 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/new_loginAndRegiste.css}"/>
-	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
-	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
-	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/>
+<!--	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>-->
+<!--	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>-->
+<!--	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/>-->
 </head>
 <body class="noselect">
 	
@@ -26,8 +26,8 @@
 		<div class="itemInfo">
 			<div class="itemImg item_ident"></div>
 			<select class="itemInput" id="l_identSelect">
-				<option value="学生" th:field="*{u_identity}">学生</option>
-				<option value="教师" th:field="*{u_identity}">教师</option>
+				<option value="0" th:field="*{u_identity}">学生</option>
+				<option value="1"  th:field="*{u_identity}">教师</option>
 			</select>
 		</div>
 		<p class="turnLRstate" onclick="registerWindow()">切换至注册</p>
@@ -39,7 +39,7 @@
 <script th:src="@{/js/md5.js}"></script>
 <script th:src="@{/js/loginAndregiste.js}"></script>
 
-<script src="../static/js/md5.js"></script>
-<script src="../static/js/loginAndregiste.js"></script>
+<!--<script src="../static/js/md5.js"></script>-->
+<!--<script src="../static/js/loginAndregiste.js"></script>-->
 </body>
 </html>

@@ -44,7 +44,7 @@ public class Message {
     private boolean m_message;
 
     /*  发送时间  */
-    @Column(nullable = false)
+    @Column
     private Date m_sendtime;
 
     public Message() {

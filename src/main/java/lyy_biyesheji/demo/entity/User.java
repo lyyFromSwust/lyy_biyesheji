@@ -12,6 +12,7 @@ public class User {
     @GeneratedValue
     private int u_id;
 
+    /*num是学号 */
     @Column(nullable = false)
     private String u_num;
 

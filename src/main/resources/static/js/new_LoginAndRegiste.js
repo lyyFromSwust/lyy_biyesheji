@@ -32,9 +32,11 @@ function hideRW(){
 function showLW(){
 	loginWindow.style.transform="scale(1)";
 	blackMask.style.visibility="visible";
+	//loginIframe.contentWindow.location.reload(true);
 }
 
 function showRW(){
 	registeWindow.style.transform="scale(1)";
 	blackMask.style.visibility="visible";
+	//registeIframe.contentWindow.location.reload(true);
 }
