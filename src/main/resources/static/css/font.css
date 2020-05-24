@@ -13,3 +13,8 @@
 	font-family:'阿丽达黑体';
 	src: url(../font/阿丽达黑体.ttf);
 }
+
+@font-face {
+	font-family:'汉仪清芬体';
+	src: url(../font/HYQingFenTiW.ttf);
+}

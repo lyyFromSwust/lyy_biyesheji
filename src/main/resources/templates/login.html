@@ -3,36 +3,43 @@
 <head>
 	<meta charset="utf-8">
 	<title>登录</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/new_login.css}"/>
-	<link rel="stylesheet" type="text/css" href="../static/css/new_login.css"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/new_loginAndRegiste.css}"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/>
 </head>
-<body>
+<body class="noselect">
 	
 	
 	<form id="loginDiv" class="loginBox" role="form" action="#" th:action="@{/login}" onsubmit="return checkUAndP()" th:object="${user}" method="post">
 		<p class="login_title">用户登录</p>
 		<div class="itemInfo">
 			<div class="itemImg item_num"></div>
-			<input class="itemInput" type="text" id="l_phone" th:field="*{u_num}"/>
+			<input class="itemInput" placeholder="学号" type="text" id="l_phone" th:field="*{u_num}"/>
 		</div>
 		<div class="itemInfo">
 			<div class="itemImg item_pwd"></div>
-			<input class="itemInput" type="password" id="l_pwd" th:field="*{u_password}"/>
+			<input class="itemInput" placeholder="密码" type="password" id="l_pwd" th:field="*{u_password}"/>
 		</div>
 		<div class="itemInfo">
 			<div class="itemImg item_ident"></div>
-			<div class="spInput">
-				<label><input name="l_state" type="radio" value="0" checked="" id="l_state_stu" th:field="*{u_identity}"/> 学生</label>
-				<label style="float: right;"><input name="l_state" type="radio" value="1" id="l_state_tea" th:field="*{u_identity}"/> 教师</label>
-			</div>
+			<select class="itemInput" id="l_identSelect">
+				<option value="学生" th:field="*{u_identity}">学生</option>
+				<option value="教师" th:field="*{u_identity}">教师</option>
+			</select>
 		</div>
-		<div class="itemInfo">
-			<span class="spTitle" style="margin-top:15px;margin-left:15px;width:auto;">还没有账号?</span>
-			<span class="spTitle" style="margin-top:15px;width:auto;color:#169bd5;cursor:pointer;" onclick="registerWindow()">注册</span>
-			<button class="lrBtn lBtn" onclick="registerSubmit()" type="submit"  >登录</button>
+		<p class="turnLRstate" onclick="registerWindow()">切换至注册</p>
+			
+		<div class="itemInfo_End">
+			<button class="submitBtn" onclick="registerSubmit()" type="submit"  >登&emsp;录</button>
 		</div>
 	</form>
-<!-- <script th:src="@{/js/md5.js}"></script>
-<script th:src="@{/js/loginAndregiste.js}"></script> -->
+<script th:src="@{/js/md5.js}"></script>
+<script th:src="@{/js/loginAndregiste.js}"></script>
+
+<script src="../static/js/md5.js"></script>
+<script src="../static/js/loginAndregiste.js"></script>
 </body>
 </html>

@@ -1,0 +1,113 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background-color: rgb(235,177,129);
+}
+
+.loginBox{
+	position: absolute;
+	width: 280px;
+	top: 2%;
+	left: calc(50% - 140px);
+}
+
+.login_title{
+	font-size: 30px;
+	color: #101010;
+	font-family: '迷你卡通体';
+}
+
+.itemInfo{
+	position: relative;
+	margin: 10px;
+	margin-top: 30px;
+	width: 260px;
+	height: 47px;
+	border: 1px solid #696969;
+}
+
+.itemInfo_End{
+	position: relative;
+	margin: 10px;
+	margin-top: 30px;
+	width: 260px;
+	height: 47px;
+}
+
+.itemImg{
+	position: absolute;
+	height: 45px;
+	width: 45px;
+	border: 1px white solid;
+}
+
+.itemInput{
+	position: absolute;
+	font-size: 25px;
+	width: 214px;
+	text-indent: 10px;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border: 0px;
+	color: #101010;
+}
+
+#l_identSelect{
+	text-indent: 5px;
+}
+
+.item_num{
+	background:url(../image/icon/icon_使用文档.png) no-repeat;
+	background-size: 100%;
+}
+
+.item_pwd{
+	font-size: 10px;
+	background:url(../image/icon/kids%20lock.png) no-repeat;
+	background-size: 100%;
+	
+}
+
+.item_ident{
+	background:url(../image/icon/user.png) no-repeat;
+	background-size: 100%;
+}
+
+.turnLRstate{
+	margin-top:15px;
+	color:#101010;
+	cursor:pointer; 
+	font-family: "迷你卡通体";
+}
+
+.turnLRstate:hover{
+	color: saddlebrown;
+}
+
+.turnLRstate:active{
+	transform: translate(1px,1px);
+}
+
+.submitBtn{
+	font-size: 20px;
+	font-weight: 600;
+	font-family: '';
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(145,127,79);
+	cursor: pointer;
+	transition: all 0.3s;
+	outline: none;
+}
+
+.submitBtn:hover{
+	background-color: rgb(233,219,180);
+}
+
+.submitBtn:active{
+	transform: translate(1px,1px);
+}
