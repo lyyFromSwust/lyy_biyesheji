@@ -1,0 +1,70 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background-color: rgb(232,218,179);
+	background: url(../image/bg2.jpg) repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	font-family: "方正喵呜体";
+}
+.visitor{
+	position: absolute;
+	right: 2%;
+	top: 4%;
+	font-size: 30px;
+	cursor: pointer;
+	transition: all 0.2s;
+	transform: rotate(10deg);
+}
+.visitor:hover{
+	transform: rotate(15deg);
+	color: #169BD5;
+}
+.visitor:active{
+	transform: rotate(15deg) translate(2px,1px);
+}
+
+.titleBox{
+	font-size: 100px;
+	text-align: center;
+	margin: auto;
+	margin-top: 200px;
+}
+
+.titleBox span{
+	transition: all 2s;
+}
+
+.titleBox span:hover{
+	transition: all 0.1s;
+	font-size: 80px;
+	color: #169BD5;
+}
+
+.cc{
+	font-size: 30px;
+	margin: auto;
+	margin-top: 300px;
+	text-align: center;
+}
+.cc button{
+	font-size: 40px;
+	font-weight: 600;
+	border: 0px;
+	background-color: #00000000;
+	cursor: pointer;
+	margin: 10px;
+	outline: none;
+	font-family: "阿丽达黑体";
+	transition: color 0.2s,transform 0.05s;
+}
+.cc button:hover{
+	color: #FF0000;
+}
+.cc button:active{
+	transform: translate(1px,1px);
+}

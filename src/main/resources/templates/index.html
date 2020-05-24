@@ -3,49 +3,34 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>首页未登录</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/new_index.css.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/new_index.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
 	</head>
-	<body>
-		<!-- 顶部蓝色标题 -->
-		<div class="headTitle">
-			<div class="headTitle_首页">
-				<p>首页</p>
+	<body class=" noselect">
+		<span class="visitor">游客体验</span>
+			<div class="titleBox">
+				<span> 在 </span><span> 线 </span><span> 答 </span><span> 疑 </span><span> 辅 </span><span> 导 </span><span> 系 </span><span>统</span>
 			</div>
-			<div class="headTitle_我的班级 headSmallFont">
-				<p>我的班级</p>
-			</div>
-			<div class="headTitle_搜索框背景"><!-- 搜索框 -->
-				<img src="image/首页未登录/搜索.jpg" class="headTitle_搜索图标"/>
-				<input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
-			</div>
-            <div  class="headTitle_登录注册 headSmallFont">
-                    <span onclick="clickLogin()" class="headTitle_登录注册文本">登陆</span>
-                    <span style="cursor: default">/</span>
-                    <span onclick="clickRegiste()" class="headTitle_登录注册文本">注册</span>
-            </div>
+		<div class="cc">
+			<button>登&emsp;&emsp;录</button>
+			<p style="margin: 0;">————————</p>
+			<button>注&emsp;&emsp;册</button>
+			
 		</div>
-
-        <!--首页页面显示-->
-        <div class="bodyContext">
-            <div class="bodyContext_class" th:each="item:${mclasslist}">
-                <div class="bodyContext_class_title" th:text="${item.c_classname}"></div>
-				<div class="bodyContext_class_BoxidAndintroduce">
-					<p style="color: white" th:text="'创建老师ID：'+${item.c_teacherid}"></p>
-					<p style="color: white" th:text="'班级介绍:'+${item.c_introduce}"></p>
-				</div>
-<!--				-->
-<!--                <div class="bodyContext_class_btnBox">-->
-<!--                    <button class="bodyContext_class_班级介绍 bodyContext_class_btn">班级介绍</button>-->
-<!--                    <button class="bodyContext_class_班级学生 bodyContext_class_btn">班级学生</button>-->
-<!--                    <button class="bodyContext_class_作业 bodyContext_class_btn">作业</button>-->
-<!--                    <button class="bodyContext_class_课程资源 bodyContext_class_btn">课程资源</button>-->
-<!--                    <button class="bodyContext_class_讨论 bodyContext_class_btn">讨论</button>-->
-<!--                    <button class="bodyContext_class_留言 bodyContext_class_btn">留言</button>-->
-<!--                </div>-->
-            </div>
-        </div>
-
+		
+		<div class="outWindow">
+			<div></div>
+			<div></div>
+		</div>
+		
 		<script th:src="@{/js/jquery.min.js}"></script>
 	    <script th:src="@{/js/index.js}"></script>
+		
+		<script src="../static/js/jquery.min.js"></script>
+	    <script src="../static/js/index.js"></script>
 	</body>
 </html>
