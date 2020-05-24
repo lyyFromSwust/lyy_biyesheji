@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>作业列表</title>
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/index.css"/>-->
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/classHomeworkList.css"/>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classHomeworkList.css}"/>
+
+</head>
+<body>
+    <div class="headTitle">
+        <div class="headTitle_返回" onclick="returnIndex()">
+            <p>返回</p>
+        </div>
+        <div class="headTitle_班级名称">
+            <p>班级名称</p>
+        </div>
+        <div class="headTitle_上传文件">
+            <p>发布新作业</p>
+        </div>
+    </div>
+    <div class="homeworkListWindow">
+        <br/>
+        <div class="homeworkBox">
+            <div class="homeworkInfo">
+                <span class="homeworkInfo_title">作业发布时间：</span>
+                <span class="homeworkInfo_context">2020-05-22 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业截至时间：</span>
+                <span class="homeworkInfo_context">2020-05-30 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业内容：</span>
+                <span class="homeworkInfo_context">完成课后1.5、1.6、1.7</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业状态：</span>
+                <span class="homeworkInfo_context homeworkInfo_state_1">进行中</span>
+                <br/><br/>
+                <button class="homeworkInfo_button">提交作业</button>
+            </div>
+            <div class="homeworkInfo">
+                <span class="homeworkInfo_title">作业发布时间：</span>
+                <span class="homeworkInfo_context">2020-05-22 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业截至时间：</span>
+                <span class="homeworkInfo_context">2020-05-26 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业内容：</span>
+                <span class="homeworkInfo_context">完成课后1.5、1.6、1.7</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业状态：</span>
+                <span class="homeworkInfo_context homeworkInfo_state_2">已结束</span>
+                <br/><br/>
+                <button class="homeworkInfo_button">提交作业</button>
+            </div>
+            <div class="homeworkInfo">
+                <span class="homeworkInfo_title">作业发布时间：</span>
+                <span class="homeworkInfo_context">2020-05-22 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业截至时间：</span>
+                <span class="homeworkInfo_context">2020-05-26 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业内容：</span>
+                <span class="homeworkInfo_context">完成课后1.5、1.6、1.7</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业状态：</span>
+                <span class="homeworkInfo_context homeworkInfo_state_2">已结束</span>
+                <br/><br/>
+                <button class="homeworkInfo_button">提交作业</button>
+            </div>
+            <div class="homeworkInfo">
+                <span class="homeworkInfo_title">作业发布时间：</span>
+                <span class="homeworkInfo_context">2020-05-22 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业截至时间：</span>
+                <span class="homeworkInfo_context">2020-05-26 17:31</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业内容：</span>
+                <span class="homeworkInfo_context">完成课后1.5、1.6、1.7</span>
+                <br/><br/>
+                <span class="homeworkInfo_title">作业状态：</span>
+                <span class="homeworkInfo_context homeworkInfo_state_2">已结束</span>
+                <br/><br/>
+                <button class="homeworkInfo_button">提交作业</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="newHomework">
+        <p>截止日期</p>
+        <input type="date" value="1970-01-01"/>
+        <input type="time" value="00:00"/>
+        <p>作业内容</p>
+        <textarea></textarea>
+        <button>发布作业</button>
+    </div>
+
+    <script th:src="@{/js/returnEvent.js}"></script>
+</body>
+</html>

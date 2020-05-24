@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>管理员登录</title>
+    <link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<form id="loginDiv" class="loginBox" role="form" th:action="@{/manager}" th:object="${manager}" onsubmit="return checkManager()" method="post">
+    <div style="display:flex;">
+        <span class="spTitle">用户名</span>
+        <input class="spInput" type="text" id="l_phone" th:field="*{m_name}"/>
+    </div>
+    <div style="display:flex;">
+        <span class="spTitle">密码</span>
+        <input class="spInput" type="password" id="m_pwd" th:field="*{m_password}"/>
+    </div>
+
+    <div style="display:flex;">
+        <button class="lrBtn rBtn" onclick="resetRegister()">重置</button>
+        <button class="lrBtn rBtn" type="submit" onclick="managerLoginSubmit()">登录</button>
+    </div>
+</form>
+<script src="js/md5.js"></script>
+<script src="js/loginAndregiste.js"></script>
+</body>
+</html>

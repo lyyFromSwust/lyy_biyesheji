@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>创建班级</title>
+	<link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<form id="loginDiv" class="loginBox" role="form" action="#" th:action="@{/build_class}" th:object="${mclass}" method="post">
+		<div style="display:flex;">
+			<span class="spTitle">班级名称</span>
+			<input class="spInput" type="text" id="l_phone" th:field="*{c_classname}"/>
+		</div>
+		<div style="display:flex;">
+			<span class="spTitle">班级介绍</span>
+			<input class="spInput" id="c_classintroduce" th:field="*{c_introduce}"/>
+		</div>
+
+		<div style="display:flex;">
+			<button class="lrBtn rBtn" onclick="resetRegister()">重置</button>
+			<button class="lrBtn rBtn" type="submit" onclick="finishBuildClass()">完成创建</button>
+		</div>
+	</form>
+<script th:src="@{/js/loginAndregiste.js}"></script>
+</body>
+</html>

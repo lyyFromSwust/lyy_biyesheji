@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>注册</title>
+	<link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <form id="registerDiv" class="registerBox" role="form" action="#" th:action="@{/registe}" th:object="${user}" method="post" onsubmit="return checkAll();">
+        <div style="display:flex;">
+            <span class="spTitle">学号</span>
+            <input class="spInput" type="text" id="r_num" th:field="*{u_num}" placeholder="请输入用户名"
+                   onblur="checkNum('r_num','numInfo')" onfocus="clearInfo('numInfo')"/>
+        </div>
+        <div style="text-align: center">
+            <span class="spInfo" id="numInfo"></span>
+        </div>
+
+        <div style="display:flex;">
+            <span class="spTitle" >姓名</span>
+            <input class="spInput" type="text" id="r_name" th:field="*{u_name}" placeholder="请输入昵称"
+                   onblur="checkName('r_name','nameInfo')" onfocus="clearInfo('nameInfo')" />
+        </div>
+        <div style="text-align: center">
+            <span class="spInfo" id="nameInfo"></span>
+        </div>
+
+        <div style="display:flex;">
+            <span class="spTitle">身份</span>
+            <div class="spInput">
+                <label><input name="r_state" type="radio" value="0"  checked="" id="r_state_stu" th:field="*{u_identity}"/> 学生</label>
+                <label style="float: right;"><input name="r_state" type="radio"  value="1" id="r_state_tea" th:field="*{u_identity}"/> 教师</label>
+            </div>
+        </div>
+
+        <div style="display:flex;">
+            <span class="spTitle">密码</span>
+            <input class="spInput" type="password" id="r_password" th:field="*{u_password}" placeholder="请输入密码"
+                   onblur="checkPassword('r_password','passwordInfo')" onfocus="clearInfo('passwordInfo')"/>
+        </div>
+        <div style="text-align: center">
+            <span class="spInfo" id="passwordInfo"></span>
+        </div>
+
+        <div style="display:flex;">
+            <span class="spTitle">确认密码</span>
+            <input class="spInput" type="password" id="r_re_password" placeholder="请再次输入密码"
+                   onblur="checkRePassword('r_password','r_re_password','rpasswordInfo')" onfocus="clearInfo('rpasswordInfo')"/>
+        </div>
+        <div style="text-align: center">
+            <span class="spInfo" id="rpasswordInfo"></span>
+        </div>
+
+        <div style="display:flex;">
+            <button class="lrBtn rBtn" onclick="resetRegister()">重置</button>
+            <button class="lrBtn rBtn" type="submit">完成注册</button>
+        </div>
+    </form>
+
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/loginAndregiste.js}"></script>
+    <script th:src="@{/js/md5.js}"></script>
+</body>
+</html>

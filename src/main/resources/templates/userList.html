@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+<body>
+    <!-- 顶部蓝色标题 -->
+    <div class="headTitle">
+        <div class="headTitle_首页">
+            <p>管理员界面</p>
+        </div>
+
+        <div class="headTitle_搜索框背景"><!-- 搜索框 -->
+            <img src="image/首页未登录/搜索.jpg" class="headTitle_搜索图标"/>
+            <input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
+        </div>
+        <div class="headTitle_登录注册 headSmallFont">
+            <p th:text="'欢迎你！'+${m_name}+'管理员'">2333</p>
+        </div>
+    </div>
+    <h1 style="text-align: center">用户列表</h1>
+    <br/>
+    <div class="width:80%" style="text-align: center">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>身份</th>
+                    <th>密码</th>
+                    <th>昵称</th>
+                    <th>注册时间</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="u:${users}">
+                    <td th:text="${u.u_id}">1</td>
+                    <td th:text="${u.u_num}">11</td>
+                    <td th:text="${u.u_identity==true?'老师':'学生'}">111</td>
+                    <td th:text="${u.u_password}">mima</td>
+                    <td th:text="${u.u_name}">nichen</td>
+                    <td th:text="${u.u_registetime}">zhuceshijian</td>
+                    <td><a th:href="@{/toEidt(id=${u.u_id})}">编辑</a></td>
+                    <td><a th:href="@{/delete(id=${u.u_id})}" onclick="return confirm('确认删除该用户吗？')">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.loginBox{
+	position: relative;
+	width: 300px;
+	height: 206px;
+	margin: 49px auto;
+	background-color: black;
+	background-color: rgba(242, 242, 242, 1);
+	border-radius: 15px;
+	/*visibility: visible;*/
+}
+
+.registerBox{
+	position: relative;
+	width: 300px;
+	/*height: 343px;*/
+	margin: 49px auto;
+	background-color: black;
+	background-color: rgba(242, 242, 242, 1);
+	border-radius: 15px;
+	/*visibility: hidden;*/
+}
+
+
+.spTitle{
+	font-family: "Arial Negreta","Arial Normal","Arial";
+	font-weight: 700;
+	color: rgb(161, 161, 161);
+	font-size: 18px;
+	width: 40%;
+	text-align: center;
+	margin-top: 25px;
+}/*内容文本*/
+
+.spInput{
+	margin-top: 25px;
+	width: 50%;
+	font-size: 19px;
+}
+.spInfo{
+
+	font-size: 10px;
+	color: rgb(255, 0, 0);
+}
+
+.lrBtn{
+	border: none;
+	border-radius: 5px;
+	width: 97px;
+	height: 40px;
+	color: white;
+	background-color: rgba(22, 155, 213, 1);
+	font-size: 18px;
+	font-weight: 700;
+	cursor: pointer;
+}/*通用按钮风格*/
+
+.lBtn{
+	margin-left: 35px;
+	margin-top: 10px;
+}/*登录按钮特有风格*/
+
+.rBtn{
+	margin-top: 25px;
+	margin-left: 35px;
+}/*注册按钮特有风格*/

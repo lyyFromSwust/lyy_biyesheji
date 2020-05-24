@@ -1,0 +1,50 @@
+.homeworkListWindow{
+    /*position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 10%;
+    width: 80%;*/
+    margin-top: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: aliceblue;
+}
+
+
+.homeworkBox{
+
+}
+
+.homeworkInfo{
+    margin:10px;
+    padding:10px;
+    border:1px solid darkslategrey;
+    border-radius: 10px;
+}
+
+.homeworkInfo_title{
+
+}
+
+.homeworkInfo_context{
+    color: dimgrey;
+}
+
+.homeworkInfo_button{
+    padding: 4px;
+}
+
+.homeworkInfo_state_1{
+    color: green;
+}
+
+.homeworkInfo_state_2{
+    color: red;
+}
+
+.newHomework {
+    position: fixed;
+    height: 360px;
+    width: 480px;
+    top:180px;
+}

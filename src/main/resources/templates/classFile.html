@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>班级文件</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classFile.css}"/>
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/index.css"/>-->
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/classFile.css"/>-->
+</head>
+<body>
+    <div class="headTitle">
+        <div class="headTitle_返回" onclick="returnIndex()">
+            <p>返回</p>
+        </div>
+        <div class="headTitle_班级名称">
+            <p>班级名称</p>
+        </div>
+        <div class="headTitle_上传文件" onclick="uploadBtn_Click()">
+            <p>上传文件</p>
+        </div>
+    </div>
+    <p>文件列表</p>
+    <div class="fileBox" class="width:80%" style="text-align: center">
+        <table>
+            <thead>
+            <tr>
+                <th class="fileInfo_img">类型</th>
+                <th class="fileInfo_name">文件名</th>
+                <th class="fileInfo_time">上传时间</th>
+                <th class="fileInfo_download">下载文件</th>
+                <th class="fileInfo_delete">删除文件</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="" class="fileInfo">
+                <td text="">txt</td>
+                <td text="">文件名</td>
+                <td text="">2020-05-20</td>
+                <td ><button>下载</button></td>
+                <td ><button>删除</button></td>
+<!--            </tr>-->
+            </tbody>
+        </table>
+
+    </div>
+    <div class="uploadFile" id="uploadFile" style="visibility: hidden">
+        <input class="uploadFile_chooseFile" value="选择文件" type="file"/>
+        <button class="uploadFile_confirm">确认上传</button>
+    </div>
+
+    <script th:src="@{/js/returnEvent.js}"></script>
+    <script th:src="@{/js/classFile.js}"></script>
+<!--    <script src="../static/js/classFile.js"></script>-->
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>登录</title>
+	<link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="loginDiv" class="loginBox" role="form" action="#" th:action="@{/login}" onsubmit="return checkUAndP()" th:object="${user}" method="post">
+		<div style="display:flex;">
+			<span class="spTitle">用户名</span>
+			<input class="spInput" type="text" id="l_phone" th:field="*{u_num}"/>
+		</div>
+		<div style="display:flex;">
+			<span class="spTitle">密码</span>
+			<input class="spInput" type="password" id="l_pwd" th:field="*{u_password}"/>
+		</div>
+		<div style="display:flex;">
+			<span class="spTitle">身份</span>
+			<div class="spInput">
+				<label><input name="l_state" type="radio" value="0" checked="" id="l_state_stu" th:field="*{u_identity}"/> 学生</label>
+				<label style="float: right;"><input name="l_state" type="radio" value="1" id="l_state_tea" th:field="*{u_identity}"/> 教师</label>
+			</div>
+		</div>
+		<div style="display:flex;">
+			<span class="spTitle" style="margin-top:15px;margin-left:15px;width:auto;">还没有账号?</span>
+			<span class="spTitle" style="margin-top:15px;width:auto;color:#169bd5;cursor:pointer;" onclick="registerWindow()">注册</span>
+			<button class="lrBtn lBtn" onclick="registerSubmit()" type="submit"  >登录</button>
+		</div>
+	</form>
+<script th:src="@{/js/md5.js}"></script>
+<script th:src="@{/js/loginAndregiste.js}"></script>
+</body>
+</html>

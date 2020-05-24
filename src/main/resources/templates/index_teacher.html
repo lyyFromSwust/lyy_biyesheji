@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+	</head>
+	<body>
+		<!-- 顶部蓝色标题 -->
+		<div class="headTitle">
+			<div class="headTitle_首页">
+				<p>首页</p>
+			</div>
+			<div class="headTitle_创建班级 headSmallFont">
+				<p onclick="clickToBuildClass()">创建班级</p>
+			</div>
+			<div class="headTitle_搜索框背景"><!-- 搜索框 -->
+				<img th:src="@{/image/首页未登录/搜索.jpg}" class="headTitle_搜索图标"/>
+				<input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
+			</div>
+			<div class="headTitle_登录注册 headSmallFont" >
+				<p th:text="'欢迎你！'+${teacher_name}+'老师'">2333</p>
+			</div>
+		</div>
+
+        <!--首页页面显示-->
+        <div class="bodyContext">
+            <div class="bodyContext_class" th:each="item:${mclasslist}">
+                <div class="bodyContext_class_title" th:text="${item.c_classname}"></div>
+                <div class="bodyContext_class_btnBox">
+                    <button class="bodyContext_class_班级信息 bodyContext_class_btn" onclick="classInfoClick()">班级信息</button>
+					<button class="bodyContext_class_班级学生 bodyContext_class_btn" onclick="classInfoClick()">班级学生</button>
+                    <button class="bodyContext_class_作业 bodyContext_class_btn" onclick="classHomeworkListClick()">作业</button>
+                    <button class="bodyContext_class_课程资源 bodyContext_class_btn" onclick="classFileClick()">课程资源</button>
+<!--                    <button class="bodyContext_class_讨论 bodyContext_class_btn" onclick="classInfoClick()">讨论</button>-->
+                    <button class="bodyContext_class_留言 bodyContext_class_btn" onclick="classMessageClick()">留言</button>
+                </div>
+            </div>
+        </div>
+
+	<script th:src="@{/js/index.js}"></script>
+	<script th:src="@{/js/teacher.js}"></script>
+	</body>
+</html>

@@ -1,0 +1,11 @@
+/**/
+.classInfoBody{
+    position: absolute;
+    top:60px;
+    padding: 20px;
+}
+
+.classInfoBody_p{
+    font-size: 18px;
+    margin-bottom: 20px;
+}
