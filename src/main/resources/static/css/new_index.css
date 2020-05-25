@@ -18,14 +18,14 @@ body{
 	font-size: 30px;
 	cursor: pointer;
 	transition: all 0.2s;
-	transform: rotate(10deg);
+	transform: rotate(15deg);
 }
 .visitor:hover{
-	transform: rotate(15deg);
+	transform: rotate(5deg);
 	color: #169BD5;
 }
 .visitor:active{
-	transform: rotate(15deg) translate(2px,1px);
+	transform: rotate(5deg) translate(2px,1px);
 }
 
 .titleBox{
@@ -101,7 +101,7 @@ body{
 
 .loginRegisteWindow{
 	position: fixed;
-	top:20%;
+	top:10%;
 	left:calc(50% - 200px);
 	width: 400px;
 	transform: scale(0);
@@ -111,19 +111,21 @@ body{
 	z-index:99;
 }
 
-.loginRegisteWindow:hover{
-	
-}
 
 #loginWindow{
 	height: 450px;
 }
 
-.loginRegisteWindow div iframe{
+#loginWindow div iframe{
 	height: 450px;
 	border-radius: 20px;
 }
 
 #registeWindow{
-	
+	height: 620px;
+}
+
+#registeWindow div iframe{
+	height: 620px;
+	border-radius: 20px;
 }

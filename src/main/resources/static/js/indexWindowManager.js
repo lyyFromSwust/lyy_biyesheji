@@ -3,6 +3,8 @@ var registeWindow=document.getElementById("registeWindow");
 var loginIframe=document.getElementById("loginIframe");
 var registeIframe=document.getElementById("registeIframe");
 var blackMask=document.getElementById("blackMask");
+
+
 function closeAll(){
 	hideLW();
 	hideRW();
@@ -32,11 +34,17 @@ function hideRW(){
 function showLW(){
 	loginWindow.style.transform="scale(1)";
 	blackMask.style.visibility="visible";
+	loginIframe.contentWindow.document.getElementById("turnToRegiste").onclick = function(){
+		RWclick();
+	};
 	//loginIframe.contentWindow.location.reload(true);
 }
 
 function showRW(){
 	registeWindow.style.transform="scale(1)";
 	blackMask.style.visibility="visible";
+	registeIframe.contentWindow.document.getElementById("turnToLogin").onclick = function(){
+		LWclick();
+	};
 	//registeIframe.contentWindow.location.reload(true);
 }

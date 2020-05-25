@@ -71,8 +71,9 @@ function setInfo(id,info) {
 
 //校验所有表单元素的内容
 function checkAll() {
-	if(checkNum('r_num','numInfo')&checkName("r_name","nameInfo")&checkPassword('r_password', 'passwordInfo')
-		&checkRePassword('r_password', 'r_re_password', 'rpasswordInfo')){
+	alert("checkAll");
+	if(checkNum('r_num','numInfo') && checkName("r_name","nameInfo") && checkPassword('r_password', 'passwordInfo')
+		&& checkRePassword('r_password', 'r_re_password', 'rpasswordInfo')){
 		r_pwd.value=hex_md5(r_pwd.value);
 		return true;
 	}
@@ -103,6 +104,7 @@ function registerWindow(){
 function managerLoginSubmit() {
 	window.location.href("userList");
 }
+
 function checkManager() {
 	m_pwd.value=hex_md5(m_pwd.value);
 	return true;

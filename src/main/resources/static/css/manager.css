@@ -1,0 +1,69 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+.managerLoginBody{
+	background-color: rgb(242,227,189);
+}
+
+.managerLoginBox{
+	width: 280px;
+	position: absolute;
+	left: calc(50% - 140px);
+	top: 10%;
+}
+
+.submitBtn_managerlogin{
+	font-size: 20px;
+	font-weight: 600;
+	font-family: '';
+	width: 40%;
+	height: 100%;
+	margin-left: 20px;
+	cursor: pointer;
+	transition: all 0.3s;
+	outline: none;
+}
+
+.submitBtn_managerlogin{
+	border: 1px solid rgb(145,127,79);
+}
+
+.submitBtn_managerlogin:hover{
+	background-color: rgb(233,219,180);
+}
+
+.headTitle{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 60px;
+	background-color: rgba(25, 158, 216, 1);
+	color: #f2f2f2;
+}
+
+.headTitle_文本{
+	position: absolute;
+	top: 10px;
+	left: 2%;
+	font-size: 1.75rem; 
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.headTitle_登录注册{
+	right:3%;
+}
+
+.headSmallFont{
+	position: absolute;
+	font-size: 1.25rem;
+	top:15px;
+	font-weight: 700;
+	cursor: pointer;
+}/*我的班级、创建班级、登陆注册统一样式样式*/

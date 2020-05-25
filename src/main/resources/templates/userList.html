@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>用户列表</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/manager.css}"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/manager.css"/> -->
 </head>
 <body>
     <!-- 顶部蓝色标题 -->
     <div class="headTitle">
-        <div class="headTitle_首页">
+        <div class="headTitle_文本">
             <p>管理员界面</p>
-        </div>
-
-        <div class="headTitle_搜索框背景"><!-- 搜索框 -->
-            <img src="image/首页未登录/搜索.jpg" class="headTitle_搜索图标"/>
-            <input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
         </div>
         <div class="headTitle_登录注册 headSmallFont">
             <p th:text="'欢迎你！'+${m_name}+'管理员'">2333</p>
