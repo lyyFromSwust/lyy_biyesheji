@@ -3,45 +3,80 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>在线答疑辅导系统-游客模式</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/index_visitor.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/index_visitor.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
 		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
+		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/classShowStyle.ico}"/>
 		
-		<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" />
-		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+<!-- 		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
 		<link rel="stylesheet" type="text/css" href="../static/css/index_visitor.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>
+		<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
 	</head>
 	<body>
 		
-		<div class="mainDiv">
-			<div class="mainDivBox">
-				<div class="headTitle">
-					<img src="../static/image/icon/logo.png" style="height: 100px;float: left;"/>
-					
-					<div class="searchDiv">
-						<input class="searchInput" placeholder="搜索" type="text"/>
-					</div>
+		<div class="mainDivBox">
+			<div class="mainDivBoxBg"></div>
+			<p id="sdfa"></p>
+			<div class="headTitle noselect">
+				<img class="titleIcon"/>
+				
+				<div class="searchDiv">
+					<div class="searchIcon"></div>
+					<input class="searchInput" placeholder="搜索班级" type="text"/>
+					<div class="searchImgDiv"><div class="searchImg"></div></div>
 				</div>
-				<div class="headTitle_bottomLine"></div>
-				<div class="headTitle_bottomLine"></div>
-				<div class="headTitle_bottomLine"></div>
-				<br/>
-				<br/>
-				<br/>
+				
+				<div class="lrDiv">
+					<div class="lrText" onclick="loginClick()">登 录</div>
+					<div>/</div>
+					<div class="lrText" onclick="registeClick()">注 册</div>
+				</div>
+				<div class=""></div>
 			</div>
+			<div class="headTitle_bottomLine"></div>
+			<div class="headTitle_bottomLine"></div>
+			<div class="headTitle_bottomLine"></div>
+			<br/>
+			<div class="classItembox">
+				<div class="classItemInfo"  onclick="loginClick()" th:each="item:${mclasslist}">
+					<p class="classItemInfo_name" th:text="${item.c_classname}" >自动化测试</p>
+					<p th:text="'创建老师：'+${item.c_teacherid}">创建老师:罗媛媛</p>
+					<p th:text="'班级介绍:'+${item.c_introduce}">班级介绍：西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级</p>
+					<div class="classItemInfo_hitInfo">请先登录账号</div>
+				</div>
+				
+			</div>
+			<div class="headTitle_bottomLine"></div>
+			<div class="pageBox">
+				<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
+				<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
+				<span> </span>
+				<span id="nowPage">1</span>
+				<span>/</span>
+				<span id="allPage">1</span>
+				<span> </span>
+				<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
+				<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
+					
+			</div>
+			<br/><br/><br/><br/><br/>
 		</div>
 		
+		<br/><br/><br/><br/><br/>
 		
-		<!-- 顶部蓝色标题 -->
-		<div class="headTitle">
+		<!-- <div class="headTitle"style="visibility: hidden;">
 			<div class="headTitle_首页">
 				<p>首页</p>
 			</div>
 			<div class="headTitle_我的班级 headSmallFont">
 				<p>我的班级</p>
 			</div>
-			<div class="headTitle_搜索框背景"><!-- 搜索框 -->
-				<!-- <img src="image/首页未登录/搜索.jpg" class="headTitle_搜索图标"/> -->
+			<div class="headTitle_搜索框背景">
 				<input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
 			</div>
             <div  class="headTitle_登录注册 headSmallFont">
@@ -50,8 +85,6 @@
                     <span onclick="clickRegiste()" class="headTitle_登录注册文本">注册</span>
             </div>
 		</div>
-
-        <!--首页页面显示-->
         <div class="bodyContext">
             <div class="bodyContext_class" th:each="item:${mclasslist}">
                 <div class="bodyContext_class_title" th:text="${item.c_classname}">班级名称</div>
@@ -59,22 +92,13 @@
 					<p style="color: white" th:text="'创建老师：'+${item.c_teacherid}">创建老师：红葡萄</p>
 					<p style="color: white" th:text="'班级介绍:'+${item.c_introduce}">班级的介绍</p>
 				</div>
-				
-               <!-- <div class="bodyContext_class_btnBox">
-                   <button class="bodyContext_class_班级介绍 bodyContext_class_btn">班级介绍</button>
-                   <button class="bodyContext_class_班级学生 bodyContext_class_btn">班级学生</button>
-                   <button class="bodyContext_class_作业 bodyContext_class_btn">作业</button>
-                   <button class="bodyContext_class_课程资源 bodyContext_class_btn">课程资源</button>
-                   <button class="bodyContext_class_讨论 bodyContext_class_btn">讨论</button>
-                   <button class="bodyContext_class_留言 bodyContext_class_btn">留言</button>
-               </div> -->
             </div>
-        </div>
+        </div> -->
 
 		<script th:src="@{/js/jquery.min.js}"></script>
-	    <script th:src="@{/js/index.js}"></script>
+	    <script th:src="@{/js/index_visitor.js}"></script>
 
-		<script src="../static/js/jquery.min.js"></script>
-	    <script src="../static/js/index.js"></script>
+<!-- 		<script src="../static/js/jquery.min.js"></script>
+	    <script src="../static/js/index_visitor.js"></script> -->
 	</body>
 </html>

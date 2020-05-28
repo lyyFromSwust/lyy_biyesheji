@@ -1,0 +1,86 @@
+
+
+.mainDivBox{
+	position: absolute;
+	width: 80%;
+	left: 10%;
+	top:2%;
+}
+
+.mainDivBoxBg{
+	position: absolute;
+	width: 100%;
+	height: 90%;
+	background-color: rgba(254,254,254,0.9);
+	box-shadow: 10px 10px 15px #888888;
+	z-index: -1;
+}
+
+.classItembox{
+}
+
+.classItemInfo{
+	font-family: "汉仪清芬体";
+	font-size: 15px;
+	margin-bottom: 2%;
+	margin-left: 5%;
+	width: 90%;
+	border: 1px darkblue dashed;
+	border-radius: 20px;
+	cursor: pointer;
+	background-color: #efefef;
+	text-overflow:ellipsis;
+}
+
+.classItemInfo:hover{
+	background-color: rgb(159,216,201);
+	border: 1px blue dashed;
+}
+
+.classItemInfo:hover .classItemInfo_name{
+	font-weight: 700;
+}
+
+.classItemInfo:active{
+	transform: translate(1px,1px);
+}
+
+.classItemInfo p{
+	margin: 12px;
+}
+
+
+.classItemInfo_hitInfo{
+	color: red;
+	margin-left: 12px;
+	visibility: hidden;
+}
+.classItemInfo:hover .classItemInfo_hitInfo{
+	visibility: visible;
+}
+
+.classItemInfo_name{
+	font-family: "汉仪清芬体";
+	/* font-weight: 700; */
+	font-size: 25px;
+}
+
+.pageBox{
+	text-align: center;
+	height: 100px;
+	width: 100%;
+	padding-top: 20px;
+	font-size: 28px;
+}
+
+.pageChange{
+	cursor: pointer;
+}
+
+.pageChange:hover{
+	color:rgb(183,137,96);
+}
+
+.pageChange:active{
+	font-size: 26px;
+}
