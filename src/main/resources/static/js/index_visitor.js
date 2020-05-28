@@ -22,25 +22,25 @@ var allPage=document.getElementById("allPage");
 })()
 
 function firstClick(){
-	window.location.href=window.location.pathname+"?page=1";
+	window.location.href="../index_visitor/"+1;
 }
 
 function lastClick(){
-	window.location.href=window.location.pathname+"?page="+allPage.innerHTML;
+	window.location.href="../index_visitor/"+allPage.innerHTML;
 }
 
 function previousClick(){
-	window.location.href=window.location.pathname+"?page="+(Number(nowPage.innerHTML)-1);
+	window.location.href="../index_visitor/"+(Number(nowPage.innerHTML)-1);
 }
 
 function nextClick(){
-	window.location.href=window.location.pathname+"?page="+(Number(nowPage.innerHTML)+1);
+	window.location.href="../index_visitor/"+(Number(nowPage.innerHTML)+1);
 }
 
 function loginClick(){
-	window.location.href="login";
+	window.location.href="/login";
 }
 
 function registeClick(){
-	window.location.href="registe";
+	window.location.href="/registe";
 }

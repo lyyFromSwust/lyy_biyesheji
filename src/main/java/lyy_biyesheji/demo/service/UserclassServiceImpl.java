@@ -43,7 +43,7 @@ public class UserclassServiceImpl {
     }
 
     /* 查询一个班级里的学生 */
-    public List<User> findByUc_classid(int classid){
+    public List<UserClass> findByUc_classid(int classid){
         return userclassRepository.findByUc_classid(classid);
     }
     /* 查询一个班级里的学生数量 */

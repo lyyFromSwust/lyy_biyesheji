@@ -21,10 +21,11 @@
         </div>
     </div>
     <p>文件列表</p>
-    <div class="fileBox" class="width:80%" style="text-align: center">
+    <div class="fileBox"  style="text-align: center">
         <table>
             <thead>
             <tr>
+                <th >序号</th>
                 <th class="fileInfo_img">类型</th>
                 <th class="fileInfo_name">文件名</th>
                 <th class="fileInfo_time">上传时间</th>
@@ -33,22 +34,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr each="" class="fileInfo">
-                <td text="">txt</td>
-                <td text="">文件名</td>
-                <td text="">2020-05-20</td>
-                <td ><button>下载</button></td>
-                <td ><button>删除</button></td>
-<!--            </tr>-->
+            <tr th:each="item,itemStat:${fileList}" class="fileInfo">
+                <td th:text="${itemStat.count}"></td>
+                <td th:text="${#strings.arraySplit(item.f_filename,'.')[1]}">txt</td>
+                <td th:text="${item.f_filename}">文件名</td>
+                <td th:text="${#dates.format(item.f_uplodatime,'yyyy-MM-dd HH:mm:ss')}">2020-05-20</td>
+                <td ><button >下载</button></td>
+                <td ><button th:attr="del_file=@{/item/}+${item.f_id}" onclick="return confirm('确认删除该用户吗？')">删除</button></td>
             </tbody>
         </table>
 
     </div>
     <div class="uploadFile" id="uploadFile" style="visibility: hidden">
-        <input class="uploadFile_chooseFile" value="选择文件" type="file"/>
-        <button class="uploadFile_confirm">确认上传</button>
+        <form  method="post" enctype="multipart/form-data" >
+            <input class="uploadFile_chooseFile" type="file" value="选择文件" name="fileName"/>
+            <input class="uploadFile_confirm" type="submit" value="提交"/>
+        </form>
     </div>
 
+    <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/returnEvent.js}"></script>
     <script th:src="@{/js/classFile.js}"></script>
 <!--    <script src="../static/js/classFile.js"></script>-->

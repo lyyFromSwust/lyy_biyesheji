@@ -26,7 +26,6 @@ public class UploadfileServiceImpl {
 
     /*  创建文件 */
     public UploadFile insertFile(UploadFile uploadFile){
-        uploadFile.setF_uplodatime(new Date());
         return uploadfileRepository.save(uploadFile);
     }
 

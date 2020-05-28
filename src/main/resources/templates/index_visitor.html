@@ -7,8 +7,8 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/index_visitor.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
 		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
-		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/classShowStyle.ico}"/>
 		
 <!-- 		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
 		<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
@@ -18,7 +18,7 @@
 		<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
 	</head>
 	<body>
-		
+
 		<div class="mainDivBox">
 			<div class="mainDivBoxBg"></div>
 			<p id="sdfa"></p>
@@ -56,9 +56,9 @@
 				<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
 				<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
 				<span> </span>
-				<span id="nowPage">1</span>
+				<span id="nowPage" th:text="${u_nowPage}">1</span>
 				<span>/</span>
-				<span id="allPage">1</span>
+				<span id="allPage" th:text="${u_allPage}">1</span>
 				<span> </span>
 				<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
 				<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
@@ -68,32 +68,7 @@
 		</div>
 		
 		<br/><br/><br/><br/><br/>
-		
-		<!-- <div class="headTitle"style="visibility: hidden;">
-			<div class="headTitle_首页">
-				<p>首页</p>
-			</div>
-			<div class="headTitle_我的班级 headSmallFont">
-				<p>我的班级</p>
-			</div>
-			<div class="headTitle_搜索框背景">
-				<input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
-			</div>
-            <div  class="headTitle_登录注册 headSmallFont">
-                    <span onclick="clickLogin()" class="headTitle_登录注册文本">登陆</span>
-                    <span style="cursor: default">/</span>
-                    <span onclick="clickRegiste()" class="headTitle_登录注册文本">注册</span>
-            </div>
-		</div>
-        <div class="bodyContext">
-            <div class="bodyContext_class" th:each="item:${mclasslist}">
-                <div class="bodyContext_class_title" th:text="${item.c_classname}">班级名称</div>
-				<div class="bodyContext_class_BoxidAndintroduce">
-					<p style="color: white" th:text="'创建老师：'+${item.c_teacherid}">创建老师：红葡萄</p>
-					<p style="color: white" th:text="'班级介绍:'+${item.c_introduce}">班级的介绍</p>
-				</div>
-            </div>
-        </div> -->
+
 
 		<script th:src="@{/js/jquery.min.js}"></script>
 	    <script th:src="@{/js/index_visitor.js}"></script>

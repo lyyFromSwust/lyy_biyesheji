@@ -49,6 +49,7 @@ function showRW(){
 	//registeIframe.contentWindow.location.reload(true);
 }
 
+
 function visitorClick(){
-	window.location.href="index_visitor";
+	window.location.href="index_visitor/"+1;
 }

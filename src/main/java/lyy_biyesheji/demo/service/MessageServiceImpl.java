@@ -59,5 +59,4 @@ public class MessageServiceImpl {
         return messageRepository.findByM_aimidAndAndM_isread(m_aimid,m_isread).size();
     }
 
-
 }

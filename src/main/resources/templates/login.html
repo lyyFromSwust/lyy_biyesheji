@@ -14,8 +14,6 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/> -->
 </head>
 <body class="loginBody noselect">
-	
-	
 	<form id="loginDiv" class="loginRegisteForm" target="_top" role="form" action="#" th:action="@{/login}" onsubmit="return checkUAndP()" th:object="${user}" method="post">
 		<p class="login_title">用户登录</p>
 		<div class="itemInfo">
@@ -28,9 +26,9 @@
 		</div>
 		<div class="itemInfo">
 			<div class="itemImg item_ident"></div>
-			<select class="itemInput" id="l_identSelect">
-				<option value="0" th:field="*{u_identity}">学生</option>
-				<option value="1"  th:field="*{u_identity}">教师</option>
+			<select class="itemInput" th:field="*{u_identity}" id="l_identSelect">
+				<option value="0" >学生</option>
+				<option value="1">教师</option>
 			</select>
 		</div>
 		<p class="turnLRstate turnLRstate_login" id="turnToRegiste">切换至注册</p>

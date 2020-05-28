@@ -6,7 +6,7 @@
 	<link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<form id="loginDiv" class="loginBox" role="form" action="#" th:action="@{/build_class}" th:object="${mclass}" method="post">
+	<form id="loginDiv" class="loginBox" role="form" action="#" th:action="@{buildClass}" th:object="${mclass}" method="post">
 		<div style="display:flex;">
 			<span class="spTitle">班级名称</span>
 			<input class="spInput" type="text" id="l_phone" th:field="*{c_classname}"/>
@@ -18,7 +18,7 @@
 
 		<div style="display:flex;">
 			<button class="lrBtn rBtn" onclick="resetRegister()">重置</button>
-			<button class="lrBtn rBtn" type="submit" onclick="finishBuildClass()">完成创建</button>
+			<button class="lrBtn rBtn" type="submit">完成创建</button>
 		</div>
 	</form>
 <script th:src="@{/js/loginAndregiste.js}"></script>

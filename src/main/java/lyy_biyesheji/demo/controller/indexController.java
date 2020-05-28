@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -26,10 +28,22 @@ public class indexController {
     private ManagerServiceImpl managerService;
 
     @GetMapping("/")
-    public String index(Model model){
-        List<MClass>mclassList=classService.getClassList();
-        model.addAttribute("mclasslist",mclassList);
+    public String index(){
         return "index";
+    }
+
+    @GetMapping("/index_visitor/{nowpage}")
+    public String toVisitor(@PathVariable("nowpage")int nowpage, Model model) {
+        List<MClass>mclassList=classService.getClassList();
+        int pageNumber=3;
+        int page=nowpage-1;
+        List<MClass>subMClass=mclassList.subList(page*pageNumber,pageNumber+page*pageNumber<mclassList.size()?pageNumber+page*pageNumber:mclassList.size());
+
+        model.addAttribute("mclasslist",subMClass);
+        int modPage=((mclassList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",mclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+        return "index_visitor";
     }
 
     @GetMapping("/login")
@@ -40,7 +54,7 @@ public class indexController {
 
     /*  用户登陆 */
     @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute User user,Model model){
+    public String loginSubmit(@ModelAttribute User user, Model model, HttpServletResponse response){
 
         /* 先检测用户是否存在且只有一个*/
         List<User> userList=userService.findByU_numAndAndU_passwordAndAndU_identity(
@@ -48,11 +62,14 @@ public class indexController {
         if(userList.size()==1){
             int u_id=userList.get(0).getU_id();
             user.setU_id(u_id);
+            /*  添加cookie获取用户id  */
+            Cookie cookie=new Cookie("userid",String.valueOf(u_id));
+            response.addCookie(cookie);
             if(user.getU_identity()==false){
-                return String.format("redirect:/student/index?userid=%d",user.getU_id());
+                return String.format("redirect:/student/index?userid=%d",u_id);
             }
             else {
-                return String.format("redirect:/teacher/index?userid=%d",user.getU_id());
+                return "redirect:/teacher/index";
             }
         }
         else if(userList.size()==0){
@@ -120,24 +137,4 @@ public class indexController {
     }
 
 
-    //    /*插入一个班级测试——成功 */
-//    @ResponseBody
-//    @GetMapping("/registe_class")
-//    public String insertClass(){
-//        String result=null;
-//        MClass mClass=new MClass();
-//        mClass.setC_teacherid(1);
-//        mClass.setC_introduce("介绍ooooo");
-//        mClass.setC_classname("数据库设计");
-//
-//        classService.insertClass(mClass);
-//
-//        result+="c_id: "+mClass.getC_id()+"\n";
-//        result+="c_teacherid: "+mClass.getC_teacherid()+"\n";
-//        result+="c_classname: "+mClass.getC_classname()+"\n";
-//        result+="c_introduce: "+mClass.getC_introduce()+"\n";
-//        result+="c_buildTime: "+mClass.getC_buildtime().toString()+"插入成功\n";
-//
-//        return result;
-//    }
 }
