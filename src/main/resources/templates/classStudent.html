@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>班级学生</title>
+</head>
+<body>
+<button>批量导入学生</button>
+<div class="width:80%" style="text-align: center">
+    <table>
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>学号</th>
+            <th>身份</th>
+            <th>昵称</th>
+            <th>参加班级时间</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item,itemStat:${classStudents}">
+            <td th:text="${itemStat.count}"></td>
+            <td th:text="${item.u_num}">11</td>
+            <td th:text="${item.u_identity==true?'老师':'学生'}">111</td>
+            <td th:text="${item.u_name}">nichen</td>
+            <td th:text="${#dates.format(item.u_registetime,'yyyy-MM-dd HH:mm:ss')}">zhuceshijian</td>
+            <td><a th:href="@{/delete(id=${item.u_id})}" onclick="return confirm('确认删除该学生吗？')">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
