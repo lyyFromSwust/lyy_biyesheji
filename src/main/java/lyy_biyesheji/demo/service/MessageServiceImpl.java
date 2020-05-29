@@ -59,4 +59,9 @@ public class MessageServiceImpl {
         return messageRepository.findByM_aimidAndAndM_isread(m_aimid,m_isread).size();
     }
 
+    /* 查询是否已经向数据库添加了学生申请加入的信息 */
+    public List<Message>findByM_buildidAndAndM_classidAndM_type(int buildid,int classid,int type){
+        return messageRepository.findByM_buildidAndAndM_classidAndM_type(buildid,classid,type);
+    }
+
 }

@@ -23,7 +23,13 @@ public class Message {
     @Column(nullable = false)
     private int m_classid;
 
-    /*  通知消息类型  */
+    /*  通知消息类型 m_type
+    * (1) 学生申请加入通知、
+    * (2) 老师邀请加入通知；
+    * (3) 加入班级成功通知；
+    * (4) 有人留言通知；
+	* (5) 有人提问通知、有人回复通知
+    * */
     @Column(nullable = false)
     private int m_type;
 
@@ -31,7 +37,7 @@ public class Message {
     @Column(nullable = false)
     private boolean m_issolved;
 
-    /*  处理结果 1.接受 2.拒绝 3.忽略  */
+    /*  处理结果 1.未处理 2.接受 3.拒绝 4.忽略（234都是处理态度）  */
     @Column(nullable = false)
     private int m_solveresulte;
 
@@ -41,7 +47,7 @@ public class Message {
 
     /*  通知消息文本 */
     @Column(nullable = false)
-    private boolean m_message;
+    private String m_message;
 
     /*  发送时间  */
     @Column
@@ -114,11 +120,11 @@ public class Message {
         this.m_isread = m_isread;
     }
 
-    public boolean isM_message() {
+    public String isM_message() {
         return m_message;
     }
 
-    public void setM_message(boolean m_message) {
+    public void setM_message(String m_message) {
         this.m_message = m_message;
     }
 

@@ -34,5 +34,62 @@ public class LeaveMessage {
     @Column
     private Date l_rtime;
 
+    public LeaveMessage() {
+    }
 
+    public int getL_id() {
+        return l_id;
+    }
+
+    public void setL_id(int l_id) {
+        this.l_id = l_id;
+    }
+
+    public int getL_userid() {
+        return l_userid;
+    }
+
+    public void setL_userid(int l_userid) {
+        this.l_userid = l_userid;
+    }
+
+    public int getAh_classid() {
+        return ah_classid;
+    }
+
+    public void setAh_classid(int ah_classid) {
+        this.ah_classid = ah_classid;
+    }
+
+    public String getL_leavemessage() {
+        return l_leavemessage;
+    }
+
+    public void setL_leavemessage(String l_leavemessage) {
+        this.l_leavemessage = l_leavemessage;
+    }
+
+    public String getL_replymessage() {
+        return l_replymessage;
+    }
+
+    public void setL_replymessage(String l_replymessage) {
+        this.l_replymessage = l_replymessage;
+    }
+
+    public Date getL_ltime() {
+        return l_ltime;
+    }
+
+    public void setL_ltime(Date l_ltime) {
+        this.l_ltime = l_ltime;
+    }
+
+    public Date getL_rtime() {
+        return l_rtime;
+    }
+
+    public void setL_rtime(Date l_rtime) {
+        this.l_rtime = l_rtime;
+    }
 }

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 function clickToMyClass() {
     window.location.href="myClass"
 }
@@ -31,13 +31,6 @@ function classMessageClick(c_id) {
 
 
 
-// function classInfoClick() {
-//
-// }
-// function classInfoClick() {
-//
-// }
-=======
 /*以下为页面管理*/
 var firstPage=document.getElementById("firstPage");
 var previousPage=document.getElementById("previousPage");
@@ -81,19 +74,18 @@ var allPage=document.getElementById("allPage");
 	
 })()
 
-function firstClick(){ 
-	window.location.href="../index_student_myclass/1";
+function firstClick(){
+	window.location.href=window.location.pathname+"?nowpage=1";
 }
 
 function lastClick(){
-	window.location.href="../index_student_myclass/"+allPage.innerHTML;
+	window.location.href=window.location.pathname+"?nowpage="+allPage;
 }
 
 function previousClick(){
-	window.location.href="../index_student_myclass/"+(Number(nowPage.innerHTML)-1);
+	window.location.href=window.location.pathname+"?nowpage="+(Number(nowPage.innerHTML)-1);
 }
 
 function nextClick(){
-	window.location.href="../index_student_myclass/"+(Number(nowPage.innerHTML)+1);
+	window.location.href=window.location.pathname+"?nowpage="+(Number(nowPage.innerHTML)+1);
 }
->>>>>>> origin/master

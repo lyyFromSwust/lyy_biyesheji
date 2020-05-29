@@ -21,4 +21,8 @@ public interface MessageRepository extends JpaRepository<Message,Integer> {
     @Query(value = "select * from t_message m where m.m_aimid=?1 and m.m_isread=?2",nativeQuery = true)
     List<Message> findByM_aimidAndAndM_isread(int m_aimid,Boolean m_isread);
 
+    /* 学生发出加入班级申请记录查询 */
+    @Query(value="select * from t_message m where m.m_buildid=?1 and m.m_classid=?2 and m.m_type=?3",nativeQuery = true)
+    List<Message>findByM_buildidAndAndM_classidAndM_type(int buildid,int classid,int type);
+
 }

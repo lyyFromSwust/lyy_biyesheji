@@ -2,7 +2,7 @@
 /*创建班级窗口*/
 var buildclassWindow=document.getElementById("buildClassWindow")
 function clickToBuildClass() {
-    // window.location.href="buildClass"
+    window.location.href="buildClass"
 }
 
 function clickCloseWindow(){
@@ -10,25 +10,33 @@ function clickCloseWindow(){
 }
 
 function clickCloseWindow(){
-	
+
 }
 
-/**/
+/* 跳转至班级信息 */
 function classInfoClick(c_id) {
     console.log(c_id);
     window.location.href="classInfo/"+c_id;
 }
-
+/* 跳转至班级学生 */
+function classStudentClick(c_id) {
+	window.location.href="classStudent/"+c_id;
+}
+/*  跳转至班级作业  */
 function classHomeworkListClick(c_id) {
     window.location.href="classHomeworkList/"+c_id;
 }
-
+/* 班级文件 */
 function classFileClick(c_id) {
     window.location.href="classFile/"+c_id;
 }
-
+/* 留言 */
 function classMessageClick(c_id) {
     window.location.href="classMessage/"+c_id;
+}
+/* 问答 */
+function classQandAClick(c_id) {
+	window.location.href="classMessage/"+c_id;
 }
 
 /*以下为页面管理*/
@@ -55,17 +63,17 @@ var allPage=document.getElementById("allPage");
 })()
 
 function firstClick(){
-	window.location.href="../index_teacher/1";
+	window.location.href=window.location.pathname+"?nowpage=1";
 }
 
 function lastClick(){
-	window.location.href="../index_teacher/"+allPage.innerHTML;
+	window.location.href=window.location.pathname+"?nowpage="+allPage.innerHTML;
 }
 
 function previousClick(){
-	window.location.href="../index_teacher/"+(Number(nowPage.innerHTML)-1);
+	window.location.href=window.location.pathname+"?nowpage="+(Number(nowPage.innerHTML)-1);
 }
 
 function nextClick(){
-	window.location.href="../index_teacher/"+(Number(nowPage.innerHTML)+1);
+	window.location.href=window.location.pathname+"?nowpage="+(Number(nowPage.innerHTML)+1);
 }

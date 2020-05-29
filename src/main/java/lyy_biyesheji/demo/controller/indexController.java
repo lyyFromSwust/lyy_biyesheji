@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -28,7 +29,9 @@ public class indexController {
     private ManagerServiceImpl managerService;
 
     @GetMapping("/")
-    public String index(){
+    public String index(HttpServletRequest request){
+        /* 销毁cookie */
+
         return "index";
     }
 
@@ -66,10 +69,11 @@ public class indexController {
             Cookie cookie=new Cookie("userid",String.valueOf(u_id));
             response.addCookie(cookie);
             if(user.getU_identity()==false){
-                return String.format("redirect:/student/index?userid=%d",u_id);
+                return "redirect:/student/index?nowpage="+1;
             }
             else {
-                return "redirect:/teacher/index";
+                return String.format("redirect:/teacher/index?nowpage=%d",1);
+                //return "redirect:/teacher/index";
             }
         }
         else if(userList.size()==0){

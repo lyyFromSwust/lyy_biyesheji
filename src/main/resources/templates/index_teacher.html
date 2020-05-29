@@ -40,8 +40,8 @@
 				
 				<div class="lInfoDiv">
 					<div class="lInfoText" th:text="'欢迎你！'+${teacher_name}+'老师'"> 欢迎你！罗源老师</div>
-					<div class="infoText infoText_r lrText" onclick="outLoginClick()">退出登录</div>
-					<div class="infoText infoText_l lrText" onclick="outLoginClick()">
+					<div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+					<div class="infoText infoText_l lrText" onclick="returnIndex()">
 						<span>消息通知</span>
 						<div id="infoHit" th:text="${hitNum}">2</div>
 					</div>
@@ -62,15 +62,15 @@
 				<div class="classItemInfo classItemInfo_myclass"  onclick="loginClick()" th:each="item:${mclasslist}">
 					<br/>
 					<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}" >自动化测试</span>
-					<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">罗媛媛</span>
+<!--					<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">罗媛媛</span>-->
 					<br/>
 					<br/>
 					<div class="classHideBtnBox classHideBox">
 						<button  th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">班级信息</button>
-						<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
+						<button th:onclick="classStudentClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
 						<button th:onclick="classHomeworkListClick([[${item.c_id}]])" class="classBtnStyle">作业</button>
 						<button th:onclick="classFileClick([[${item.c_id}]])" class="classBtnStyle">资源</button>
-						<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
+						<button th:onclick="classQandAClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
 						<button th:onclick="classMessageClick([[${item.c_id}]])" class="classBtnStyle">留言</button>
 					</div>
 				</div>
@@ -86,6 +86,7 @@
 				<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
 				<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
 			</div>
+			<br/><br/>
 			<!-- <br/><br/><br/><br/><br/> -->
 		</div>
 		
@@ -94,7 +95,9 @@
 		
 		<script th:src="@{/js/teacher.js}"></script>
 		<script th:src="@{/js/hitInit.js}"></script>
+		<script th:src="@{/js/returnEvent.js}"></script>
 <!-- 		<script src="../static/js/hitInit.js"></script>
-		<script src="../static/js/teacher.js"></script> -->
+		<script src="../static/js/teacher.js"></script>
+		<script src="../static/js/returnEvent.js"></script> -->
 	</body>
 </html>

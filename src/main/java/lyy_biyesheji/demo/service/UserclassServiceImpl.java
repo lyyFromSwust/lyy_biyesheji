@@ -50,4 +50,14 @@ public class UserclassServiceImpl {
     public int getClassUserNum(int classid){
         return userclassRepository.findByUc_classid(classid).size();
     }
+    /*  查询一个用户加入了多少班级  */
+    public List<UserClass>findByUc_userid(int userid){
+        return userclassRepository.findByUc_userid(userid);
+    }
+
+    /* 查询是否存在班级用户关系 */
+    public List<UserClass>findByUc_classidAndAndUc_userid(int classid,int userid){
+        return userclassRepository.findByUc_classidAndAndUc_userid(classid,userid);
+    }
+
 }

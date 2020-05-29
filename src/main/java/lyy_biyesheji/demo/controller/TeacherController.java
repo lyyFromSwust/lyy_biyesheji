@@ -3,10 +3,8 @@ package lyy_biyesheji.demo.controller;
 import lyy_biyesheji.demo.entity.MClass;
 import lyy_biyesheji.demo.entity.UploadFile;
 import lyy_biyesheji.demo.entity.User;
-import lyy_biyesheji.demo.service.ClassServiceImpl;
-import lyy_biyesheji.demo.service.UploadfileServiceImpl;
-import lyy_biyesheji.demo.service.UserServiceImpl;
-import lyy_biyesheji.demo.service.UserclassServiceImpl;
+import lyy_biyesheji.demo.entity.UserClass;
+import lyy_biyesheji.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,22 +35,32 @@ public class TeacherController {
     private UserclassServiceImpl userclassService;
     @Autowired
     private UploadfileServiceImpl uploadfileService;
+    @Autowired
+    private MessageServiceImpl messageService;
 
 
     @GetMapping("/index")
-    public String toStudentIndex(HttpServletResponse response, HttpServletRequest request,@CookieValue("userid") String userid, Model model) {
+    public String toStudentIndex(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("nowpage") int nowpage, Model model) {
         int teacherid=Integer.parseInt(userid);
         User user=userService.getUser(teacherid);
         List<MClass>mclassList=classService.findByC_teacherid(teacherid);
 
-        /* 添加cookie */
-        for(MClass mClass:mclassList){
-            Cookie cookie=new Cookie("classid"+mClass.getC_id(),String.valueOf(mClass.getC_id()));
-            response.addCookie(cookie);
-        }
-
         model.addAttribute("teacher_name",user.getU_name());
         model.addAttribute("mclasslist",mclassList);
+
+        int newMessageNum=messageService.findByM_aimidAndAndM_isread(teacherid,false).size();
+        model.addAttribute("hitNum",newMessageNum);//新消息数量
+
+
+        int pageNumber=4;
+        int page=nowpage-1;
+        List<MClass>subMClass=mclassList.subList(page*pageNumber,pageNumber+page*pageNumber<mclassList.size()?pageNumber+page*pageNumber:mclassList.size());
+
+        model.addAttribute("mclasslist",subMClass);
+        int modPage=((mclassList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",mclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+
         return "index_teacher";
     }
 
@@ -97,6 +106,20 @@ public class TeacherController {
         int classnum = userclassService.getClassUserNum(mClass.getC_id());
         model.addAttribute("classstudentNum",classnum);
         return "classInfo";
+    }
+
+    /* 对班级学生展示 */
+    @GetMapping("classStudentInfo/{c_id}")
+    public String classStudentInfo(@PathVariable("c_id") int c_id,Model model){
+        MClass mClass=classService.getClass(c_id);
+        List<User>classStudents=new ArrayList<User>();
+        List<UserClass>userClassList=userclassService.findByUc_classid(c_id);
+        for(UserClass userClass:userClassList){
+            User user=userService.getUser(userClass.getUc_userid());
+            classStudents.add(user);
+        }
+        model.addAttribute("classStudents",classStudents);
+        return "classStudent";
     }
 
     /*  获得当前页面  */
@@ -175,12 +198,12 @@ public class TeacherController {
         return "result";
     }
 
-    @GetMapping("/classHomeworkList")
-    public String classHomeworkList(Model model){
+    @GetMapping("/classHomeworkList/{c_id}")
+    public String classHomeworkList(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
         return "classHomeworkList";
     }
-    @GetMapping("/classMessage")
-    public String classMessage(Model model){
+    @GetMapping("/classMessage/{c_id}")
+    public String classMessage(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
         return "classMessage";
     }
 
