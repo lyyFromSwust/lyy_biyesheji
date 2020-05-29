@@ -1,0 +1,32 @@
+
+.managerLoginBody{
+	background-color: rgb(242,227,189);
+}
+
+.managerLoginBox{
+	width: 280px;
+	position: absolute;
+	left: calc(50% - 140px);
+	top: 10%;
+}
+
+.submitBtn{
+	float:right;
+	font-size: 20px;
+	font-weight: 600;
+	font-family: '';
+	width: 40%;
+	height: 100%;
+	margin-left: 20px;
+	cursor: pointer;
+	transition: all 0.3s;
+	outline: none;
+}
+
+.submitBtn{
+	border: 1px solid rgb(145,127,79);
+}
+
+.submitBtn:hover{
+	background-color: rgb(213,229,200);
+}
