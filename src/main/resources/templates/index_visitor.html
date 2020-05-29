@@ -5,14 +5,14 @@
 		<title>在线答疑辅导系统-游客模式</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/index_visitor.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/backBodyStyle.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
 		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
 		
 <!-- 		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
 		<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
-		<link rel="stylesheet" type="text/css" href="../static/css/index_visitor.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/backBodyStyle.css"/>
 		<link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>
 		<link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>
 		<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
@@ -41,15 +41,21 @@
 			<div class="headTitle_bottomLine"></div>
 			<div class="headTitle_bottomLine"></div>
 			<div class="headTitle_bottomLine"></div>
+			<div class="classLine">
+				<div class="classList">班级列表</div>
+			</div>		
+			<div class="headTitle_bottomLine"></div>
 			<br/>
 			<div class="classItembox">
-				<div class="classItemInfo"  onclick="loginClick()" th:each="item:${mclasslist}">
-					<p class="classItemInfo_name" th:text="${item.c_classname}" >自动化测试</p>
-					<p th:text="'创建老师：'+${item.c_teacherid}">创建老师:罗媛媛</p>
-					<p th:text="'班级介绍:'+${item.c_introduce}">班级介绍：西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级</p>
-					<div class="classItemInfo_hitInfo">请先登录账号</div>
+				<div class="classItemInfo classItemInfo_canClick"  onclick="loginClick()" th:each="item:${mclasslist}">
+					<p class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}" >自动化测试</p>
+					<p class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">创建老师:罗媛媛</p>
+					<div>
+						
+					</div>
+					<p class="classItemInfo_Text" th:text="'班级介绍:'+${item.c_introduce}">班级介绍：西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级西南科技大学2019级自动化测试班级</p>
+					<div class="classItemInfo_hitInfo">点击登录查看更多</div>
 				</div>
-				
 			</div>
 			<div class="headTitle_bottomLine"></div>
 			<div class="pageBox">
@@ -62,7 +68,6 @@
 				<span> </span>
 				<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
 				<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
-					
 			</div>
 			<br/><br/><br/><br/><br/>
 		</div>

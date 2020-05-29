@@ -16,7 +16,7 @@
 	position: absolute;
 	top: 25px;
 	left: calc(100px + 10%);
-	height: 100px;
+	height: 75px;
 	width: 50%;
 }
 
@@ -81,7 +81,6 @@
 	height: 40px;
 	line-height: 40px;
 	font-size: 25px;
-	/* width: 50%; */
 }
 
 .lrDiv div{
@@ -91,13 +90,54 @@
 .lrText{
 	font-family: "方正喵呜体";
 	cursor: pointer;
+	transition: all 0.2s;
 }
 
 .lrText:hover{
-	color: rgb(113,144,54);
+	/* color: rgb(113,144,54); */
+	color: blue;
 }
 
 .lrText:active{
-	
 	transform: translate(1px,1px);
+}
+
+
+/*右侧提醒*/
+.lInfoDiv{
+	position: absolute;
+	right: 5%;
+	top: 25px;
+}
+
+.lInfoText{
+	font-size: 20px;
+	margin-bottom: 8px;
+}
+
+.infoText_r{
+	float: right;
+}
+
+.infoText_l{
+	float: left;
+}
+
+.infoText:hover .infoHit{
+	background-color: orangered;
+	/* border: 1px solid black; */
+}
+
+#infoHit{
+	font-family: "方正喵呜体";
+	float: right;
+	border-radius: 20px;
+	transform: translate(-5px,-8px);
+	background-color: red;
+	height: 15px;
+	width: 15px;
+	text-align: center;
+	color: white;
+	font-size: 16px;
+	font-weight: 500;
 }

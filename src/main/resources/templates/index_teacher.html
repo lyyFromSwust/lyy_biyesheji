@@ -2,43 +2,99 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
-		<title>首页</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+		<title>在线答疑辅导系统-教师首页</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/backBodyStyle.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
+		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
+		
+<!-- 		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/backBodyStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>
+		<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
 	</head>
 	<body>
-		<!-- 顶部蓝色标题 -->
-		<div class="headTitle">
-			<div class="headTitle_首页">
-				<p>首页</p>
-			</div>
-			<div class="headTitle_创建班级 headSmallFont">
-				<p onclick="clickToBuildClass()">创建班级</p>
-			</div>
-			<div class="headTitle_搜索框背景"><!-- 搜索框 -->
-				<img th:src="@{/image/首页未登录/搜索.jpg}" class="headTitle_搜索图标"/>
-				<input class="headTitle_搜索文本" placeholder="搜索" type="text"/>
-			</div>
-			<div class="headTitle_登录注册 headSmallFont" >
-				<p th:text="'欢迎你！'+${teacher_name}+'老师'">2333</p>
+		
+		<div id="buildClassWindow" class="buildclassWindow">
+			<div class="windowCloseBtn" onclick="closeAll()"></div>
+			<div >
+				<iframe id="buildClassIframe" src="buildClass" frameborder="no" scrolling="no" width="100%"></iframe>
 			</div>
 		</div>
-
-        <!--首页页面显示-->
-        <div class="bodyContext">
-            <div class="bodyContext_class" th:each="item:${mclasslist}">
-                <div class="bodyContext_class_title" th:text="${item.c_classname}">课程名称</div>
-                <div class="bodyContext_class_btnBox">
-                    <button class="bodyContext_class_班级信息 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">班级信息</button>
-					<button class="bodyContext_class_班级学生 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">班级学生</button>
-                    <button class="bodyContext_class_作业 bodyContext_class_btn" th:onclick="classHomeworkListClick([[${item.c_id}]])">作业</button>
-                    <button class="bodyContext_class_课程资源 bodyContext_class_btn" th:onclick="classFileClick([[${item.c_id}]])">课程资源</button>
-                    <button class="bodyContext_class_讨论 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">问答</button>
-                    <button class="bodyContext_class_留言 bodyContext_class_btn" th:onclick="classMessageClick([[${item.c_id}]])">留言</button>
-                </div>
-            </div>
-        </div>
-
-	<script th:src="@{/js/index.js}"></script>
-	<script th:src="@{/js/teacher.js}"></script>
+		
+		<div class="mainDivBox">
+			<div class="mainDivBoxBg"></div>
+			<p id="sdfa"></p>
+			<div class="headTitle noselect">
+				<img class="titleIcon"/>
+				
+				<div class="searchDiv">
+					<div class="searchIcon"></div>
+					<input class="searchInput" placeholder="搜索班级" type="text"/>
+					<div class="searchImgDiv"><div class="searchImg"></div></div>
+				</div>
+				
+				<div class="lInfoDiv">
+					<div class="lInfoText" th:text="'欢迎你！'+${teacher_name}+'老师'"> 欢迎你！罗源老师</div>
+					<div class="infoText infoText_r lrText" onclick="outLoginClick()">退出登录</div>
+					<div class="infoText infoText_l lrText" onclick="outLoginClick()">
+						<span>消息通知</span>
+						<div id="infoHit" th:text="${hitNum}">2</div>
+					</div>
+				</div>
+				<div class=""></div>
+			</div>
+			<div class="headTitle_bottomLine"></div>
+			<div class="headTitle_bottomLine"></div>
+			<div class="headTitle_bottomLine"></div>
+			<div class="classLine">
+				<div class="classList">班级列表</div>
+				<button class="buildClass"  onclick="clickToBuildClass()">＋创建班级</button>
+			</div>
+			<div class="headTitle_bottomLine"></div>
+			<br/>
+			<br/>
+			<div class="classItembox  noselect">
+				<div class="classItemInfo classItemInfo_myclass"  onclick="loginClick()" th:each="item:${mclasslist}">
+					<br/>
+					<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}" >自动化测试</span>
+					<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">罗媛媛</span>
+					<br/>
+					<br/>
+					<div class="classHideBtnBox classHideBox">
+						<button  th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">班级信息</button>
+						<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
+						<button th:onclick="classHomeworkListClick([[${item.c_id}]])" class="classBtnStyle">作业</button>
+						<button th:onclick="classFileClick([[${item.c_id}]])" class="classBtnStyle">资源</button>
+						<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
+						<button th:onclick="classMessageClick([[${item.c_id}]])" class="classBtnStyle">留言</button>
+					</div>
+				</div>
+			</div>
+			<div class="pageBox">
+				<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
+				<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
+				<span>&nbsp;</span>
+				<span id="nowPage" th:text="${u_nowPage}">1</span>
+				<span>/</span>
+				<span id="allPage" th:text="${u_allPage}">1</span>
+				<span>&nbsp;</span>
+				<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
+				<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
+			</div>
+			<!-- <br/><br/><br/><br/><br/> -->
+		</div>
+		
+		
+		
+		
+		<script th:src="@{/js/teacher.js}"></script>
+		<script th:src="@{/js/hitInit.js}"></script>
+<!-- 		<script src="../static/js/hitInit.js"></script>
+		<script src="../static/js/teacher.js"></script> -->
 	</body>
 </html>

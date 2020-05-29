@@ -17,6 +17,7 @@
 }
 
 .classItembox{
+	
 }
 
 .classItemInfo{
@@ -27,28 +28,44 @@
 	width: 90%;
 	border: 1px darkblue dashed;
 	border-radius: 20px;
+	/* background-color: #efefef; */
+	transition: all 0.3s;
+}
+
+.classItemInfo_myclass {
+	background-color: rgba(182,187,122,0.5);
+	
+}
+
+.classItemInfo_myclass:hover{
+	background-color: rgba(182,187,122,0.7);
+}
+
+.classItemInfo_allclass {
+	background-color: rgba(234,177,129,0.5);
+}
+
+.classItemInfo_allclass:hover {
+	background-color: rgba(234,177,129,0.7);
+}
+
+.classItemInfo_canClick{
 	cursor: pointer;
-	background-color: #efefef;
-	text-overflow:ellipsis;
 }
 
-.classItemInfo:hover{
-	background-color: rgb(159,216,201);
-	border: 1px blue dashed;
-}
-
-.classItemInfo:hover .classItemInfo_name{
-	font-weight: 700;
-}
-
-.classItemInfo:active{
+.classItemInfo_canClick:active{
 	transform: translate(1px,1px);
 }
 
-.classItemInfo p{
-	margin: 12px;
+.classItemInfo_canClick:hover{
+	border: 1px blue dashed;
 }
 
+
+.classItemInfo_Text{
+	margin: 15px;
+	font-family: "汉仪清芬体";
+}
 
 .classItemInfo_hitInfo{
 	color: red;
@@ -60,7 +77,7 @@
 }
 
 .classItemInfo_name{
-	font-family: "汉仪清芬体";
+	font-family: "迷你卡通体";
 	/* font-weight: 700; */
 	font-size: 25px;
 }
@@ -83,4 +100,141 @@
 
 .pageChange:active{
 	font-size: 26px;
+}
+
+.classLine{
+	height: 30px;
+}
+
+.buildClass{
+	padding: 1px;
+	float: right;
+	/* margin-top: 2px; */
+	margin-right: 5%;
+	cursor: pointer;
+	font-family: "方正喵呜体";
+	font-size: 20px;
+	/* border: 0px; */
+}
+
+.buildClass:hover{
+	color: blue;
+}
+
+.buildClass:active{
+	transform: translate(1px,1px);
+}
+
+.classList{
+	float: left;
+	
+	font-family: "方正喵呜体";
+	/* margin-top: 2px; */
+	margin-left: 6%;
+	margin-top: 4px;
+	font-size: 20px;
+}
+
+.classHideBox{
+	height: 0px;
+	transition: all 0.6s;
+	overflow: hidden;
+}
+
+.classItemInfo:hover .classHideBox{
+	transition: all 0.2s;
+}
+
+.classItemInfo:hover .classHideBtnBox{
+	height: 50px;
+}
+
+.classItemInfo:hover .classHideMessageBox{
+	height: 60px;
+}
+	
+.classHideMessageBox{
+	margin-left: 2%;
+}
+.classHideMessageBox button{
+	color:red;
+	margin-top: 8px;
+	margin-right: 15px;
+	float:right
+}
+
+.classHideBtnBox button{
+	margin-left: 2%;
+	margin-bottom: 5px;
+}
+
+.classBtnStyle:hover{
+	background-color: white;
+}
+
+.classBtnStyle:active{
+	transform: translate(1px,1px);
+	/* transform: scale(0.95); */
+}
+
+.classBtnStyle{
+	font-size: 18px;
+	padding: 3px;
+	border: 1px solid black;
+	box-shadow: 0px 0px 2px;
+	border-radius: 3px;
+	outline: none;
+	cursor: pointer;
+	transition: all 0.2s;
+	font-family: "汉仪清芬体";
+}
+.inclassTest{
+	visibility: hidden;
+	height: 0;
+	width: 0;
+	position: absolute;
+}
+
+.windowCloseBtn{
+	position: absolute;
+	top: -15px;
+	right: -15px;
+	width: 45px;
+	height: 45px;
+	background:url(../image/icon/timg.png);
+	background-size: 100%;
+	cursor: pointer;
+}
+
+.windowCloseBtn:hover{
+	transform: scale(1.1);
+}
+
+.windowCloseBtn:active{
+	transform: scale(0.9);
+}
+
+.buildclassWindow{
+	position: fixed;
+	 top:10%;
+	left:calc(50% - 200px);
+	width: 400px;
+	transform: scale(0);
+	background-color: #169BD5;
+	border-radius: 20px;
+	transition: all 0.2s;
+	z-index:99; *
+}
+#buildClassWindow{
+	height: 450px;
+}
+
+#buildClassWindow div{
+	box-shadow: 0 0 2px;
+	border-radius: 20px;
+}
+
+#buildClassWindow div iframe{
+	height: 450px;
+	border-radius: 20px;
 }
