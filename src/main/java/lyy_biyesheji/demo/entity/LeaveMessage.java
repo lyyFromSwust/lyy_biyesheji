@@ -16,10 +16,10 @@ public class LeaveMessage {
 
     /*  班级id  */
     @Column(nullable = false)
-    private int ah_classid;
+    private int l_classid;
 
     /*  留言文本  */
-    @Column(nullable = false)
+    @Column
     private String l_leavemessage;
 
     /*  留言回复文本  */
@@ -53,12 +53,12 @@ public class LeaveMessage {
         this.l_userid = l_userid;
     }
 
-    public int getAh_classid() {
-        return ah_classid;
+    public int getL_classid() {
+        return l_classid;
     }
 
-    public void setAh_classid(int ah_classid) {
-        this.ah_classid = ah_classid;
+    public void setL_classid(int ah_classid) {
+        this.l_classid = ah_classid;
     }
 
     public String getL_leavemessage() {

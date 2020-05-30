@@ -1,4 +1,6 @@
 var sendMsg=document.getElementById("send_inputMsg");
 function sendMsg_click() {
-    alert(sendMsg.value);
+    if(sendMsg.value)return true;
+    return false;
+
 }

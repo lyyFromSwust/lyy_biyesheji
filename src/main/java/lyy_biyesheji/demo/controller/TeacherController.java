@@ -1,9 +1,6 @@
 package lyy_biyesheji.demo.controller;
 
-import lyy_biyesheji.demo.entity.MClass;
-import lyy_biyesheji.demo.entity.UploadFile;
-import lyy_biyesheji.demo.entity.User;
-import lyy_biyesheji.demo.entity.UserClass;
+import lyy_biyesheji.demo.entity.*;
 import lyy_biyesheji.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +34,8 @@ public class TeacherController {
     private UploadfileServiceImpl uploadfileService;
     @Autowired
     private MessageServiceImpl messageService;
+    @Autowired
+    private LeavemessageServiceImpl leavemessageService;
 
 
     @GetMapping("/index")
@@ -109,7 +108,7 @@ public class TeacherController {
     }
 
     /* 对班级学生展示 */
-    @GetMapping("classStudentInfo/{c_id}")
+    @GetMapping("classStudent/{c_id}")
     public String classStudentInfo(@PathVariable("c_id") int c_id,Model model){
         MClass mClass=classService.getClass(c_id);
         List<User>classStudents=new ArrayList<User>();
@@ -203,8 +202,24 @@ public class TeacherController {
         return "classHomeworkList";
     }
     @GetMapping("/classMessage/{c_id}")
-    public String classMessage(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
+    public String classMessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id, Model model){
+        List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
+        model.addAttribute("leaveMessageList",leaveMessageList);
+        model.addAttribute("leaveMessage",new LeaveMessage());
         return "classMessage";
     }
+
+    @PostMapping("/classMessage/{c_id}")
+    public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
+                                   @ModelAttribute LeaveMessage leaveMessage,  Model model){
+        int teacherid=Integer.parseInt(userid);
+        leaveMessage.setL_userid(teacherid);
+        leaveMessage.setL_classid(c_id);
+        System.out.println(leaveMessage.getL_leavemessage());
+        leavemessageService.insertLeavemessage(leaveMessage);
+        model.addAttribute("msg","留言成功");
+        return "result";
+    }
+
 
 }

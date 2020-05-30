@@ -25,26 +25,31 @@
     <div class="msgWindow_history">
         <p style="margin: 1%;font-size: 18px;">留言列表：</p>
         <div class="msgBox">
-            <div class="msgInfo">
-                <span class="msgInfo_name">罗媛媛</span>
-                <span class="msgInfo_time">2020-05-22 17：08</span>
+            <div class="msgInfo" th:each="item:${leaveMessageList}" >
+                <span class="msgInfo_name" th:text="${item.l_userid}">罗媛媛</span>
+                <span class="msgInfo_time" th:text="${#dates.format(item.l_ltime,'yyyy-MM-dd HH:mm:ss')}">2020-05-22 17：08</span>
                 <span class="msgInfo_time">:</span>
-                <p class="msgInfo_msg">测试一下留言功能是否可用</p>
+                <p class="msgInfo_msg" th:text="${item.l_leavemessage}">测试一下留言功能是否可用</p>
                 <br/>
             </div>
-            <div class="msgInfo">
-                <span class="msgInfo_name">红葡萄</span>
-                <span class="msgInfo_time">2020-05-22 17：09</span>
-                <span class="msgInfo_time">:</span>
-                <p class="msgInfo_msg">测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。</p>
-                <br/>
-            </div>
+<!--            <div class="msgInfo">-->
+<!--                <span class="msgInfo_name">红葡萄</span>-->
+<!--                <span class="msgInfo_time">2020-05-22 17：09</span>-->
+<!--                <span class="msgInfo_time">:</span>-->
+<!--                <p class="msgInfo_msg">测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。测试超长文本能否正常显示。</p>-->
+<!--                <br/>-->
+<!--            </div>-->
         </div>
     </div>
-    <div class="msgWindow_send">
-        <textarea class="send_inputMsg" id="send_inputMsg"></textarea>
-        <button class="send_sendMsg" onclick="sendMsg_click()">留言</button>
-    </div>
+    <!--  将留言做成表单提交  -->
+    <form class="msgWindow_send" method="post" th:object="${leaveMessage}" onclick="return sendMsg_click()">
+        <textarea class="send_inputMsg" id="send_inputMsg" th:field="*{l_leavemessage}"></textarea>
+        <button class="send_sendMsg"  type="submit">留言</button>
+    </form>
+<!--    <div class="msgWindow_send">-->
+<!--        <textarea class="send_inputMsg" id="send_inputMsg"></textarea>-->
+<!--        <button class="send_sendMsg" onclick="sendMsg_click()">留言</button>-->
+<!--    </div>-->
 
 
     <script th:src="@{/js/returnEvent.js}"></script>
