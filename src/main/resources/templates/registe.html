@@ -8,16 +8,16 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/new_loginAndRegiste.css}"/>
 	<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
+<!--	<link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css"/>-->
 		
 <!-- 	<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" />
 	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
 	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
 	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/> -->
-	
-	<link th:href="@{/css/loginAndregiste.css}" rel="stylesheet" type="text/css"/>
+
 </head>
 <body class="registeBody noselect">
-    <form id="registerDiv" class="loginRegisteForm" target="_top" role="form" action="#" th:action="@{/registe}" th:object="${user}" method="post" onsubmit="return checkAll();">
+    <form id="registerDiv" class="loginRegisteForm" role="form" action="#" th:action="@{/registe}" th:object="${user}" method="post" onsubmit="return checkAll();">
         <p class="login_title">用户注册</p>
 		<div class="itemInfo">
 			<div class="itemImg item_num"></div>

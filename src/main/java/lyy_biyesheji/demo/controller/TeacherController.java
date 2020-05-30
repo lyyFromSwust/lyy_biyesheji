@@ -58,7 +58,7 @@ public class TeacherController {
 
         model.addAttribute("mclasslist",subMClass);
         int modPage=((mclassList.size()%pageNumber!=0)?1:0);
-        model.addAttribute("u_allPage",mclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_allPage",(mclassList.size()/pageNumber+modPage)<=0?1:mclassList.size()/pageNumber+modPage);
         model.addAttribute("u_nowPage",nowpage);
 
         return "index_teacher";

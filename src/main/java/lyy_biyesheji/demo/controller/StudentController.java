@@ -47,7 +47,7 @@ public class StudentController {
 
         model.addAttribute("mclasslist",subMClass);
         int modPage=((mclassList.size()%pageNumber!=0)?1:0);
-        model.addAttribute("u_allPage",mclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_allPage",(mclassList.size()/pageNumber+modPage)<=0?1:mclassList.size()/pageNumber+modPage);
         model.addAttribute("u_nowPage",nowpage);
 
         return "index_student";
@@ -100,7 +100,7 @@ public class StudentController {
     }
 
     @GetMapping("/myClass")
-    public String toMyClass(HttpServletRequest request, @CookieValue("userid") String userid,Model model){
+    public String toMyClass(HttpServletRequest request, @CookieValue("userid") String userid,@RequestParam("nowpage")int nowpage,Model model){
         int studentid=Integer.parseInt(userid);
         List<MClass> myclassList=new ArrayList<MClass>();
         List<UserClass>userClassList=userclassService.findByUc_userid(studentid);
@@ -109,7 +109,20 @@ public class StudentController {
             myclassList.add(mClass);
         }
         model.addAttribute("myclassList",myclassList);
-        return "myClass";
+
+        int newMessageNum=messageService.findByM_aimidAndAndM_isread(studentid,false).size();
+        model.addAttribute("hitNum",newMessageNum);//新消息数量
+
+        int pageNumber=4;
+        int page=nowpage-1;
+        List<MClass>subMClass=myclassList.subList(page*pageNumber,pageNumber+page*pageNumber<myclassList.size()?pageNumber+page*pageNumber:myclassList.size());
+
+        model.addAttribute("mclasslist",subMClass);
+        int modPage=((myclassList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",(myclassList.size()/pageNumber+modPage)<=0?1:myclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+
+        return "index_student";
     }
 
     /*  学生端展示班级信息  */

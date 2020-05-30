@@ -7,40 +7,40 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/new_loginAndRegiste.css}"/>
 	<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
-	
-<!-- 	<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" />
-	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
-	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
-	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/> -->
+
+	<!-- 	<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" />
+        <link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
+        <link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+        <link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/> -->
 </head>
 <body class="loginBody noselect">
-	<form id="loginDiv" class="loginRegisteForm" target="_top" role="form" action="#" th:action="@{/login}" onsubmit="return checkUAndP()" th:object="${user}" method="post">
-		<p class="login_title">用户登录</p>
-		<div class="itemInfo">
-			<div class="itemImg item_num"></div>
-			<input class="itemInput" placeholder="学号" type="text" id="l_phone" th:field="*{u_num}"/>
-		</div>	
-		<div class="itemInfo">
-			<div class="itemImg item_pwd"></div>
-			<input class="itemInput" placeholder="密码" type="password" id="l_pwd" th:field="*{u_password}"/>
-		</div>
-		<div class="itemInfo">
-			<div class="itemImg item_ident"></div>
-			<select class="itemInput" th:field="*{u_identity}" id="l_identSelect">
-				<option value="0" >学生</option>
-				<option value="1">教师</option>
-			</select>
-		</div>
-		<p class="turnLRstate turnLRstate_login" id="turnToRegiste">切换至注册</p>
-			
-		<div class="itemInfo_End">
-			<button class="submitBtn submitBtn_login" onclick="registerSubmit()" type="submit"  >登&emsp;录</button>
-		</div>
-	</form>
-	<div id="imgBg"></div>
-	<script th:src="@{/js/md5.js}"></script>
-	<script th:src="@{/js/initLoginRegiste.js}"></script>
-	<script th:src="@{/js/loginAndregiste.js}"></script>
+<form id="loginDiv" class="loginRegisteForm" target="_top" role="form" action="#" th:action="@{/login}" onsubmit="return checkUAndP()" th:object="${user}" method="post">
+	<p class="login_title">用户登录</p>
+	<div class="itemInfo">
+		<div class="itemImg item_num"></div>
+		<input class="itemInput" placeholder="学号" type="text" id="l_phone" th:field="*{u_num}"/>
+	</div>
+	<div class="itemInfo">
+		<div class="itemImg item_pwd"></div>
+		<input class="itemInput" placeholder="密码" type="password" id="l_pwd" th:field="*{u_password}"/>
+	</div>
+	<div class="itemInfo">
+		<div class="itemImg item_ident"></div>
+		<select class="itemInput" th:field="*{u_identity}" id="l_identSelect">
+			<option value="0" >学生</option>
+			<option value="1">教师</option>
+		</select>
+	</div>
+	<p class="turnLRstate turnLRstate_login" id="turnToRegiste">切换至注册</p>
+
+	<div class="itemInfo_End">
+		<button class="submitBtn submitBtn_login" type="submit"  >登&emsp;录</button>
+	</div>
+</form>
+<div id="imgBg"></div>
+<script th:src="@{/js/md5.js}"></script>
+<script th:src="@{/js/initLoginRegiste.js}"></script>
+<script th:src="@{/js/loginAndregiste.js}"></script>
 
 <!-- 	<script src="../static/js/md5.js"></script>
 	<script src="../static/js/initLoginRegiste.js"></script>

@@ -71,7 +71,6 @@ function setInfo(id,info) {
 
 //校验所有表单元素的内容
 function checkAll() {
-	alert("checkAll");
 	if(checkNum('r_num','numInfo') && checkName("r_name","nameInfo") && checkPassword('r_password', 'passwordInfo')
 		&& checkRePassword('r_password', 'r_re_password', 'rpasswordInfo')){
 		r_pwd.value=hex_md5(r_pwd.value);

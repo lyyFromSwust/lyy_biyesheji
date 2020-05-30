@@ -1,109 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <title>在线答疑辅导系统-学生首页</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+	<meta charset="utf-8" />
+	<title>在线答疑辅导系统-学生首页</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/backBodyStyle.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
 	<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
 
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>-->
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>-->
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/backBodyStyle.css"/>-->
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>-->
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>-->
-<!--	<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" />-->
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/backBodyStyle.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>
+	<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
 </head>
 <body>
 
-	<div class="mainDivBox">
-		<div class="mainDivBoxBg"></div>
-		<p id="sdfa"></p>
-		<div class="headTitle noselect">
-			<img class="titleIcon" onclick="returnIndex()"/>
+<div class="mainDivBox">
+	<div class="mainDivBoxBg"></div>
+	<p id="sdfa"></p>
+	<div class="headTitle noselect">
+		<img class="titleIcon" onclick="returnIndex()"/>
 
-			<div class="searchDiv">
-				<div class="searchIcon"></div>
-				<input class="searchInput" placeholder="搜索班级" type="text"/>
-				<div class="searchImgDiv"><div class="searchImg"></div></div>
-			</div>
-
-			<div class="lInfoDiv">
-				<div class="lInfoText" th:text="'欢迎你！'+${student_name}+'同学'"> 欢迎你！罗源同学</div>
-				<div class="infoText infoText_l lrText">
-					<span>消息通知</span>
-					<div id="infoHit" th:text="${hitNum}">2</div>
-				</div>
-				<div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
-			</div>
-			<div class=""></div>
+		<div class="searchDiv">
+			<div class="searchIcon"></div>
+			<input class="searchInput" placeholder="搜索班级" type="text"/>
+			<div class="searchImgDiv"><div class="searchImg"></div></div>
 		</div>
 
-		<div class="headTitle_bottomLine"></div>
-		<div class="headTitle_bottomLine"></div>
-		<div class="headTitle_bottomLine"></div>
-		<div id="classTypeSelector">
-			<div class="classLine classLine_all">
-				<div class="classList">全部班级列表</div>
-					<button class="buildClass"  onclick="clickToMyClass()">我的班级</button>
+		<div class="lInfoDiv">
+			<div class="lInfoText" th:text="'欢迎你！'+${student_name}+'同学'"> 欢迎你！罗源同学</div>
+			<div class="infoText infoText_l lrText">
+				<span>消息通知</span>
+				<div id="infoHit" th:text="${hitNum}">2</div>
 			</div>
-			<div class="classLine classLine_my">
-				<div class="classList">我的班级列表</div>
-					<button class="buildClass"  onclick="clickToBuildClass()">全部班级</button>
-			</div>
+			<div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
 		</div>
-		<div class="headTitle_bottomLine"></div>
-		<br/>
-		<br/>
-		<div class="classItembox">
-			<div class="classItemInfo" th:each="item:${mclasslist}">
-				<!-- <span class="inclassTest" style="visibility: hidden;height: 0;width: 0;position: absolute;"  th:text="${item.inclass}">true</span> -->
-				<span class="inclassTest" style="visibility: hidden;height: 0;width: 0;position: absolute;">true</span>
-				<br/>
-				<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}">自动化测试</span>
-				<span class="classItemInfo_Text" th:text="'创建老师id：'+${item.c_teacherid}">罗媛媛</span>
-				<br/>
-				<br/>
-				<div class="classHideMessageBox classHideBox">
-					<p class="" th:text="'班级介绍:'+${item.c_introduce}">班级介绍:自动化测试班级</p>
-					<button class="classBtnStyle" onclick="joinClass([[${item.c_id}]])">申请加入</button>
-				</div>
-				<div class="classHideBtnBox classHideBox">
-					<button  th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">班级信息</button>
-					<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
-					<button th:onclick="classHomeworkListClick([[${item.c_id}]])" class="classBtnStyle">作业</button>
-					<button th:onclick="classFileClick([[${item.c_id}]])" class="classBtnStyle">资源</button>
-					<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
-					<button th:onclick="classMessageClick([[${item.c_id}]])" class="classBtnStyle">留言</button>
-				</div>
-			</div>
-		</div>
-
-		<div class="pageBox">
-			<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
-			<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
-			<span>&nbsp;</span>
-			<span id="nowPage" th:text="${u_nowPage}">1</span>
-			<span>/</span>
-			<span id="allPage" th:text="${u_allPage}">1</span>
-			<span>&nbsp;</span>
-			<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
-			<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
-		</div>
-		<br/><br/>
+		<div class=""></div>
 	</div>
 
-	<script th:src="@{/js/jquery.min.js}"></script>
-	<script th:src="@{/js/hitInit.js}"></script>
-	<script th:src="@{/js/student.js}"></script>
-	<script th:src="@{/js/returnEvent.js}"></script>
+	<div class="headTitle_bottomLine"></div>
+	<div class="headTitle_bottomLine"></div>
+	<div class="headTitle_bottomLine"></div>
+	<div id="classTypeSelector">
+		<div class="classLine classLine_all">
+			<div class="classList">全部班级列表</div>
+			<button class="buildClass"  onclick="clickToMyClass()">我的班级</button>
+		</div>
+		<div class="classLine classLine_my">
+			<div class="classList">我的班级列表</div>
+			<button class="buildClass"  onclick="clickToAllClass()">全部班级</button>
+		</div>
+	</div>
+	<div class="headTitle_bottomLine"></div>
+	<br/>
+	<br/>
+	<div class="classItembox">
+		<div class="classItemInfo" th:each="item:${mclasslist}">
+			<!-- <span class="inclassTest" style="visibility: hidden;height: 0;width: 0;position: absolute;"  th:text="${item.inclass}">true</span> -->
+			<span class="inclassTest" style="visibility: hidden;height: 0;width: 0;position: absolute;">true</span>
+			<br/>
+			<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}">自动化测试</span>
+			<span class="classItemInfo_Text" th:text="'创建老师id：'+${item.c_teacherid}">罗媛媛</span>
+			<button class="classBtnStyle addClassBtn" th:onclick="joinClass([[${item.c_id}]])">申请加入</button>
+			<br/>
+			<br/>
+			<div class="classHideMessageBox classHideBox">
+				<p class="" th:text="'班级介绍:'+${item.c_introduce}">班级介绍:自动化测试班级</p>
+			</div>
+			<div class="classHideBtnBox classHideBox">
+				<button  th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">班级信息</button>
+				<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
+				<button th:onclick="classHomeworkListClick([[${item.c_id}]])" class="classBtnStyle">作业</button>
+				<button th:onclick="classFileClick([[${item.c_id}]])" class="classBtnStyle">资源</button>
+				<button th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
+				<button th:onclick="classMessageClick([[${item.c_id}]])" class="classBtnStyle">留言</button>
+			</div>
+		</div>
 
-<!--	<script src="../static/js/jquery.min.js"></script>-->
-<!--	<script src="../static/js/hitInit.js"></script>-->
-<!--	<script src="../static/js/student.js"></script>-->
-<!--	<script src="../static/js/returnEvent.js"></script>-->
+	</div>
+
+	<div class="pageBox">
+		<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
+		<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
+		<span>&nbsp;</span>
+		<span id="nowPage" th:text="${u_nowPage}">1</span>
+		<span>/</span>
+		<span id="allPage" th:text="${u_allPage}">1</span>
+		<span>&nbsp;</span>
+		<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
+		<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
+	</div>
+	<br/><br/>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/hitInit.js}"></script>
+<script th:src="@{/js/student.js}"></script>
+<script th:src="@{/js/returnEvent.js}"></script>
+
+<!-- 	<script src="../static/js/jquery.min.js"></script>
+	<script src="../static/js/hitInit.js"></script>
+	<script src="../static/js/student.js"></script>
+	<script src="../static/js/returnEvent.js"></script> -->
 </body>
 </html>

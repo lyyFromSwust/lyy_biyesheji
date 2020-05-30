@@ -1,6 +1,10 @@
 
 function clickToMyClass() {
-    window.location.href="myClass"
+    window.location.href="myClass?nowpage=1"
+}
+
+function clickToAllClass(){
+    window.location.href="index_student?nowpage=1"
 }
 
 function joinClass(c_id) {

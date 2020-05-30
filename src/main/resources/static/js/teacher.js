@@ -1,16 +1,20 @@
 
 /*创建班级窗口*/
 var buildclassWindow=document.getElementById("buildClassWindow")
+var maskeWindow=document.getElementById("maskeWindow")
 function clickToBuildClass() {
-    window.location.href="buildClass"
+	showBuildWindow();
 }
 
-function clickCloseWindow(){
-	
+function hideBuildWindow(){
+	maskeWindow.style.visibility="hidden";
+	buildclassWindow.style.transform="scale(0)";
+
 }
 
-function clickCloseWindow(){
-
+function showBuildWindow(){
+	maskeWindow.style.visibility="visible";
+	buildclassWindow.style.transform="scale(1)";
 }
 
 /* 跳转至班级信息 */

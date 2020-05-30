@@ -5,32 +5,32 @@
 	<title>创建班级</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/new_loginAndRegiste.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/buildclass.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/buildclass.css}" />
 	<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
-	
+
 <!--	<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>-->
 <!--	<link rel="stylesheet" type="text/css" href="../static/css/new_loginAndRegiste.css"/>-->
 <!--	<link rel="stylesheet" type="text/css" href="../static/css/buildclass.css"/>-->
 <!--	<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" />-->
 </head>
 <body class="managerLoginBody">
-	<form id="loginDiv" class="managerLoginBox" role="form" action="#" th:action="@{buildClass}" th:object="${mclass}" method="post">
-		<p class="login_title">创建班级</p>
-		<div class="itemInfo">
-			<div class="itemImg item_num"></div>
-			<input class="itemInput" placeholder="班级名" type="text" id="m_phone" th:field="*{c_classname}"/>
-		</div>
-		<div class="itemInfo">
-			<div class="itemImg item_pwd"></div>
-			<input class="itemInput" placeholder="班级介绍" type="password" id="m_pwd" th:field="*{c_introduce}"/>
-		</div>
+<form id="loginDiv" class="managerLoginBox"  target="_top" role="form" action="#" th:action="@{buildClass}" th:object="${mclass}" method="post">
+	<p class="login_title">创建班级</p>
+	<div class="itemInfo">
+		<div class="itemImg item_num"></div>
+		<input class="itemInput" placeholder="班级名" type="text" id="m_phone" th:field="*{c_classname}"/>
+	</div>
+	<div class="itemInfo">
+		<div class="itemImg item_pwd"></div>
+		<input class="itemInput" placeholder="班级介绍" type="text" id="m_pwd" th:field="*{c_introduce}"/>
+	</div>
 
-		
-		<div class="itemInfo_End">
-		    <!-- <button class="submitBtn_managerlogin" onclick="resetRegister()">重&nbsp;置</button> -->
-			<button class="submitBtn" onclick="managerLoginSubmit()" type="submit"  >创建班级</button>
-		</div>
-	</form>
+
+	<div class="itemInfo_End">
+		<!-- <button class="submitBtn_managerlogin" onclick="resetRegister()">重&nbsp;置</button> -->
+		<button class="submitBtn" onclick="managerLoginSubmit()" type="submit"  >创建班级</button>
+	</div>
+</form>
 
 <script th:src="@{/js/md5.js}"></script>
 <script th:src="@{/js/loginAndregiste.js}"></script>

@@ -1,103 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-		<title>在线答疑辅导系统-教师首页</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/backBodyStyle.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
-		<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
-		
-<!-- 		<link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
-		<link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
-		<link rel="stylesheet" type="text/css" href="../static/css/backBodyStyle.css"/>
-		<link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>
-		<link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>
-		<link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
-	</head>
-	<body>
-		
-		<div id="buildClassWindow" class="buildclassWindow">
-			<div class="windowCloseBtn" onclick="closeAll()"></div>
-			<div >
-				<iframe id="buildClassIframe" src="buildClass" frameborder="no" scrolling="no" width="100%"></iframe>
+<head>
+	<meta charset="utf-8" />
+	<title>在线答疑辅导系统-教师首页</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/normal.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/backBodyStyle.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
+	<link rel="icon" type="image/x-icon" th:href="@{/image/icon/logo_small.ico}"/>
+
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/font.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/normal.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/backBodyStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/headtitleStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/classShowStyle.css"/>
+    <link rel="icon" text = "image/x-icon" href="../static/image/icon/logo_small.ico" /> -->
+</head>
+<body>
+
+<div id="maskeWindow" style="position: absolute;width: 100%;height: 100%;top:0;left: 0;visibility: hidden;z-index: 20;background-color: rgba(0,0,0,0.5);"></div>
+
+<div id="buildClassWindow" class="buildclassWindow">
+	<div class="windowCloseBtn" onclick="hideBuildWindow()"></div>
+	<div >
+		<iframe id="buildClassIframe" src="buildClass" frameborder="no" scrolling="no" width="100%"></iframe>
+	</div>
+</div>
+
+<div class="mainDivBox">
+	<div class="mainDivBoxBg"></div>
+	<p id="sdfa"></p>
+	<div class="headTitle noselect">
+		<img class="titleIcon"/>
+
+		<div class="searchDiv">
+			<div class="searchIcon"></div>
+			<input class="searchInput" placeholder="搜索班级" type="text"/>
+			<div class="searchImgDiv"><div class="searchImg"></div></div>
+		</div>
+
+		<div class="lInfoDiv">
+			<div class="lInfoText" th:text="'欢迎你！'+${teacher_name}+'老师'"> 欢迎你！罗源老师</div>
+			<div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+			<div class="infoText infoText_l lrText" onclick="returnIndex()">
+				<span>消息通知</span>
+				<div id="infoHit" th:text="${hitNum}">2</div>
 			</div>
 		</div>
-		
-		<div class="mainDivBox">
-			<div class="mainDivBoxBg"></div>
-			<p id="sdfa"></p>
-			<div class="headTitle noselect">
-				<img class="titleIcon"/>
-				
-				<div class="searchDiv">
-					<div class="searchIcon"></div>
-					<input class="searchInput" placeholder="搜索班级" type="text"/>
-					<div class="searchImgDiv"><div class="searchImg"></div></div>
-				</div>
-				
-				<div class="lInfoDiv">
-					<div class="lInfoText" th:text="'欢迎你！'+${teacher_name}+'老师'"> 欢迎你！罗源老师</div>
-					<div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
-					<div class="infoText infoText_l lrText" onclick="returnIndex()">
-						<span>消息通知</span>
-						<div id="infoHit" th:text="${hitNum}">2</div>
-					</div>
-				</div>
-				<div class=""></div>
-			</div>
-			<div class="headTitle_bottomLine"></div>
-			<div class="headTitle_bottomLine"></div>
-			<div class="headTitle_bottomLine"></div>
-			<div class="classLine">
-				<div class="classList">班级列表</div>
-				<button class="buildClass"  onclick="clickToBuildClass()">＋创建班级</button>
-			</div>
-			<div class="headTitle_bottomLine"></div>
+		<div class=""></div>
+	</div>
+	<div class="headTitle_bottomLine"></div>
+	<div class="headTitle_bottomLine"></div>
+	<div class="headTitle_bottomLine"></div>
+	<div class="classLine">
+		<div class="classList">班级列表</div>
+		<button class="buildClass"  onclick="clickToBuildClass()">＋创建班级</button>
+	</div>
+	<div class="headTitle_bottomLine"></div>
+	<br/>
+	<br/>
+	<div class="classItembox  noselect">
+		<div class="classItemInfo classItemInfo_myclass"  th:each="item:${mclasslist}">
+			<br/>
+			<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}" >自动化测试</span>
+			<!--					<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">罗媛媛</span>-->
 			<br/>
 			<br/>
-			<div class="classItembox  noselect">
-				<div class="classItemInfo classItemInfo_myclass"  onclick="loginClick()" th:each="item:${mclasslist}">
-					<br/>
-					<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}" >自动化测试</span>
-<!--					<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">罗媛媛</span>-->
-					<br/>
-					<br/>
-					<div class="classHideBtnBox classHideBox">
-						<button  th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">班级信息</button>
-						<button th:onclick="classStudentClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
-						<button th:onclick="classHomeworkListClick([[${item.c_id}]])" class="classBtnStyle">作业</button>
-						<button th:onclick="classFileClick([[${item.c_id}]])" class="classBtnStyle">资源</button>
-						<button th:onclick="classQandAClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
-						<button th:onclick="classMessageClick([[${item.c_id}]])" class="classBtnStyle">留言</button>
-					</div>
-				</div>
+			<div class="classHideBtnBox classHideBox">
+				<button  th:onclick="classInfoClick([[${item.c_id}]])" class="classBtnStyle">班级信息</button>
+				<button th:onclick="classStudentClick([[${item.c_id}]])" class="classBtnStyle">成员</button>
+				<button th:onclick="classHomeworkListClick([[${item.c_id}]])" class="classBtnStyle">作业</button>
+				<button th:onclick="classFileClick([[${item.c_id}]])" class="classBtnStyle">资源</button>
+				<button th:onclick="classQandAClick([[${item.c_id}]])" class="classBtnStyle">问答</button>
+				<button th:onclick="classMessageClick([[${item.c_id}]])" class="classBtnStyle">留言</button>
 			</div>
-			<div class="pageBox">
-				<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
-				<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
-				<span>&nbsp;</span>
-				<span id="nowPage" th:text="${u_nowPage}">1</span>
-				<span>/</span>
-				<span id="allPage" th:text="${u_allPage}">1</span>
-				<span>&nbsp;</span>
-				<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
-				<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
-			</div>
-			<br/><br/>
-			<!-- <br/><br/><br/><br/><br/> -->
 		</div>
-		
-		
-		
-		
-		<script th:src="@{/js/teacher.js}"></script>
-		<script th:src="@{/js/hitInit.js}"></script>
-		<script th:src="@{/js/returnEvent.js}"></script>
+	</div>
+	<div class="pageBox">
+		<span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
+		<span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
+		<span>&nbsp;</span>
+		<span id="nowPage" th:text="${u_nowPage}">1</span>
+		<span>/</span>
+		<span id="allPage" th:text="${u_allPage}">1</span>
+		<span>&nbsp;</span>
+		<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
+		<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
+	</div>
+	<br/><br/>
+	<!-- <br/><br/><br/><br/><br/> -->
+</div>
+
+
+
+
+<script th:src="@{/js/teacher.js}"></script>
+<script th:src="@{/js/hitInit.js}"></script>
+<script th:src="@{/js/returnEvent.js}"></script>
 <!-- 		<script src="../static/js/hitInit.js"></script>
 		<script src="../static/js/teacher.js"></script>
 		<script src="../static/js/returnEvent.js"></script> -->
-	</body>
+</body>
 </html>
