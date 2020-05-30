@@ -1,0 +1,30 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background-color: rgb(232,218,179);
+	background: url(../image/bg2.jpg) repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	font-family: "方正喵呜体";
+}
+
+.mainDivBox{
+	position: absolute;
+	width: 80%;
+	left: 10%;
+	top:2%;
+}
+
+.mainDivBoxBg{
+	position: absolute;
+	width: 100%;
+	height: 90%;
+	background-color: rgba(254,254,254,0.9);
+	box-shadow: 10px 10px 15px #888888;
+	z-index: -1;
+}
+

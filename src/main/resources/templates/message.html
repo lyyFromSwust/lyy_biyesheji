@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线答疑辅导系统-消息通知</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headTitleStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+</head>
+<body>
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
+
+            <span class="titleSpan">消息通知</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText">
+                    <span>返回班级</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
+        </div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+
+        <div class="messageBox message_read">
+            <div class="messageItem"  th:each="item:${mclasslist}">
+                <div style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_type}"></div>
+                <p>消息通知文本</p>
+                <button class="acceptBtn"></button>
+                <button class="rejectBtn"></button>
+            </div>
+            <br/><br/><br/><br/><br/>
+        </div>
+    </div>
+</body>
+</html>

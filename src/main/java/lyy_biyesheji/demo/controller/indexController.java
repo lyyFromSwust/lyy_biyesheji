@@ -35,6 +35,11 @@ public class indexController {
         return "index";
     }
 
+    @GetMapping("/message")
+    public String test(HttpServletRequest request){
+        return "message";
+    }
+
     @GetMapping("/index_visitor/{nowpage}")
     public String toVisitor(@PathVariable("nowpage")int nowpage, Model model) {
         List<MClass>mclassList=classService.getClassList();

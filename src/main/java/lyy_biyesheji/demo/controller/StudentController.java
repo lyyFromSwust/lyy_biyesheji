@@ -110,6 +110,10 @@ public class StudentController {
         }
         model.addAttribute("myclassList",myclassList);
 
+        User user=userService.getUser(studentid);
+        List<MClass> mclassList=classService.getClassList();
+        model.addAttribute("student_name",user.getU_name());
+
         int newMessageNum=messageService.findByM_aimidAndAndM_isread(studentid,false).size();
         model.addAttribute("hitNum",newMessageNum);//新消息数量
 

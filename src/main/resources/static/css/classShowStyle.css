@@ -1,21 +1,4 @@
 
-
-.mainDivBox{
-	position: absolute;
-	width: 80%;
-	left: 10%;
-	top:2%;
-}
-
-.mainDivBoxBg{
-	position: absolute;
-	width: 100%;
-	height: 90%;
-	background-color: rgba(254,254,254,0.9);
-	box-shadow: 10px 10px 15px #888888;
-	z-index: -1;
-}
-
 .classItembox{
 	
 }
