@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -221,5 +222,23 @@ public class TeacherController {
         return "result";
     }
 
+    @GetMapping("/message")
+    public String Message(HttpServletRequest request, @CookieValue("userid") String userid, Model model){
+        User user=userService.getUser(Integer.parseInt(userid));
+        List<MClass> mclassList=classService.getClassList();
+        model.addAttribute("user_name",user.getU_name());
 
+        List<Message> messageList=messageService.findByM_aimid(Integer.parseInt(userid));
+        Collections.reverse(messageList);
+        int newNum=messageService.findByM_aimidAndAndM_isread(Integer.parseInt(userid),false).size();
+        int maxShowNum=5;
+        int endShowNum=Math.max(maxShowNum,newNum);
+        endShowNum=Math.min(endShowNum,messageList.size());
+        messageList.subList(0,endShowNum);
+
+        model.addAttribute("user_name",user.getU_name());
+        model.addAttribute("messageList",messageList);
+
+        return "message";
+    }
 }

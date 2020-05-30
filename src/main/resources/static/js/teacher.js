@@ -81,3 +81,7 @@ function previousClick(){
 function nextClick(){
 	window.location.href=window.location.pathname+"?nowpage="+(Number(nowPage.innerHTML)+1);
 }
+
+function messageClick(){
+    window.location.href="message";
+}
