@@ -96,7 +96,7 @@ public class Message {
         this.m_type = m_type;
     }
 
-    public boolean isM_issolved() {
+    public boolean getM_issolved() {
         return m_issolved;
     }
 
@@ -112,7 +112,7 @@ public class Message {
         this.m_solveresulte = m_solveresulte;
     }
 
-    public boolean isM_isread() {
+    public boolean getM_isread() {
         return m_isread;
     }
 
@@ -120,7 +120,7 @@ public class Message {
         this.m_isread = m_isread;
     }
 
-    public String isM_message() {
+    public String getM_message() {
         return m_message;
     }
 

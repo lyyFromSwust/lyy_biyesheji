@@ -64,4 +64,8 @@ public class MessageServiceImpl {
         return messageRepository.findByM_buildidAndAndM_classidAndM_type(buildid,classid,type);
     }
 
+    /* 查询是否已经向数据库添加了学生申请加入的信息 */
+    public void clearUserRead(int userId){
+
+    }
 }

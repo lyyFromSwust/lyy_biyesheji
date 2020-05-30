@@ -235,10 +235,12 @@ public class TeacherController {
         int endShowNum=Math.max(maxShowNum,newNum);
         endShowNum=Math.min(endShowNum,messageList.size());
         messageList.subList(0,endShowNum);
+        System.out.println(messageList.size());
 
-        model.addAttribute("user_name",user.getU_name());
+        model.addAttribute("user_name",user.getU_name()+"老师");
         model.addAttribute("messageList",messageList);
 
+        messageService.clearUserRead(Integer.parseInt(userid));
         return "message";
     }
 }

@@ -185,9 +185,12 @@ public class StudentController {
         endShowNum=Math.min(endShowNum,messageList.size());
         messageList.subList(0,endShowNum);
 
-        model.addAttribute("user_name",user.getU_name());
+//        System.out.println(messageList.get(0).getm_);
+
+        model.addAttribute("user_name",user.getU_name()+"同学");
         model.addAttribute("messageList",messageList);
 
+        messageService.clearUserRead(Integer.parseInt(userid));
         return "message";
     }
 }
