@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/headTitleStyle.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new_message.css}"/>
 </head>
 <body>
     <div class="mainDivBox">
@@ -18,7 +19,7 @@
 
             <div class="lInfoDiv">
                 <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
-                <div class="infoText infoText_l lrText">
+                <div class="infoText infoText_l lrText" onclick="returnClass()">
                     <span>返回班级</span>
                 </div>
                 <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
@@ -29,15 +30,24 @@
         <div class="headTitle_bottomLine"></div>
         <div class="headTitle_bottomLine"></div>
 
-        <div class="messageBox message_read">
-            <div class="messageItem"  th:each="item:${mclasslist}">
-                <div style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_type}"></div>
-                <p>消息通知文本</p>
-                <button class="acceptBtn"></button>
-                <button class="rejectBtn"></button>
+        <div class="messageBox">
+           <div class="messageItem" th:each="item:${messageList}">
+               <div class="mtype" style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_type}">1</div>
+               <div class="mread" style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_isread}">false</div>
+               <div class="mresult" style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_solveresulte}">1</div>
+                <p class="messageText" th:text="${item.m_message}">消息通知文本</p>
+                 <p class="messageDeal">处理结果</p>
+               <button class="rejectBtn messageBtn"></button>
+                <button class="acceptBtn messageBtn"></button>
             </div>
-            <br/><br/><br/><br/><br/>
         </div>
+
+        <br/><br/>
+        <p id="hitMessage" style="margin:0 auto;width:100px;font-size:30px;"></p>
+        <br/><br/><br/>
     </div>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/message.js}"></script>
 </body>
 </html>

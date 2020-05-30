@@ -8,7 +8,14 @@ function clickToAllClass(){
 }
 
 function joinClass(c_id) {
-    window.location.href="joinClass/"+c_id;
+   $.ajax({
+        url:"joinClass/"+c_id,
+        type:'POST',
+        success:function(result){
+            alert(result);
+        }
+   });
+//    window.location.href="joinClass/"+c_id;
 }
 
 function classInfoClick(c_id) {
@@ -92,4 +99,8 @@ function previousClick(){
 
 function nextClick(){
 	window.location.href=window.location.pathname+"?nowpage="+(Number(nowPage.innerHTML)+1);
+}
+
+function messageClick(){
+    window.location.href="message";
 }

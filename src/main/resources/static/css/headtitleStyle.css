@@ -70,6 +70,9 @@
 .titleSpan{
     font-size:40px;
     font-family:"迷你卡通体";
+    position:absolute;
+    top:25px;
+    left:calc(100px + 5%);
 }
 
 .headTitle_bottomLine{

@@ -35,10 +35,6 @@ public class indexController {
         return "index";
     }
 
-    @GetMapping("/message")
-    public String test(HttpServletRequest request){
-        return "message";
-    }
 
     @GetMapping("/index_visitor/{nowpage}")
     public String toVisitor(@PathVariable("nowpage")int nowpage, Model model) {
@@ -100,16 +96,19 @@ public class indexController {
 
     /*  插入用户 */
     @PostMapping("/registe")
+//    @ResponseBody
     public String registeSubmit(@ModelAttribute User user, Model model){
-
+//        String resultString="未知错误";
         /* 先检测用户是否存在，不存在才能插入 */
         List<User> userList=userService.findByU_numAndAndU_identity(user.getU_num(),user.getU_identity());
         if(userList.size()==0){
             userService.insertUser(user);
+//            resultString="注册成功！";
             model.addAttribute("msg","注册成功！");
         }
         else{
             model.addAttribute("msg","已有用户注册，请重新注册！");
+//            resultString="注册成功！";
         }
         return "result";
     }

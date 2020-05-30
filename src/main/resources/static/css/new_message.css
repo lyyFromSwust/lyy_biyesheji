@@ -1,7 +1,72 @@
 .messageBox{
-
+    margin-top:15px;
 }
 
 .messageItem{
+    border-radius:20px;
+    border:1px blue dashed;
+    margin-left:7%;
+    width:86%;
+    height:65px;
+    transition:all 0.3s;
+}
 
+.messageItem_canSelect{
+    cursor:pointer;
+}
+
+.messageItem_canSelect:hover{
+    border:2px blue dashed;
+    height:63px;
+    width:calc(86% - 2px);
+}
+
+.message_read{
+
+}
+
+.message_unread{
+    background-color:rgba(229,179,129,0.5);
+}
+
+.messageText{
+    float:left;
+    font-size:20px;
+    line-height:65px;
+    margin-left:2%;
+}
+
+.messageDeal{
+    float:right;
+    font-family:"迷你卡通体";
+    font-size:20px;
+    line-height:65px;
+    margin-right:10px;
+}
+
+.acceptBtn{
+    background:url("../image/icon/accept.png");
+}
+
+.rejectBtn{
+    background:url("../image/icon/reject.png");
+}
+
+
+.messageBtn{
+    background-size:100%;
+    margin:10px;
+    height:45px;
+    width:45px;
+    float:right;
+    background-color: white;
+    cursor:pointer;
+}
+
+.messageBtn:hover{
+    background-color:black;
+}
+
+.messageBtn:active{
+    background-color:rgba(0,0,0,0.7);
 }

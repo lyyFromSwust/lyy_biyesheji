@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -54,8 +56,10 @@ public class StudentController {
     }
 
     /*  学生加入班级  */
-    @GetMapping("/joinClass/{c_id}")
+    @PostMapping("/joinClass/{c_id}")
+    @ResponseBody
     public String joinClass(HttpServletRequest request, @CookieValue("userid") String userid,@PathVariable("c_id")int c_id,Model model) {
+        String returnString="未知错误";
         int studentid=Integer.parseInt(userid);
         int teacherid=classService.getClass(c_id).getC_teacherid();;
         /*  查找用户班级关系表是否存在此信息  */
@@ -87,16 +91,19 @@ public class StudentController {
             message.setM_message(messageText);
             if(messageList.size()==0){
                 messageService.insertMessage(message);
-                model.addAttribute("msg","已经发出申请，请等待！");
+                returnString="已经发出申请，请等待！";
+//                model.addAttribute("msg","已经发出申请，请等待！");
             }
             else{
-                model.addAttribute("msg","已经申请成功，无须重复申请！");
+//                model.addAttribute("msg","已经申请成功，无须重复申请！");
+                returnString="已经申请成功，无须重复申请！";
             }
         }
         else if(userClassList.size()==1){
-            model.addAttribute("msg","你已是班级成员，无须申请！");
+//            model.addAttribute("msg","你已是班级成员，无须申请！");
+            returnString="你已是班级成员，无须申请！";
         }
-        return "result";
+        return returnString;
     }
 
     @GetMapping("/myClass")
@@ -164,5 +171,23 @@ public class StudentController {
         return "classStudent";
     }
 
+    @GetMapping("/message")
+    public String Message(HttpServletRequest request, @CookieValue("userid") String userid, Model model){
+        User user=userService.getUser(Integer.parseInt(userid));
+        List<MClass> mclassList=classService.getClassList();
+        model.addAttribute("user_name",user.getU_name());
 
+        List<Message> messageList=messageService.findByM_aimid(Integer.parseInt(userid));
+        Collections.reverse(messageList);
+        int newNum=messageService.findByM_aimidAndAndM_isread(Integer.parseInt(userid),false).size();
+        int maxShowNum=5;
+        int endShowNum=Math.max(maxShowNum,newNum);
+        endShowNum=Math.min(endShowNum,messageList.size());
+        messageList.subList(0,endShowNum);
+
+        model.addAttribute("user_name",user.getU_name());
+        model.addAttribute("messageList",messageList);
+
+        return "message";
+    }
 }

@@ -34,7 +34,7 @@
 
 		<div class="lInfoDiv">
 			<div class="lInfoText" th:text="'欢迎你！'+${student_name}+'同学'"> 欢迎你！罗源同学</div>
-			<div class="infoText infoText_l lrText">
+			<div class="infoText infoText_l lrText" onclick="messageClick()">
 				<span>消息通知</span>
 				<div id="infoHit" th:text="${hitNum}">2</div>
 			</div>
