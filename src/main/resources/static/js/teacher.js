@@ -24,7 +24,7 @@ function classInfoClick(c_id) {
 }
 /* 跳转至班级学生 */
 function classStudentClick(c_id) {
-	window.location.href="classStudent/"+c_id;
+	window.location.href="classStudent?c_id="+c_id;
 }
 /*  跳转至班级作业  */
 function classHomeworkListClick(c_id) {

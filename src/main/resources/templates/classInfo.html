@@ -20,7 +20,7 @@
 
             <div class="lInfoDiv">
                 <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
-                <div class="infoText infoText_l lrText" th:onclick="returnClass([[${identy}]])">
+                <div class="infoText infoText_l lrText" onclick="returnClass()">
                     <span>返回班级</span>
                 </div>
                 <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
@@ -44,6 +44,5 @@
 
 
     <script th:src="@{/js/returnEvent.js}"></script>
-    <script th:src="@{/js/classInfo.js}"></script>
 </body>
 </html>

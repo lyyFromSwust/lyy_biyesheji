@@ -1,0 +1,32 @@
+body{
+}
+
+.contentDiv{
+    margin:0 10%;
+}
+
+.loadStudentBtn{
+    float:right;
+    padding:3px;
+    font-size:15px;
+    cursor:pointer;
+    margin-right:6%;
+    font-family:'汉仪清芬体';
+}
+
+.tableMain{
+    font-size:20px;
+    width:100%;
+    margin:0 auto;
+    font-family:'汉仪清芬体';
+}
+
+.tableHead{
+    padding:1px;
+    padding-right:1%;
+    height:30px;
+}
+
+.numberText{
+    font-size:40px;
+}

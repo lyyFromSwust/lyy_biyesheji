@@ -150,8 +150,18 @@ public class StudentController {
         return "index_student";
     }
 
+    @GetMapping("/returnClass")
+    public String returnClass(HttpServletRequest request, @CookieValue("userid") String userid,Model model){
+        return toMyClass(request,userid,1,model);
+    }
+
+    @GetMapping("myClass/returnClass")
+    public String returnClass_myClass(HttpServletRequest request, @CookieValue("userid") String userid,Model model){
+        return toMyClass(request,userid,1,model);
+    }
+
     /*  学生端展示班级信息  */
-    @GetMapping("myClass/classInfo")
+    @GetMapping("classInfo")
     public String classInfo(@CookieValue("userid") String userid, @RequestParam("c_id") int c_id,Model model){
         System.out.println("输出班级信息：c_id"+c_id);
         int studentid=Integer.parseInt(userid);
@@ -177,15 +187,19 @@ public class StudentController {
     }
 
     /* 对班级学生展示 */
-    @GetMapping("myClass/classStudentInfo/{c_id}")
-    public String classStudentInfo(@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("classStudentInfo")
+    public String classStudentInfo(@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
+        int u_id=Integer.parseInt(userid);
         List<User>classStudents=new ArrayList<User>();
         List<UserClass>userClassList=userclassService.findByUc_classid(c_id);
         for(UserClass userClass:userClassList){
             User user=userService.getUser(userClass.getUc_userid());
             classStudents.add(user);
         }
+        MClass mClass=classService.getClass(c_id);
         model.addAttribute("classStudents",classStudents);
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
+        model.addAttribute("class_name",mClass.getC_classname());
         return "classStudent";
     }
 
@@ -197,7 +211,7 @@ public class StudentController {
 
 
     /*  进入文件页面  */
-    @GetMapping("myClass/classFile/{c_id}")
+    @GetMapping("classFile/{c_id}")
     public String classFile(HttpServletRequest request,@PathVariable("c_id") int c_id,Model model){
         /* 得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
@@ -208,7 +222,7 @@ public class StudentController {
     }
 
     /* 留言显示 */
-    @GetMapping("myClass/classMessage/{c_id}")
+    @GetMapping("classMessage/{c_id}")
     public String classMessage(HttpServletRequest request,@PathVariable("c_id") int c_id, Model model){
         List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
         model.addAttribute("leaveMessageList",leaveMessageList);
@@ -217,7 +231,7 @@ public class StudentController {
     }
 
     /* 留言发送 */
-    @PostMapping("myClass/classMessage/{c_id}")
+    @PostMapping("classMessage/{c_id}")
     public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
                                    @ModelAttribute LeaveMessage leaveMessage,  Model model){
         int studentid=Integer.parseInt(userid);

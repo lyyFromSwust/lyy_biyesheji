@@ -3,32 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>班级学生</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classInfo.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classStudent.css}"/>
 </head>
 <body>
-<button>批量导入学生</button>
-<div class="width:80%" style="text-align: center">
-    <table>
-        <thead>
-        <tr>
-            <th>序号</th>
-            <th>学号</th>
-            <th>身份</th>
-            <th>昵称</th>
-            <th>参加班级时间</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item,itemStat:${classStudents}">
-            <td th:text="${itemStat.count}"></td>
-            <td th:text="${item.u_num}">11</td>
-            <td th:text="${item.u_identity==true?'老师':'学生'}">111</td>
-            <td th:text="${item.u_name}">nichen</td>
-            <td th:text="${#dates.format(item.u_registetime,'yyyy-MM-dd HH:mm:ss')}">zhuceshijian</td>
-            <td><a th:href="@{/delete(id=${item.u_id})}" onclick="return confirm('确认删除该学生吗？')">删除</a></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
+
+            <span class="titleSpan" th:text="${class_name}">班级名称</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText" onclick="returnClass()">
+                    <span>返回班级</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
+        </div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <br/>
+        <button class="loadStudentBtn">导入学生</button>
+        <button class="loadStudentBtn">导出学生</button>
+        <br/><br/>
+        <div class="headTitle_bottomLine"></div>
+        <div class="contentDiv">
+            <br/>
+            <span class="numberText">班级人数：</span>
+            <span class="numberText" th:text="${studentNumber}">2</span>
+            <br/><br/>
+            <table class="tableMain">
+                <thead>
+                <tr>
+                    <th class="tableHead">序号</th>
+                    <th class="tableHead">学号</th>
+                    <th class="tableHead">身份</th>
+                    <th class="tableHead">昵称</th>
+                    <th class="tableHead">加入班级时间</th>
+                    <th class="tableHead">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item,itemStat:${classStudents}">
+                    <td align="center" th:text="${itemStat.count}"></td>
+                    <td align="center" th:text="${item.u_num}">11</td>
+                    <td align="center" th:text="${item.u_identity==true?'老师':'学生'}">111</td>
+                    <td align="center" th:text="${item.u_name}">nichen</td>
+                    <td align="center" th:text="${#dates.format(item.u_registetime,'yyyy-MM-dd')}">zhuceshijian</td>
+                    <td align="center"><a th:href="@{/delete(id=${item.u_id})}" onclick="return confirm('确认删除该学生吗？')">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/><br/><br/><br/><br/>
+        </div>
+    </div>
+
+    <script th:src="@{/js/returnEvent.js}"></script>
 </body>
 </html>

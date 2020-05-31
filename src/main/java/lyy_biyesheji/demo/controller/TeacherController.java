@@ -64,6 +64,12 @@ public class TeacherController {
         return "index_teacher";
     }
 
+
+    @GetMapping("/returnClass")
+    public String returnClass(HttpServletRequest request, @CookieValue("userid") String userid,Model model){
+        return toStudentIndex(request,userid,1,model);
+    }
+
     @GetMapping("/buildClass")
     public String toBuildClass(Model model){
         MClass mClass=new MClass();
@@ -89,8 +95,7 @@ public class TeacherController {
     }
 
     @GetMapping("/classInfo")
-    public String classInfo(@CookieValue("userid") String userid,@RequestParam("c_id") String classId,Model model){
-        int c_id=Integer.parseInt(classId);
+    public String classInfo(@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
         int u_id=Integer.parseInt(userid);
         /* 如何得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
@@ -116,8 +121,9 @@ public class TeacherController {
     }
 
     /* 对班级学生展示 */
-    @GetMapping("classStudent/{c_id}")
-    public String classStudentInfo(@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("classStudent")
+    public String classStudentInfo(@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
+        int u_id=Integer.parseInt(userid);
         MClass mClass=classService.getClass(c_id);
         List<User>classStudents=new ArrayList<User>();
         List<UserClass>userClassList=userclassService.findByUc_classid(c_id);
@@ -126,6 +132,11 @@ public class TeacherController {
             classStudents.add(user);
         }
         model.addAttribute("classStudents",classStudents);
+
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
+        model.addAttribute("class_name",mClass.getC_classname());
+        int classnum = userclassService.getClassUserNum(mClass.getC_id());
+        model.addAttribute("student_number",classnum);
         return "classStudent";
     }
 
