@@ -1,27 +1,16 @@
 .msgWindow{
-    position: absolute;
-    top: 60px;
-    bottom: 0;
-    left: 10%;
-    width: 80%;
     background-color: aliceblue;
+    margin:0 10%;
+    width 100%;
 }
 
 .msgWindow_history{
-    position: absolute;
-    height: 75%;
-    top:0;
     width: 100%;
 }
 
 .msgBox{
     border: 1px solid black;
     background-color: white;
-    position: absolute;
-    top: calc(2% + 30px);
-    bottom: 2%;
-    left: 2%;
-    right: 2%;
 }
 
 .msgInfo{
@@ -30,6 +19,9 @@
 
 .msgInfo_msg{
     resize: none;
+    font-size:25px;
+    margin:5px;
+    font-family:"汉仪清芬体";
 }
 
 .msgInfo_name{
@@ -41,28 +33,26 @@
 }
 
 .msgWindow_send{
-    position: absolute;
-    height: 25%;
-    bottom:0px;
-    width: 100%;
+    height: 200px;
+    width: 80%;
+    margin:0 10%;
 }
 
 .send_inputMsg{
-    position: absolute;
-    bottom: calc(4% + 40px);
-    top:2%;
-    left: 2%;
-    width: 96%;
+    padding:8px;
+    width:100%;
+    height:70%;
     font-size: 18px;
     resize: none;
 }
 
 .send_sendMsg{
-    position: absolute;
-    height: 40px;
-    width: 68px;
-    bottom: 2%;
-    right: 5%;
+    padding:5px;
+    font-size: 18px;
     border-radius: 5px;
     outline: 0;
+    cursor:pointer;
+    float:right;
+    margin:0 3%;
+    margin-top:8px;
 }

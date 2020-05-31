@@ -29,6 +29,14 @@
     font-size:40px;
 }
 
+td{
+    text-align:center;
+}
+
+td button{
+    padding:4px;
+}
+
 /*上传部分*/
 .uploadFileWindow {
     position: fixed;

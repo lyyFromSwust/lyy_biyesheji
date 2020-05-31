@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>班级留言</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classMessage.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classInfo.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
+
+</head>
+<body>
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
+
+            <span class="titleSpan" th:text="${class_name}">班级名称</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText" onclick="returnClass()">
+                    <span>返回班级</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
+        </div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <br/>
+
+        <!--  将留言做成表单提交  -->
+        <form class="msgWindow_send" method="post" th:object="${leaveMessage}" onsubmit="return sendMsg_click()">
+            <textarea class="send_inputMsg" placeholder="输入你的留言" id="send_inputMsg" th:field="*{l_leavemessage}"></textarea>
+            <button class="send_sendMsg"  type="submit">留&emsp;言</button>
+        </form>
+        <br/><br/>
+
+        <div class="msgWindow" >
+            <div class="msgWindow_history">
+                <p style="margin: 1%;font-size: 18px;">留言列表：</p>
+                <div class="msgBox">
+                    <div class="msgInfo" th:each="item:${leaveMessageList}" >
+                        <span class="msgInfo_name" th:text="${item.l_username}">罗媛媛</span>
+                        <span class="msgInfo_time" th:text="${#dates.format(item.l_ltime,'yyyy-MM-dd HH:mm:ss')}">2020-05-22 17：08</span>
+                        <span class="msgInfo_time">:</span>
+                        <p class="msgInfo_msg" th:text="${item.l_leavemessage}">测试一下留言功能是否可用</p>
+                        <br/>
+                        <div class="headTitle_bottomLine"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br/>
+        </div>
+        <br/>
+        <div class="pageBox">
+            <span class="pageChange" id="firstPage" onclick="firstClick()">first</span>
+            <span class="pageChange" id="previousPage" onclick="previousClick()">previous </span>
+            <span>&nbsp;</span>
+            <span id="nowPage" th:text="${u_nowPage}">1</span>
+            <span>/</span>
+            <span id="allPage" th:text="${u_allPage}">1</span>
+            <span>&nbsp;</span>
+            <span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
+            <span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
+        </div>
+        <br/><br/><br/>
+    </div>
+    <script th:src="@{/js/returnEvent.js}"></script>
+    <script th:src="@{/js/classMessage.js}"></script>
+</body>
+</html>

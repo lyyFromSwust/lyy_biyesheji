@@ -256,6 +256,7 @@ public class StudentController {
     }
 
 
+
     /*  进入文件页面  */
     @GetMapping("classFile")
     public String classFile(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
@@ -273,28 +274,63 @@ public class StudentController {
     }
 
     /* 留言显示 */
-    @GetMapping("classMessage/{c_id}")
-    public String classMessage(HttpServletRequest request,@PathVariable("c_id") int c_id, Model model){
+    @GetMapping("classLeaveMessage")
+    public String classMessage(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,@RequestParam("nowpage") int nowpage, Model model){
         List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
-        model.addAttribute("leaveMessageList",leaveMessageList);
+        Collections.reverse(leaveMessageList);
+        MClass mClass=classService.getClass(c_id);
+        int u_id=Integer.parseInt(userid);
+
+        model.addAttribute("class_name",mClass.getC_classname());
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
+
+        int pageNumber=4;
+        int page=nowpage-1;
+        List<LeaveMessage>subLeaveMessage=leaveMessageList.subList(page*pageNumber,pageNumber+page*pageNumber<leaveMessageList.size()?pageNumber+page*pageNumber:leaveMessageList.size());
+
+        int modPage=((leaveMessageList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",(leaveMessageList.size()/pageNumber+modPage)<=0?1:leaveMessageList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+
         model.addAttribute("leaveMessage",new LeaveMessage());
-        return "classMessage";
+
+        List<LeaveMessage.send_LeaveMessage>sendMsg=new ArrayList<LeaveMessage.send_LeaveMessage>();
+        for(int i=0;i<subLeaveMessage.size();i++)sendMsg.add(new LeaveMessage.send_LeaveMessage(
+                subLeaveMessage.get(i),
+                userService.getUser(subLeaveMessage.get(i).getL_userid()).getU_name()
+                ));
+        model.addAttribute("leaveMessageList",sendMsg);
+        System.out.println(subLeaveMessage.get(0).getL_leavemessage());
+        System.out.println(sendMsg.get(0).getL_leavemessage());
+        return "classLeaveMessage";
     }
 
     /* 留言发送 */
-    @PostMapping("classMessage/{c_id}")
-    public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
+    @PostMapping("classLeaveMessage")
+    public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("c_id") int c_id,
                                    @ModelAttribute LeaveMessage leaveMessage,  Model model){
         int studentid=Integer.parseInt(userid);
+        MClass mClass=classService.getClass(c_id);
+
         leaveMessage.setL_userid(studentid);
         leaveMessage.setL_classid(c_id);
-        System.out.println(leaveMessage.getL_leavemessage());
+
         leavemessageService.insertLeavemessage(leaveMessage);
         model.addAttribute("msg","留言成功");
-        return "result";
+        /*向老师发送一条新留言消息*/
+        Message message=new Message();
+        message.setM_buildid(studentid);
+        message.setM_aimid(mClass.getC_teacherid());
+        message.setM_classid(c_id);
+        message.setM_type(4);
+        message.setM_issolved(false);
+        message.setM_isread(false);
+        message.setM_solveresulte(1);
+        message.setM_message("学生  "+userService.getUser(studentid).getU_name()+" 在班级 "+classService.getClass(c_id).getC_classname()+" 留言了");
+        messageService.insertMessage(message);
+
+        return classMessage(request,userid,c_id,1,model);
     }
-
-
 
     @GetMapping("/message")
     public String Message(HttpServletRequest request, @CookieValue("userid") String userid, Model model){

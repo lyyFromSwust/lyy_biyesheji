@@ -8,6 +8,7 @@ function clickToAllClass(){
 }
 
 function joinClass(c_id) {
+    $(this).attr("onclick","");
    $.ajax({
         url:"joinClass/"+c_id,
         type:'POST',
@@ -37,7 +38,7 @@ function classFileClick(c_id) {
 }
 
 function classMessageClick(c_id) {
-    window.location.href="classMessage/"+c_id;
+    window.location.href="classLeaveMessage?c_id="+c_id+"&nowpage=1";
 }
 
 

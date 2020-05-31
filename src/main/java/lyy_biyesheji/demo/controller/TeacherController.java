@@ -288,24 +288,49 @@ public class TeacherController {
         return "result";
     }
 
-    @GetMapping("/classMessage/{c_id}")
-    public String classMessage(@PathVariable("c_id") int c_id, Model model){
-        List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
-        model.addAttribute("leaveMessageList",leaveMessageList);
-        model.addAttribute("leaveMessage",new LeaveMessage());
-        return "classMessage";
-    }
-
-    @PostMapping("/classMessage/{c_id}")
-    public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
+    /* 留言发送 */
+    @PostMapping("classLeaveMessage")
+    public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("c_id") int c_id,
                                    @ModelAttribute LeaveMessage leaveMessage,  Model model){
-        int teacherid=Integer.parseInt(userid);
-        leaveMessage.setL_userid(teacherid);
+        int studentid=Integer.parseInt(userid);
+        leaveMessage.setL_userid(studentid);
         leaveMessage.setL_classid(c_id);
         System.out.println(leaveMessage.getL_leavemessage());
         leavemessageService.insertLeavemessage(leaveMessage);
         model.addAttribute("msg","留言成功");
-        return "result";
+        return classMessage(request,userid,c_id,1,model);
+    }
+
+    /* 留言显示 */
+    @GetMapping("classLeaveMessage")
+    public String classMessage(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,@RequestParam("nowpage") int nowpage, Model model){
+        List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
+        Collections.reverse(leaveMessageList);
+        MClass mClass=classService.getClass(c_id);
+        int u_id=Integer.parseInt(userid);
+
+        model.addAttribute("class_name",mClass.getC_classname());
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
+
+        int pageNumber=4;
+        int page=nowpage-1;
+        List<LeaveMessage>subLeaveMessage=leaveMessageList.subList(page*pageNumber,pageNumber+page*pageNumber<leaveMessageList.size()?pageNumber+page*pageNumber:leaveMessageList.size());
+
+        int modPage=((leaveMessageList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",(leaveMessageList.size()/pageNumber+modPage)<=0?1:leaveMessageList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+
+        model.addAttribute("leaveMessage",new LeaveMessage());
+
+        List<LeaveMessage.send_LeaveMessage>sendMsg=new ArrayList<LeaveMessage.send_LeaveMessage>();
+        for(int i=0;i<subLeaveMessage.size();i++)sendMsg.add(new LeaveMessage.send_LeaveMessage(
+                subLeaveMessage.get(i),
+                userService.getUser(subLeaveMessage.get(i).getL_userid()).getU_name()
+        ));
+        model.addAttribute("leaveMessageList",sendMsg);
+        System.out.println(subLeaveMessage.get(0).getL_leavemessage());
+        System.out.println(sendMsg.get(0).getL_leavemessage());
+        return "classLeaveMessage";
     }
 
     @GetMapping("/message")
@@ -337,27 +362,32 @@ public class TeacherController {
     public String MessageDeal(HttpServletRequest request, @CookieValue("userid") String userid,int messageId,String state, Model model){
         Message oldMessage = messageService.getMessage(messageId);
         String returnString="未知错误";
-        System.out.println(state);
+
         if(state.compareTo("accept")==0){
             returnString="接受成功";
 
-            /*添加学生到班级*/
-            UserClass userClass=new UserClass();
-            userClass.setUc_userid(oldMessage.getM_buildid());
-            userClass.setUc_classid(oldMessage.getM_classid());
-            userclassService.insertUserClass(userClass);
+            List<UserClass>userClassList=userclassService.findByUc_classidAndAndUc_userid(oldMessage.getM_classid(),oldMessage.getM_buildid());
+            if(userClassList.size() == 0){
+                /*添加学生到班级*/
+                UserClass userClass=new UserClass();
+                userClass.setUc_userid(oldMessage.getM_buildid());
+                userClass.setUc_classid(oldMessage.getM_classid());
+                userclassService.insertUserClass(userClass);
 
-            /* 加入班级成功消息 */
-            Message message=new Message();
-            message.setM_buildid(oldMessage.getM_aimid());
-            message.setM_aimid(oldMessage.getM_buildid());
-            message.setM_classid(oldMessage.getM_classid());
-            message.setM_type(3);
-            message.setM_issolved(false);
-            message.setM_solveresulte(1);
-            message.setM_isread(false);
-            message.setM_message("加入班级 "+classService.getClass(oldMessage.getM_classid()).getC_classname()+" 成功");
-            messageService.insertMessage(message);
+                /* 加入班级成功消息 */
+                Message message=new Message();
+                message.setM_buildid(oldMessage.getM_aimid());
+                message.setM_aimid(oldMessage.getM_buildid());
+                message.setM_classid(oldMessage.getM_classid());
+                message.setM_type(3);
+                message.setM_issolved(false);
+                message.setM_solveresulte(1);
+                message.setM_isread(false);
+                message.setM_message("加入班级 "+classService.getClass(oldMessage.getM_classid()).getC_classname()+" 成功");
+                messageService.insertMessage(message);
+            }
+
+
         }
         else if(state.compareTo("reject")==0){
             returnString="拒绝成功";

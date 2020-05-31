@@ -36,11 +36,11 @@ function classFileClick(c_id) {
 }
 /* 留言 */
 function classMessageClick(c_id) {
-    window.location.href="classMessage/"+c_id;
+    window.location.href="classLeaveMessage?c_id="+c_id+"&nowpage=1";
 }
 /* 问答 */
 function classQandAClick(c_id) {
-	window.location.href="classMessage/"+c_id;
+	window.location.href="classMessage?c_id="+c_id+"&nowpage=1";
 }
 
 /*以下为页面管理*/

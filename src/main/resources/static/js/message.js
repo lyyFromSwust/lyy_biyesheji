@@ -50,6 +50,7 @@ function returnClass(){
 }
 
 function acceptMessage(m_id){
+    $(this).attr("onclick","");
     $.ajax({
         url:"messageDeal",
         type:'Post',
@@ -65,6 +66,7 @@ function acceptMessage(m_id){
 }
 
 function rejectMessage(m_id){
+    $(this).attr("onclick","");
     $.ajax({
             url:"messageDeal",
             type:'Post',
