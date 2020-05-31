@@ -190,7 +190,26 @@ public class StudentController {
         model.addAttribute("user_name",user.getU_name()+"同学");
         model.addAttribute("messageList",messageList);
 
-        messageService.clearUserRead(Integer.parseInt(userid));
+//        messageService.clearUserRead(Integer.parseInt(userid));
         return "message";
+    }
+
+
+    @PostMapping("messageDeal")
+    @ResponseBody
+    public String MessageDeal(HttpServletRequest request, @CookieValue("userid") String userid,int messageId,String state, Model model){
+        System.out.println(messageId);
+        System.out.println(state);
+        String returnString="未知错误";
+        if(state=="accept"){
+            returnString="接受成功";
+        }
+        else if(state=="reject"){
+            returnString="拒绝成功";
+        }else{
+            return returnString;
+        }
+//        messageService.setDealResult(Integer.parseInt(userid),messageId,state);
+        return returnString;
     }
 }

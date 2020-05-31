@@ -48,3 +48,33 @@
 function returnClass(){
     window.location.href="index?nowpage=1";
 }
+
+function acceptMessage(m_id){
+    $.ajax({
+        url:"messageDeal",
+        type:'Post',
+        data:{
+            messageId:m_id,
+            state:'accpet'
+        },
+        success:function(data){
+             alert(data);
+            window.location.href="message";
+        }
+    });
+}
+
+function acceptMessage(m_id){
+    $.ajax({
+            url:"messageDeal",
+            type:'Post',
+           data:{
+               messageId:m_id,
+               state:'reject'
+           },
+            success:function(data){
+                alert(data);
+                window.location.href="message";
+            }
+        });
+}

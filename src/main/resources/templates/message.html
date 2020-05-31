@@ -35,10 +35,14 @@
                <div class="mtype" style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_type}">1</div>
                <div class="mread" style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_isread}">false</div>
                <div class="mresult" style="position:absolute;height:0;width:0;visibility:hidden;" th:text="${item.m_solveresulte}">1</div>
-                <p class="messageText" th:text="${item.m_message}">消息通知文本</p>
+               <div class="messageTextBox">
+                   <p class="messageText" th:text="${item.m_message}">消息通知文本</p>
+                   <p class="messageTime" th:text="${#strings.substring(item.m_sendtime,0,16)}">通知时间</p>
+
+               </div>
                  <p class="messageDeal">处理结果</p>
-               <button class="rejectBtn messageBtn"></button>
-                <button class="acceptBtn messageBtn"></button>
+               <button class="rejectBtn messageBtn" th:onclick="rejectMessage([[${item.m_id}]])"></button>
+                <button class="acceptBtn messageBtn" th:onclick="acceptMessage([[${item.m_id}]])"></button>
             </div>
         </div>
 

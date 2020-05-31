@@ -66,9 +66,14 @@ public class MessageServiceImpl {
 
     /* 查询是否已经向数据库添加了学生申请加入的信息 */
     public void clearUserRead(int userId){
-        List<Message>unreadMessageList=messageRepository.findByM_aimidAndAndM_isread(userId,false);
-        for(Message message:unreadMessageList){
-            message.setM_isread(true);
-        }
+        messageRepository.updateUser_isread(userId);
+    }
+
+    /**/
+    public void setDealResult(int userId,int messageId,String dealState){
+        int dealStateNum=3;
+        if(dealState=="accept")dealStateNum=1;
+        if(dealState=="reject")dealStateNum=2;
+        messageRepository.updateMessageResult(userId);
     }
 }

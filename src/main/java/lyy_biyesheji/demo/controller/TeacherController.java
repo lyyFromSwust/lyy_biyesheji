@@ -235,12 +235,29 @@ public class TeacherController {
         int endShowNum=Math.max(maxShowNum,newNum);
         endShowNum=Math.min(endShowNum,messageList.size());
         messageList.subList(0,endShowNum);
-        System.out.println(messageList.size());
 
         model.addAttribute("user_name",user.getU_name()+"老师");
         model.addAttribute("messageList",messageList);
 
-        messageService.clearUserRead(Integer.parseInt(userid));
+//        messageService.clearUserRead(Integer.parseInt(userid));
         return "message";
+    }
+
+    @PostMapping("messageDeal")
+    @ResponseBody
+    public String MessageDeal(HttpServletRequest request, @CookieValue("userid") String userid,int messageId,String state, Model model){
+        System.out.println(messageId);
+        System.out.println(state);
+        String returnString="未知错误";
+        if(state=="accept"){
+            returnString="接受成功";
+        }
+        else if(state=="reject"){
+            returnString="拒绝成功";
+        }else{
+            return returnString;
+        }
+//        messageService.setDealResult(Integer.parseInt(userid),messageId,state);
+        return returnString;
     }
 }

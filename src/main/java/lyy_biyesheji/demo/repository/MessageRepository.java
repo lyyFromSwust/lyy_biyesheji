@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import lyy_biyesheji.demo.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -25,4 +26,11 @@ public interface MessageRepository extends JpaRepository<Message,Integer> {
     @Query(value="select * from t_message m where m.m_buildid=?1 and m.m_classid=?2 and m.m_type=?3",nativeQuery = true)
     List<Message>findByM_buildidAndAndM_classidAndM_type(int buildid,int classid,int type);
 
+    /*  清除用户全部未读  */
+    @Query(value = "update t_message m set m.m_isread = 'true' where m.m_aimid = ?1",nativeQuery = true)
+    void updateUser_isread(int id);
+
+    /*设置消息内容更新*/
+    @Query(value = "update t_message m set m.m_isread = 'true' where m.m_aimid = ?1",nativeQuery = true)
+    void updateMessageResult(int userid,int messageId,int dealResult);
 }

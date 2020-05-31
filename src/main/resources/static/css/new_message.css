@@ -30,11 +30,22 @@
     background-color:rgba(229,179,129,0.5);
 }
 
-.messageText{
+.messageTextBox{
     float:left;
+    width:70%;
+    height:65px;
+}
+
+.messageText{
     font-size:20px;
-    line-height:65px;
+    line-height:45px;
     margin-left:2%;
+}
+
+.messageTime{
+    font-size:20px;
+    line-height:20px;
+    margin-left:3%;
 }
 
 .messageDeal{
