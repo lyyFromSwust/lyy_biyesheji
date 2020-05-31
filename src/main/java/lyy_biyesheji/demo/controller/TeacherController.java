@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +38,8 @@ public class TeacherController {
     private MessageServiceImpl messageService;
     @Autowired
     private LeavemessageServiceImpl leavemessageService;
+    @Autowired
+    private AssignhomeworkServiceImpl assignhomeworkService;
 
 
     @GetMapping("/index")
@@ -101,7 +104,7 @@ public class TeacherController {
         model.addAttribute("identy","teacher");
 
         /* 格式化日期格式 */
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         model.addAttribute("classname",mClass.getC_classname());
         model.addAttribute("classtime",simpleDateFormat.format(mClass.getC_buildtime()));
         User user=userService.getUser(mClass.getC_teacherid());
@@ -205,12 +208,67 @@ public class TeacherController {
         return "result";
     }
 
+    /* 进入作业页面 */
     @GetMapping("/classHomeworkList/{c_id}")
-    public String classHomeworkList(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
+    public String classHomeworkList(@PathVariable("c_id") int c_id,Model model){
+        List<AssignHomework>assignHomeworkList=assignhomeworkService.findByAh_classid(c_id);
+        model.addAttribute("homeworklist",assignHomeworkList);
+        model.addAttribute("ahhomework",new AssignHomework());
         return "classHomeworkList";
     }
+
+    /* 布置作业 */
+    @PostMapping("/classHomeworkList/{c_id}")
+    public String assignHomework(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,
+                                 @ModelAttribute AssignHomework assignHomework,@RequestParam("fileName") MultipartFile file,
+                                 @RequestParam("endtime")String endtime, Model model) throws ParseException {
+        int teacherid=Integer.parseInt(userid);
+        assignHomework.setAh_starttime(new Date());
+        assignHomework.setAh_classid(c_id);
+
+        System.out.println("结束时间endtime = "+endtime);
+        //将T替换成空格
+        String newendtime=endtime.replace('T',' ');
+        System.out.println("结束时间newendtime = "+newendtime);
+        /* 将结束时间转为date形式 */
+        SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date ah_endtime = simpleDateFormat1.parse(newendtime);
+        assignHomework.setAh_endtime(ah_endtime);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String path= null;
+        try {
+            path = ResourceUtils.getURL("classpath:").getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        path=path.substring(0,path.length()-15)+"src/main/resources/static/uploadFile/";
+
+        String oldfileName = file.getOriginalFilename();
+        Date date=new Date();
+        String format=simpleDateFormat.format(date);
+        String newfileName = format+oldfileName;
+
+        System.out.println("newFilename = "+newfileName);
+        File dest = new File(path +  newfileName);
+        if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
+            dest.getParentFile().mkdir();
+        }
+        try {
+            file.transferTo(dest);
+            assignHomework.setAh_homeworkurl(path +  newfileName);
+            assignhomeworkService.insertAssignhomework(assignHomework);
+            model.addAttribute("msg","布置作业成功！");
+        }catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            model.addAttribute("msg","布置作业失败！");
+        }
+        return "result";
+    }
+
     @GetMapping("/classMessage/{c_id}")
-    public String classMessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id, Model model){
+    public String classMessage(@PathVariable("c_id") int c_id, Model model){
         List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
         model.addAttribute("leaveMessageList",leaveMessageList);
         model.addAttribute("leaveMessage",new LeaveMessage());
