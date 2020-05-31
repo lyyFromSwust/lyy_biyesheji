@@ -236,28 +236,61 @@ public class TeacherController {
         endShowNum=Math.min(endShowNum,messageList.size());
         messageList.subList(0,endShowNum);
 
-        model.addAttribute("user_name",user.getU_name()+"老师");
-        model.addAttribute("messageList",messageList);
+        List<Message>cloneMessage=new ArrayList<Message>();
+        for(int i=0;i<messageList.size();i++)cloneMessage.add(messageList.get(i).clone());
 
-//        messageService.clearUserRead(Integer.parseInt(userid));
+        model.addAttribute("user_name",user.getU_name()+"老师");
+        model.addAttribute("messageList",cloneMessage);
+
+        messageService.clearUserRead(Integer.parseInt(userid));
         return "message";
     }
 
     @PostMapping("messageDeal")
     @ResponseBody
     public String MessageDeal(HttpServletRequest request, @CookieValue("userid") String userid,int messageId,String state, Model model){
-        System.out.println(messageId);
-        System.out.println(state);
+        Message oldMessage = messageService.getMessage(messageId);
         String returnString="未知错误";
-        if(state=="accept"){
+        System.out.println(state);
+        if(state.compareTo("accept")==0){
             returnString="接受成功";
+
+            /*添加学生到班级*/
+            UserClass userClass=new UserClass();
+            userClass.setUc_userid(oldMessage.getM_buildid());
+            userClass.setUc_classid(oldMessage.getM_classid());
+            userclassService.insertUserClass(userClass);
+
+            /* 加入班级成功消息 */
+            Message message=new Message();
+            message.setM_buildid(oldMessage.getM_aimid());
+            message.setM_aimid(oldMessage.getM_buildid());
+            message.setM_classid(oldMessage.getM_classid());
+            message.setM_type(3);
+            message.setM_issolved(false);
+            message.setM_solveresulte(1);
+            message.setM_isread(false);
+            message.setM_message("加入班级 "+classService.getClass(oldMessage.getM_classid()).getC_classname()+" 成功");
+            messageService.insertMessage(message);
         }
-        else if(state=="reject"){
+        else if(state.compareTo("reject")==0){
             returnString="拒绝成功";
+
+            /* 加入班级失败消息 */
+            Message message=new Message();
+            message.setM_buildid(oldMessage.getM_aimid());
+            message.setM_aimid(oldMessage.getM_buildid());
+            message.setM_classid(oldMessage.getM_classid());
+            message.setM_type(3);
+            message.setM_issolved(false);
+            message.setM_solveresulte(1);
+            message.setM_isread(false);
+            message.setM_message(userService.getUser(oldMessage.getM_aimid()).getU_name() +"拒绝了你加入班级 "+classService.getClass(oldMessage.getM_classid()).getC_classname());
+            messageService.insertMessage(message);
         }else{
             return returnString;
         }
-//        messageService.setDealResult(Integer.parseInt(userid),messageId,state);
+        messageService.setDealResult(Integer.parseInt(userid),messageId,state);
         return returnString;
     }
 }

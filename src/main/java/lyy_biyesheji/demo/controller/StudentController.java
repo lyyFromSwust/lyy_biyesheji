@@ -1,9 +1,6 @@
 package lyy_biyesheji.demo.controller;
 
-import lyy_biyesheji.demo.entity.MClass;
-import lyy_biyesheji.demo.entity.Message;
-import lyy_biyesheji.demo.entity.User;
-import lyy_biyesheji.demo.entity.UserClass;
+import lyy_biyesheji.demo.entity.*;
 import lyy_biyesheji.demo.service.ClassServiceImpl;
 import lyy_biyesheji.demo.service.MessageServiceImpl;
 import lyy_biyesheji.demo.service.UserServiceImpl;
@@ -47,11 +44,19 @@ public class StudentController {
         int page=nowpage-1;
         List<MClass>subMClass=mclassList.subList(page*pageNumber,pageNumber+page*pageNumber<mclassList.size()?pageNumber+page*pageNumber:mclassList.size());
 
-        model.addAttribute("mclasslist",subMClass);
         int modPage=((mclassList.size()%pageNumber!=0)?1:0);
         model.addAttribute("u_allPage",(mclassList.size()/pageNumber+modPage)<=0?1:mclassList.size()/pageNumber+modPage);
         model.addAttribute("u_nowPage",nowpage);
 
+        /*获取教师姓名*/
+        List<MClass.send_MClass>send_subMClass=new ArrayList<MClass.send_MClass>();
+        for(int i=0;i<subMClass.size();i++)send_subMClass.add(
+                new MClass.send_MClass(
+                        subMClass.get(i),
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name()));
+        model.addAttribute("mclasslist",send_subMClass);
+        System.out.println(subMClass.get(0).getC_id());
+        System.out.println(send_subMClass.get(0).getC_id());
         return "index_student";
     }
 
@@ -74,13 +79,6 @@ public class StudentController {
             message.setM_buildid(studentid);
             message.setM_aimid(teacherid);
             message.setM_classid(c_id);
-            /*  通知消息类型 m_type
-             * (1) 学生申请加入通知、
-             * (2) 老师邀请加入通知；
-             * (3) 加入班级成功通知；
-             * (4) 有人留言通知；
-             * (5) 有人提问通知、有人回复通知
-             * */
             message.setM_type(1);
             /*  是否处理消息  */
             message.setM_issolved(false);
@@ -89,7 +87,15 @@ public class StudentController {
             message.setM_isread(false);
             String messageText="学生"+userService.getUser(studentid).getU_name()+"申请加入班级"+classService.getClass(c_id).getC_classname();
             message.setM_message(messageText);
-            if(messageList.size()==0){
+            boolean allowJoin=true;
+            for(int i=0;i<messageList.size();i++){
+                if(messageList.get(i).getM_solveresulte()==1){
+                    allowJoin=false;
+                    break;
+                }
+            }
+
+            if(allowJoin){
                 messageService.insertMessage(message);
                 returnString="已经发出申请，请等待！";
 //                model.addAttribute("msg","已经发出申请，请等待！");
@@ -127,11 +133,17 @@ public class StudentController {
         int pageNumber=4;
         int page=nowpage-1;
         List<MClass>subMClass=myclassList.subList(page*pageNumber,pageNumber+page*pageNumber<myclassList.size()?pageNumber+page*pageNumber:myclassList.size());
-
-        model.addAttribute("mclasslist",subMClass);
         int modPage=((myclassList.size()%pageNumber!=0)?1:0);
         model.addAttribute("u_allPage",(myclassList.size()/pageNumber+modPage)<=0?1:myclassList.size()/pageNumber+modPage);
         model.addAttribute("u_nowPage",nowpage);
+
+        /*获取教师姓名*/
+        List<MClass.send_MClass>send_subMClass=new ArrayList<MClass.send_MClass>();
+        for(int i=0;i<subMClass.size();i++)send_subMClass.add(
+                new MClass.send_MClass(
+                        subMClass.get(i),
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name()));
+        model.addAttribute("mclasslist",send_subMClass);
 
         return "index_student";
     }
@@ -190,7 +202,7 @@ public class StudentController {
         model.addAttribute("user_name",user.getU_name()+"同学");
         model.addAttribute("messageList",messageList);
 
-//        messageService.clearUserRead(Integer.parseInt(userid));
+        messageService.clearUserRead(Integer.parseInt(userid));
         return "message";
     }
 
@@ -201,15 +213,15 @@ public class StudentController {
         System.out.println(messageId);
         System.out.println(state);
         String returnString="未知错误";
-        if(state=="accept"){
+        if(state.compareTo("accept") == 0){
             returnString="接受成功";
         }
-        else if(state=="reject"){
+        else if(state.compareTo("reject") == 0){
             returnString="拒绝成功";
         }else{
             return returnString;
         }
-//        messageService.setDealResult(Integer.parseInt(userid),messageId,state);
+        messageService.setDealResult(Integer.parseInt(userid),messageId,state);
         return returnString;
     }
 }

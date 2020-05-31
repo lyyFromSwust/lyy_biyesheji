@@ -77,8 +77,8 @@ public class MessageServiceImpl {
     /* 设定指定消息的处理结果 */
     public void setDealResult(int userId,int messageId,String dealState){
         int dealStateNum=4;
-        if(dealState=="accept")dealStateNum=2;
-        if(dealState=="reject")dealStateNum=1;
+        if(dealState.compareTo("accept")==0)dealStateNum=2;
+        if(dealState.compareTo("reject")==0)dealStateNum=3;
         Message message=messageRepository.findById(messageId).get();
         message.setM_solveresulte(dealStateNum);
         messageRepository.save(message);

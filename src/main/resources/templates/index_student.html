@@ -58,14 +58,13 @@
 	</div>
 	<div class="headTitle_bottomLine"></div>
 	<br/>
-	<br/>
 	<div class="classItembox">
 		<div class="classItemInfo" th:each="item:${mclasslist}">
 			<!-- <span class="inclassTest" style="visibility: hidden;height: 0;width: 0;position: absolute;"  th:text="${item.inclass}">true</span> -->
 			<span class="inclassTest" style="visibility: hidden;height: 0;width: 0;position: absolute;">true</span>
 			<br/>
 			<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}">自动化测试</span>
-			<span class="classItemInfo_Text" th:text="'创建老师id：'+${item.c_teacherid}">罗媛媛</span>
+			<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherName}">罗媛媛</span>
 			<button class="classBtnStyle addClassBtn" th:onclick="joinClass([[${item.c_id}]])">申请加入</button>
 			<br/>
 			<br/>
@@ -95,7 +94,7 @@
 		<span class="pageChange" id="nextPage" onclick="nextClick()">next</span>
 		<span class="pageChange" id="lastPage" onclick="lastClick()">last</span>
 	</div>
-	<br/><br/>
+	<br/>
 </div>
 
 <script th:src="@{/js/jquery.min.js}"></script>

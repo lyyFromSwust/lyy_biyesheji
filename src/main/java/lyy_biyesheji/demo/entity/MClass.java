@@ -99,4 +99,28 @@ public class MClass {
     public int hashCode() {
         return Objects.hash(c_id, c_teacherid, c_classname, c_introduce, c_buildtime);
     }
+
+
+    public static class send_MClass extends MClass{
+
+        private String c_teacherName;
+        public send_MClass(){}
+        public send_MClass(MClass mClass){
+            super(mClass.getC_teacherid(),mClass.getC_classname(),mClass.getC_introduce(),mClass.getC_buildtime());
+        }
+        public send_MClass(MClass mClass,String teacherName){
+            super(mClass.getC_teacherid(),mClass.getC_classname(),mClass.getC_introduce(),mClass.getC_buildtime());
+            super.setC_id(mClass.c_id);
+            c_teacherName=teacherName;
+        }
+
+        public String getC_teacherName() {
+            return c_teacherName;
+        }
+
+        public void setC_teacherName(String c_teacherName) {
+            this.c_teacherName = c_teacherName;
+        }
+    }
 }
+

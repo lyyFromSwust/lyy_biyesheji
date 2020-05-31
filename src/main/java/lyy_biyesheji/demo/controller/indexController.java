@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,10 +44,19 @@ public class indexController {
         int page=nowpage-1;
         List<MClass>subMClass=mclassList.subList(page*pageNumber,pageNumber+page*pageNumber<mclassList.size()?pageNumber+page*pageNumber:mclassList.size());
 
-        model.addAttribute("mclasslist",subMClass);
+//        model.addAttribute("mclasslist",subMClass);
         int modPage=((mclassList.size()%pageNumber!=0)?1:0);
         model.addAttribute("u_allPage",(mclassList.size()/pageNumber+modPage)<=0?1:mclassList.size()/pageNumber+modPage);
         model.addAttribute("u_nowPage",nowpage);
+
+
+        /*获取教师姓名*/
+        List<MClass.send_MClass>send_subMClass=new ArrayList<MClass.send_MClass>();
+        for(int i=0;i<subMClass.size();i++)send_subMClass.add(
+                new MClass.send_MClass(
+                        subMClass.get(i),
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name()));
+        model.addAttribute("mclasslist",send_subMClass);
         return "index_visitor";
     }
 

@@ -4,7 +4,7 @@ function clickToMyClass() {
 }
 
 function clickToAllClass(){
-    window.location.href="index_student?nowpage=1"
+    window.location.href="index?nowpage=1"
 }
 
 function joinClass(c_id) {
@@ -51,7 +51,7 @@ var nowPage=document.getElementById("nowPage");
 var allPage=document.getElementById("allPage");
 (function initPage(){
 	/*切换按钮*/
-	if(window.location.href.indexOf("myclass") == -1){
+	if(window.location.href.indexOf("myClass") == -1){
 		$('#classTypeSelector').children(".classLine_all").show();
 		$('#classTypeSelector').children(".classLine_my").hide();
 	}else{		
@@ -60,15 +60,16 @@ var allPage=document.getElementById("allPage");
 	}
 	
 	/*班级标签*/
-	console.log($(".inclassTest"))
 	for(var i=0;i<$(".inclassTest").length;i++){
-		if(window.location.href.indexOf("myclass") != -1){
+		if(window.location.href.indexOf("myClass") != -1){
 			// if($(".inclassTest")[i].innerHTML=="true"){
 			$($(".inclassTest")[i]).parent().addClass("classItemInfo_myclass");
 			$($(".inclassTest")[i]).siblings(".classHideMessageBox").hide();
+			$($(".inclassTest")[i]).siblings(".addClassBtn").hide();
 		}else{
 			$($(".inclassTest")[i]).parent().addClass("classItemInfo_allclass");
 			$($(".inclassTest")[i]).siblings(".classHideBtnBox").hide();
+			$($(".inclassTest")[i]).siblings(".addClassBtn").show();
 		}
 	}
 	

@@ -33,7 +33,7 @@
 	<div class="mainDivBoxBg"></div>
 	<p id="sdfa"></p>
 	<div class="headTitle noselect">
-		<img class="titleIcon"/>
+		<img class="titleIcon"  onclick="returnIndex()"/>
 
 		<div class="searchDiv">
 			<div class="searchIcon"></div>
@@ -59,7 +59,6 @@
 		<button class="buildClass"  onclick="clickToBuildClass()">＋创建班级</button>
 	</div>
 	<div class="headTitle_bottomLine"></div>
-	<br/>
 	<br/>
 	<div class="classItembox  noselect">
 		<div class="classItemInfo classItemInfo_myclass"  th:each="item:${mclasslist}">

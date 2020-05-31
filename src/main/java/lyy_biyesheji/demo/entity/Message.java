@@ -9,19 +9,19 @@ public class Message {
 
     @Id
     @GeneratedValue
-    private int m_id;
+    protected int m_id;
 
-    /*  创建用户id  */
+    /*  发起用户id  */
     @Column(nullable = false)
-    private int m_buildid;
+    protected int m_buildid;
 
     /*  目标用户id  */
     @Column(nullable = false)
-    private int m_aimid;
+    protected int m_aimid;
 
     /*  班级id  */
     @Column(nullable = false)
-    private int m_classid;
+    protected int m_classid;
 
     /*  通知消息类型 m_type
     * (1) 学生申请加入通知、
@@ -31,27 +31,27 @@ public class Message {
 	* (5) 有人提问通知、有人回复通知
     * */
     @Column(nullable = false)
-    private int m_type;
+    protected int m_type;
 
     /*  是否处理消息  */
     @Column(nullable = false)
-    private boolean m_issolved;
+    protected boolean m_issolved;
 
     /*  处理结果 1.未处理 2.接受 3.拒绝 4.忽略（234都是处理态度）  */
     @Column(nullable = false)
-    private int m_solveresulte;
+    protected int m_solveresulte;
 
     /*  是否阅读消息  小红点提示 */
     @Column(nullable = false)
-    private boolean m_isread;
+    protected boolean m_isread;
 
     /*  通知消息文本 */
     @Column(nullable = false)
-    private String m_message;
+    protected String m_message;
 
     /*  发送时间  */
     @Column
-    private Date m_sendtime;
+    protected Date m_sendtime;
 
     public Message() {
     }
@@ -150,5 +150,21 @@ public class Message {
                 ", m_message=" + m_message +
                 ", m_sendtime=" + m_sendtime +
                 '}';
+    }
+
+    @Override
+    public  Message clone(){
+        Message message=new Message();
+        message.m_id=this.m_id;
+        message.m_buildid=this.m_buildid;
+        message.m_aimid=this.m_aimid;
+        message.m_classid=this.m_classid;
+        message.m_type=this.m_type;
+        message.m_issolved=this.m_issolved;
+        message.m_solveresulte=this.m_solveresulte;
+        message.m_isread=this.m_isread;
+        message.m_message=this.m_message;
+        message.m_sendtime=this.m_sendtime;
+        return message;
     }
 }

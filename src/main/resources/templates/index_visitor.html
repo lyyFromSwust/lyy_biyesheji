@@ -24,7 +24,7 @@
 			<div class="mainDivBoxBg"></div>
 			<p id="sdfa"></p>
 			<div class="headTitle noselect">
-				<img class="titleIcon"/>
+				<img class="titleIcon"  onclick="returnIndex()"/>
 				
 				<div class="searchDiv">
 					<div class="searchIcon"></div>
@@ -50,7 +50,7 @@
 			<div class="classItembox">
 				<div class="classItemInfo classItemInfo_canClick"  onclick="loginClick()" th:each="item:${mclasslist}">
 					<p class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}" >自动化测试</p>
-					<p class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherid}">创建老师:罗媛媛</p>
+					<p class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherName}">创建老师:罗媛媛</p>
 					<div>
 						
 					</div>
@@ -76,7 +76,8 @@
 
 
 		<script th:src="@{/js/jquery.min.js}"></script>
-	    <script th:src="@{/js/index_visitor.js}"></script>
+		<script th:src="@{/js/index_visitor.js}"></script>
+		<script th:src="@{/js/returnEvent.js}"></script>
 
 <!-- 		<script src="../static/js/jquery.min.js"></script>
 	    <script src="../static/js/index_visitor.js"></script> -->

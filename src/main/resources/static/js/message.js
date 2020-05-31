@@ -39,7 +39,7 @@
 
     }
 
-    if($(".MessageItem").length == 0)
+    if($(".messageItem").length == 0)
     {
         $("#hitMessage").text("无消息");
     }
@@ -55,7 +55,7 @@ function acceptMessage(m_id){
         type:'Post',
         data:{
             messageId:m_id,
-            state:'accpet'
+            state:'accept'
         },
         success:function(data){
              alert(data);
@@ -64,7 +64,7 @@ function acceptMessage(m_id){
     });
 }
 
-function acceptMessage(m_id){
+function rejectMessage(m_id){
     $.ajax({
             url:"messageDeal",
             type:'Post',
