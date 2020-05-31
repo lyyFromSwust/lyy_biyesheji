@@ -58,7 +58,7 @@ function acceptMessage(m_id){
             state:'accept'
         },
         success:function(data){
-             alert(data);
+//             alert(data);
             window.location.href="message";
         }
     });
@@ -73,7 +73,7 @@ function rejectMessage(m_id){
                state:'reject'
            },
             success:function(data){
-                alert(data);
+//                alert(data);
                 window.location.href="message";
             }
         });

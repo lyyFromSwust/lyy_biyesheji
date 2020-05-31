@@ -20,7 +20,7 @@ function showBuildWindow(){
 /* 跳转至班级信息 */
 function classInfoClick(c_id) {
     console.log(c_id);
-    window.location.href="classInfo/"+c_id;
+    window.location.href="classInfo?c_id="+c_id;
 }
 /* 跳转至班级学生 */
 function classStudentClick(c_id) {

@@ -4,30 +4,46 @@
     <meta charset="UTF-8">
     <title>班级介绍</title>
 
-        <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/classInfo.css}"/>
-<!--    <link rel="stylesheet" type="text/css" href="../static/css/index.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="../static/css/classInfo.css"/>-->
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classInfo.css}"/>
 </head>
 <body>
-    <!-- 顶部蓝色标题 -->
-    <div class="headTitle">
-        <div class="headTitle_返回" onclick="returnIndex()">
-            <p>返回</p>
+
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
+
+            <span class="titleSpan">消息通知</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText" th:onclick="returnClass([[${identy}]])">
+                    <span>返回</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
         </div>
-        <div class="headTitle_班级名称">
-            <p>班级名称</p>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+
+        <br/>
+        <div class="classInfoBody">
+            <p class="classInfoBody_p" th:text="'班级名称：'+${classname}">班级名称</p>
+            <p class="classInfoBody_p" th:text="'创建时间：'+${classtime}">创建时间</p>
+            <p class="classInfoBody_p" th:text="'班级教师：'+${classteacherName}">班级教师</p>
+            <p class="classInfoBody_p" th:text="'班级介绍：'+${classintroduce}">班级介绍</p>
+            <p class="classInfoBody_p" th:text="'学生数量：'+${classstudentNum}">学生数量</p>
         </div>
-    </div>
-    <div class="classInfoBody">
-        <p class="classInfoBody_p" th:text="'班级名称：'+${classname}">班级名称</p>
-        <p class="classInfoBody_p" th:text="'创建时间：'+${classtime}">创建时间</p>
-        <p class="classInfoBody_p" th:text="'班级教师：'+${classteacherName}">班级教师</p>
-        <p class="classInfoBody_p" th:text="'班级介绍：'+${classintroduce}">班级介绍</p>
-        <p class="classInfoBody_p" th:text="'学生数量：'+${classstudentNum}">学生数量</p>
+        <br/><br/><br/><br/><br/>
     </div>
 
+
     <script th:src="@{/js/returnEvent.js}"></script>
+    <script th:src="@{/js/classInfo.js}"></script>
 </body>
 </html>

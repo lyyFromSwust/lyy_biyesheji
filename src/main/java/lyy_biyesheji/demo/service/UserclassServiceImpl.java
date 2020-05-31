@@ -24,12 +24,10 @@ public class UserclassServiceImpl {
         return userclassRepository.findById(id).get();
     }
 
-
     /*  创建班级用户关系 */
     public UserClass insertUserClass(UserClass userClass){
         return userclassRepository.save(userClass);
     }
-
 
     /*  删除班级用户关系 */
     public boolean deleteUserClass(int id){

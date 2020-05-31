@@ -65,19 +65,20 @@
 			<br/>
 			<span class="classItemInfo_name classItemInfo_Text" th:text="${item.c_classname}">自动化测试</span>
 			<span class="classItemInfo_Text" th:text="'创建老师：'+${item.c_teacherName}">罗媛媛</span>
-			<button class="classBtnStyle addClassBtn" th:onclick="joinClass([[${item.c_id}]])">申请加入</button>
+			<button th:if="${item.inClass} eq 0" class="classBtnStyle addClassBtn canAddBtn" th:onclick="joinClass([[${item.c_id}]])">申请加入</button>
+			<button th:if="${item.inClass} gt 0" class="unClickClassBtnStyle addClassBtn uncanAddBtn" th:onclick="joinClass([[${item.c_id}]])">已加入</button>
 			<br/>
 			<br/>
 			<div class="classHideMessageBox classHideBox">
 				<p class="" th:text="'班级介绍:'+${item.c_introduce}">班级介绍:自动化测试班级</p>
 			</div>
 			<div class="classHideBtnBox classHideBox">
-				<button class="bodyContext_class_班级信息 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">班级信息</button>
-				<button class="bodyContext_class_班级学生 bodyContext_class_btn" th:onclick="classStudentInfoClick([[${item.c_id}]])">班级学生</button>
-				<button class="bodyContext_class_作业 bodyContext_class_btn" th:onclick="classHomeworkListClick([[${item.c_id}]])">作业</button>
-				<button class="bodyContext_class_课程资源 bodyContext_class_btn" th:onclick="classFileClick([[${item.c_id}]])">课程资源</button>
-				<button class="bodyContext_class_讨论 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">问答</button>
-				<button class="bodyContext_class_留言 bodyContext_class_btn" th:onclick="classMessageClick([[${item.c_id}]])">留言</button>
+				<button class="classBtnStyle" th:onclick="classInfoClick([[${item.c_id}]])">班级信息</button>
+				<button class="classBtnStyle" th:onclick="classStudentInfoClick([[${item.c_id}]])">班级学生</button>
+				<button class="classBtnStyle" th:onclick="classHomeworkListClick([[${item.c_id}]])">作业</button>
+				<button class="classBtnStyle" th:onclick="classFileClick([[${item.c_id}]])">课程资源</button>
+				<button class="classBtnStyle" th:onclick="classInfoClick([[${item.c_id}]])">问答</button>
+				<button class="classBtnStyle" th:onclick="classMessageClick([[${item.c_id}]])">留言</button>
 			</div>
 		</div>
 

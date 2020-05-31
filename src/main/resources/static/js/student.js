@@ -20,7 +20,7 @@ function joinClass(c_id) {
 
 function classInfoClick(c_id) {
     console.log(c_id);
-    window.location.href="myClass/classInfo/"+c_id;
+    window.location.href="myClass/classInfo?c_id="+c_id;
 }
 
 function classStudentInfoClick(c_id) {

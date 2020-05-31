@@ -122,5 +122,21 @@ public class MClass {
             this.c_teacherName = c_teacherName;
         }
     }
+
+    public static  class  send_MClass_plus extends send_MClass{
+        private int inClass;
+        public send_MClass_plus(MClass mClass,String teacherName,int isInClass){
+            super(mClass,teacherName);
+            this.inClass=isInClass;
+        }
+
+        public int getInClass(){
+            return inClass;
+        }
+
+        public void setInClass(int inClass) {
+            this.inClass = inClass;
+        }
+    }
 }
 

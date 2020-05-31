@@ -50,14 +50,14 @@ public class StudentController {
         model.addAttribute("u_nowPage",nowpage);
 
         /*获取教师姓名*/
-        List<MClass.send_MClass>send_subMClass=new ArrayList<MClass.send_MClass>();
+        List<MClass.send_MClass_plus>send_subMClass=new ArrayList<MClass.send_MClass_plus>();
         for(int i=0;i<subMClass.size();i++)send_subMClass.add(
-                new MClass.send_MClass(
+                new MClass.send_MClass_plus(
                         subMClass.get(i),
-                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name()));
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name(),
+                        userclassService.findByUc_classidAndAndUc_userid(subMClass.get(i).getC_id(),studentid).size()));
         model.addAttribute("mclasslist",send_subMClass);
-        System.out.println(subMClass.get(0).getC_id());
-        System.out.println(send_subMClass.get(0).getC_id());
+
         return "index_student";
     }
 
@@ -139,22 +139,27 @@ public class StudentController {
         model.addAttribute("u_nowPage",nowpage);
 
         /*获取教师姓名*/
-        List<MClass.send_MClass>send_subMClass=new ArrayList<MClass.send_MClass>();
+        List<MClass.send_MClass_plus>send_subMClass=new ArrayList<MClass.send_MClass_plus>();
         for(int i=0;i<subMClass.size();i++)send_subMClass.add(
-                new MClass.send_MClass(
+                new MClass.send_MClass_plus(
                         subMClass.get(i),
-                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name()));
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name(),
+                        1));
         model.addAttribute("mclasslist",send_subMClass);
 
         return "index_student";
     }
 
     /*  学生端展示班级信息  */
-    @GetMapping("myClass/classInfo/{c_id}")
-    public String classInfo(@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("myClass/classInfo")
+    public String classInfo(@CookieValue("userid") String userid, @RequestParam("c_id") int c_id,Model model){
+        int studentid=Integer.parseInt(userid);
         /* 如何得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
         System.out.println("获取从前端传过来的数据c_id：" +c_id);
+
+        model.addAttribute("user_name",userService.getUser(studentid).getU_name());
+        model.addAttribute("identy","student");
         /* 格式化日期格式 */
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
         model.addAttribute("classname",mClass.getC_classname());
@@ -266,4 +271,6 @@ public class StudentController {
         messageService.setDealResult(Integer.parseInt(userid),messageId,state);
         return returnString;
     }
+
+
 }
