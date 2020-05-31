@@ -11,7 +11,7 @@
         <div class="bodyContext_class_title" th:text="${item.c_classname}">课程名称</div>
         <div class="bodyContext_class_btnBox">
             <button class="bodyContext_class_班级信息 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">班级信息</button>
-            <button class="bodyContext_class_班级学生 bodyContext_class_btn" th:onclick="classStudentClick([[${item.c_id}]])">班级学生</button>
+            <button class="bodyContext_class_班级学生 bodyContext_class_btn" th:onclick="classStudentInfoClick([[${item.c_id}]])">班级学生</button>
             <button class="bodyContext_class_作业 bodyContext_class_btn" th:onclick="classHomeworkListClick([[${item.c_id}]])">作业</button>
             <button class="bodyContext_class_课程资源 bodyContext_class_btn" th:onclick="classFileClick([[${item.c_id}]])">课程资源</button>
             <button class="bodyContext_class_讨论 bodyContext_class_btn" th:onclick="classInfoClick([[${item.c_id}]])">问答</button>

@@ -1,10 +1,7 @@
 package lyy_biyesheji.demo.controller;
 
 import lyy_biyesheji.demo.entity.*;
-import lyy_biyesheji.demo.service.ClassServiceImpl;
-import lyy_biyesheji.demo.service.MessageServiceImpl;
-import lyy_biyesheji.demo.service.UserServiceImpl;
-import lyy_biyesheji.demo.service.UserclassServiceImpl;
+import lyy_biyesheji.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +25,10 @@ public class StudentController {
     private UserclassServiceImpl userclassService;
     @Autowired
     private MessageServiceImpl messageService;
+    @Autowired
+    private UploadfileServiceImpl uploadfileService;
+    @Autowired
+    private LeavemessageServiceImpl leavemessageService;
 
     @GetMapping("/index")
     public String toStudentIndex(HttpServletRequest request, @CookieValue("userid") String userid,@RequestParam("nowpage")int nowpage, Model model) {
@@ -172,7 +173,6 @@ public class StudentController {
     /* 对班级学生展示 */
     @GetMapping("myClass/classStudentInfo/{c_id}")
     public String classStudentInfo(@PathVariable("c_id") int c_id,Model model){
-        MClass mClass=classService.getClass(c_id);
         List<User>classStudents=new ArrayList<User>();
         List<UserClass>userClassList=userclassService.findByUc_classid(c_id);
         for(UserClass userClass:userClassList){
@@ -182,6 +182,48 @@ public class StudentController {
         model.addAttribute("classStudents",classStudents);
         return "classStudent";
     }
+
+    /* 进入作业界面 */
+    @GetMapping("/classHomeworkList/{c_id}")
+    public String classHomeworkList(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
+        return "classHomeworkList";
+    }
+
+
+    /*  进入文件页面  */
+    @GetMapping("myClass/classFile/{c_id}")
+    public String classFile(HttpServletRequest request,@PathVariable("c_id") int c_id,Model model){
+        /* 得到当前这个班级 */
+        MClass mClass=classService.getClass(c_id);
+        List<UploadFile>files=uploadfileService.findByF_classid(c_id);
+        model.addAttribute("fileList",files);
+
+        return "classFile";
+    }
+
+    /* 留言显示 */
+    @GetMapping("myClass/classMessage/{c_id}")
+    public String classMessage(HttpServletRequest request,@PathVariable("c_id") int c_id, Model model){
+        List<LeaveMessage>leaveMessageList=leavemessageService.findByL_classid(c_id);
+        model.addAttribute("leaveMessageList",leaveMessageList);
+        model.addAttribute("leaveMessage",new LeaveMessage());
+        return "classMessage";
+    }
+
+    /* 留言发送 */
+    @PostMapping("myClass/classMessage/{c_id}")
+    public String sendLeavemessage(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
+                                   @ModelAttribute LeaveMessage leaveMessage,  Model model){
+        int studentid=Integer.parseInt(userid);
+        leaveMessage.setL_userid(studentid);
+        leaveMessage.setL_classid(c_id);
+        System.out.println(leaveMessage.getL_leavemessage());
+        leavemessageService.insertLeavemessage(leaveMessage);
+        model.addAttribute("msg","留言成功");
+        return "result";
+    }
+
+
 
     @GetMapping("/message")
     public String Message(HttpServletRequest request, @CookieValue("userid") String userid, Model model){

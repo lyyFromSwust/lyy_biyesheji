@@ -50,5 +50,8 @@ public class UploadfileServiceImpl {
         return uploadfileRepository.findByF_teacheridAndAndF_classid(teacherid,classid);
     }
 
+    public List<UploadFile>findByF_classid(int classid){
+        return uploadfileRepository.findByF_classid(classid);
+    }
 
 }

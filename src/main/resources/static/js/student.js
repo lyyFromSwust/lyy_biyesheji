@@ -23,7 +23,7 @@ function classInfoClick(c_id) {
     window.location.href="myClass/classInfo/"+c_id;
 }
 
-function classStudentClick(c_id) {
+function classStudentInfoClick(c_id) {
     console.log(c_id);
     window.location.href="myClass/classStudentInfo/"+c_id;
 }
