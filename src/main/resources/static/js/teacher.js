@@ -32,7 +32,7 @@ function classHomeworkListClick(c_id) {
 }
 /* 班级文件 */
 function classFileClick(c_id) {
-    window.location.href="classFile/"+c_id;
+    window.location.href="classFile?c_id="+c_id;
 }
 /* 留言 */
 function classMessageClick(c_id) {

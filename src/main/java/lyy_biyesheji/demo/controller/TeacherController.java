@@ -144,14 +144,17 @@ public class TeacherController {
     }
 
     /*  获得当前页面  */
-    @GetMapping("/classFile/{c_id}")
-    public String classFile(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("/classFile")
+    public String classFile(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
         /* 得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
         int teacherid=Integer.parseInt(userid);
         List<UploadFile>files=uploadfileService.findByF_teacheridAndAndF_classid(teacherid,c_id);
         model.addAttribute("fileList",files);
-
+        model.addAttribute("isTeacher",1);
+        model.addAttribute("class_name",mClass.getC_classname());
+        model.addAttribute("user_name",userService.getUser(teacherid).getU_name()+"老师");
+        model.addAttribute("file_number",files.size());
         return "classFile";
     }
 

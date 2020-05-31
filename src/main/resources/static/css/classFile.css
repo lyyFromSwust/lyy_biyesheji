@@ -1,32 +1,36 @@
-/*显示部分*/
-.fileBox{
-    position: absolute;
-    top:80px;
+.contextDiv{
+    margin:0 10%;a
 }
 
-.fileInfo{
-    margin-top:20px;
-    background-color: #f2f2f2;
-    height: 60px;
+
+.uploadBtn{
+    float:right;
+    padding:3px;
+    font-size:15px;
+    cursor:pointer;
+    margin-right:6%;
+    font-family:'汉仪清芬体';
 }
 
-.fileInfo_img{
-
+.tableMain{
+    font-size:20px;
+    width:100%;
+    margin:0 auto;
+    font-family:'汉仪清芬体';
 }
 
-.fileInfo_name{
-
+.tableHead{
+    padding:1px;
+    padding-right:1%;
+    height:30px;
 }
 
-.fileInfo_time{
-
+.numberText{
+    font-size:40px;
 }
 
-.fileInfo_download{
-
-}
 /*上传部分*/
-.uploadFile {
+.uploadFileWindow {
     position: fixed;
     top:180px;
     left:calc(50% - 240px);

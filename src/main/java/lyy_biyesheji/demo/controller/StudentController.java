@@ -216,13 +216,18 @@ public class StudentController {
 
 
     /*  进入文件页面  */
-    @GetMapping("classFile/{c_id}")
-    public String classFile(HttpServletRequest request,@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("classFile")
+    public String classFile(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
+        int u_id=Integer.parseInt(userid);
         /* 得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
         List<UploadFile>files=uploadfileService.findByF_classid(c_id);
         model.addAttribute("fileList",files);
 
+        model.addAttribute("isTeacher",0);
+        model.addAttribute("class_name",mClass.getC_classname());
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
+        model.addAttribute("file_number",files.size());
         return "classFile";
     }
 

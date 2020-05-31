@@ -3,53 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>班级文件</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/classFile.css}"/>
-<!--    <link rel="stylesheet" type="text/css" href="../static/css/index.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="../static/css/classFile.css"/>-->
 </head>
 <body>
-    <div class="headTitle">
-        <div class="headTitle_返回" onclick="returnIndex()">
-            <p>返回</p>
-        </div>
-        <div class="headTitle_班级名称">
-            <p>班级名称</p>
-        </div>
-        <div class="headTitle_上传文件" onclick="uploadBtn_Click()">
-            <p>上传文件</p>
-        </div>
-    </div>
-    <p>文件列表</p>
-    <div class="fileBox"  style="text-align: center">
-        <table>
-            <thead>
-            <tr>
-                <th >序号</th>
-                <th class="fileInfo_img">类型</th>
-                <th class="fileInfo_name">文件名</th>
-                <th class="fileInfo_time">上传时间</th>
-                <th class="fileInfo_download">下载文件</th>
-                <th class="fileInfo_delete">删除文件</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item,itemStat:${fileList}" class="fileInfo">
-                <td th:text="${itemStat.count}"></td>
-                <td th:text="${#strings.arraySplit(item.f_filename,'.')[1]}">txt</td>
-                <td th:text="${item.f_filename}">文件名</td>
-                <td th:text="${#dates.format(item.f_uplodatime,'yyyy-MM-dd HH:mm:ss')}">2020-05-20</td>
-                <td ><button >下载</button></td>
-                <td ><button th:attr="del_file=@{/item/}+${item.f_id}" onclick="return confirm('确认删除该用户吗？')">删除</button></td>
-            </tbody>
-        </table>
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
 
-    </div>
-    <div class="uploadFile" id="uploadFile" style="visibility: hidden">
-        <form  method="post" enctype="multipart/form-data" >
-            <input class="uploadFile_chooseFile" type="file" value="选择文件" name="fileName"/>
-            <input class="uploadFile_confirm" type="submit" value="提交"/>
-        </form>
+            <span class="titleSpan" th:text="${class_name}">班级名称</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText" onclick="returnClass()">
+                    <span>返回班级</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
+        </div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <br/>
+        <button th:if="${isTeacher} gt 0" class="uploadBtn">上传文件</button>
+        <br/><br/>
+
+        <div class="contextDiv">
+            <br/>
+            <span class="numberText">文件数量</span>
+            <span class="numberText" th:text="${file_number}">0</span>
+            <br/> <br/><br/>
+            <table class="tableMain">
+                <thead>
+                <tr>
+                    <th >序号</th>
+                    <th class="tableHead">类型</th>
+                    <th class="tableHead">文件名</th>
+                    <th class="tableHead">上传时间</th>
+                    <th class="tableHead">下载文件</th>
+                    <th class="tableHead">删除文件</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item,itemStat:${fileList}">
+                    <td th:text="${itemStat.count}"></td>
+                    <td th:text="${#strings.arraySplit(item.f_filename,'.')[1]}">txt</td>
+                    <td th:text="${item.f_filename}">文件名</td>
+                    <td th:text="${#dates.format(item.f_uplodatime,'yyyy-MM-dd HH:mm:ss')}">2020-05-20</td>
+                    <td ><button >下载</button></td>
+                    <td ><button th:attr="del_file=@{/item/}+${item.f_id}" onclick="return confirm('确认删除该用户吗？')">删除</button></td>
+                </tbody>
+            </table>
+            <br/><br/><br/><br/><br/>
+
+            <div class="uploadFileWindow" id="uploadFile" style="visibility: hidden">
+                <form  method="post" enctype="multipart/form-data" >
+                    <input class="uploadFile_chooseFile" type="file" value="选择文件" name="fileName"/>
+                    <input class="uploadFile_confirm" type="submit" value="提交"/>
+                </form>
+            </div>
+
+        </div>
     </div>
 
     <script th:src="@{/js/jquery.min.js}"></script>

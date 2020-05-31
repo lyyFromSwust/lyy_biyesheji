@@ -31,8 +31,8 @@
         <div class="headTitle_bottomLine"></div>
         <div class="headTitle_bottomLine"></div>
         <br/>
-        <button class="loadStudentBtn">导入学生</button>
-        <button class="loadStudentBtn">导出学生</button>
+        <button class="loadStudentBtn" onclick="importStudent">导入学生</button>
+        <button class="loadStudentBtn" onclick="exportStudent">导出学生</button>
         <br/><br/>
         <div class="headTitle_bottomLine"></div>
         <div class="contentDiv">
@@ -68,5 +68,6 @@
     </div>
 
     <script th:src="@{/js/returnEvent.js}"></script>
+    <script th:src="@{/js/classStudents.js}"></script>
 </body>
 </html>
