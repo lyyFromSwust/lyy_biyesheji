@@ -1,6 +1,7 @@
 package lyy_biyesheji.demo.service;
 
 import lyy_biyesheji.demo.entity.MClass;
+import lyy_biyesheji.demo.entity.Manager;
 import lyy_biyesheji.demo.entity.User;
 import lyy_biyesheji.demo.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,10 @@ public class ClassServiceImpl {
     /* 老师创建班级查询  */
     public List<MClass> findByC_teacheridAndAndC_classname(Integer teacherid,String classname){
         return classRepository.findByC_teacheridAndAndC_classname(teacherid,classname);
+    }
+
+    /*通过关键字模糊搜索*/
+    public List<MClass> findByC_classname(String keyname){
+        return classRepository.findByC_classname(keyname);
     }
 }

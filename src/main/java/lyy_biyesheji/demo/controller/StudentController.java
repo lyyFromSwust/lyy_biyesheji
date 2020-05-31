@@ -33,13 +33,53 @@ public class StudentController {
     private AssignhomeworkServiceImpl assignhomeworkService;
 
     @GetMapping("/index")
-    public String toStudentIndex(HttpServletRequest request, @CookieValue("userid") String userid,@RequestParam("nowpage")int nowpage, Model model) {
+    public String toStudentIndex(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("nowpage")int nowpage, Model model) {
         int studentid=Integer.parseInt(userid);
         User user=userService.getUser(studentid);
         List<MClass> mclassList=classService.getClassList();
         model.addAttribute("student_name",user.getU_name());
         model.addAttribute("mclasslist",mclassList);
+        int newMessageNum=messageService.findByM_aimidAndAndM_isread(studentid,false).size();
+        model.addAttribute("hitNum",newMessageNum);//新消息数量
 
+        int pageNumber=4;
+        int page=nowpage-1;
+        List<MClass>subMClass=mclassList.subList(page*pageNumber,pageNumber+page*pageNumber<mclassList.size()?pageNumber+page*pageNumber:mclassList.size());
+
+        int modPage=((mclassList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",(mclassList.size()/pageNumber+modPage)<=0?1:mclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+
+        /*获取教师姓名*/
+        List<MClass.send_MClass_plus>send_subMClass=new ArrayList<MClass.send_MClass_plus>();
+        for(int i=0;i<subMClass.size();i++)send_subMClass.add(
+                new MClass.send_MClass_plus(
+                        subMClass.get(i),
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name(),
+                        userclassService.findByUc_classidAndAndUc_userid(subMClass.get(i).getC_id(),studentid).size()));
+        model.addAttribute("mclasslist",send_subMClass);
+        return "index_student";
+    }
+    /*搜索页面*/
+    @PostMapping("/index")
+    public String toStudentIndexPost(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("nowpage")int nowpage, Model model) {
+        int studentid=Integer.parseInt(userid);
+        User user=userService.getUser(studentid);
+        List<MClass> mclassList=null;
+
+        String searchkey=request.getParameter("searchclass");
+
+        System.out.println("searchkey="+searchkey);
+
+        /*搜索班级*/
+        if(searchkey==null){
+            mclassList=classService.getClassList();
+        }
+        else{
+            mclassList=classService.findByC_classname(searchkey);
+        }
+        model.addAttribute("student_name",user.getU_name());
+        model.addAttribute("mclasslist",mclassList);
         int newMessageNum=messageService.findByM_aimidAndAndM_isread(studentid,false).size();
         model.addAttribute("hitNum",newMessageNum);//新消息数量
 
@@ -62,6 +102,7 @@ public class StudentController {
 
         return "index_student";
     }
+
 
     /*  学生加入班级  */
     @PostMapping("/joinClass/{c_id}")

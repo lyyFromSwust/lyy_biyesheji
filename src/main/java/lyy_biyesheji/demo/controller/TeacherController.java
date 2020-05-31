@@ -124,7 +124,7 @@ public class TeacherController {
     }
 
     /* 对班级学生展示 */
-    @GetMapping("classStudent")
+    @GetMapping("/classStudent")
     public String classStudentInfo(@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
         int u_id=Integer.parseInt(userid);
         MClass mClass=classService.getClass(c_id);
@@ -135,13 +135,20 @@ public class TeacherController {
             classStudents.add(user);
         }
         model.addAttribute("classStudents",classStudents);
-
         model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
         model.addAttribute("class_name",mClass.getC_classname());
         int classnum = userclassService.getClassUserNum(mClass.getC_id());
         model.addAttribute("student_number",classnum);
         return "classStudent";
     }
+
+//    @DeleteMapping("/delete")
+//    public String deleteClassStudent(@RequestParam("id")int u_id,@RequestParam("c_id")int c_id,Model model){
+//        List<UserClass> userClass=userclassService.findByUc_classidAndAndUc_userid(c_id,u_id);
+//        userclassService.deleteUserClass(userClass.get(0).getUc_id());
+//        System.out.println("删除成功");
+//        return "redirect:teacher/classStudent";
+//    }
 
     /*  获得当前页面  */
     @GetMapping("/classFile")

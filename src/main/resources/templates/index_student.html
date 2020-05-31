@@ -26,11 +26,11 @@
 	<div class="headTitle noselect">
 		<img class="titleIcon" onclick="returnIndex()"/>
 
-		<div class="searchDiv">
+		<form class="searchDiv" method="post">
 			<div class="searchIcon"></div>
-			<input class="searchInput" placeholder="搜索班级" type="text"/>
-			<div class="searchImgDiv"><div class="searchImg"></div></div>
-		</div>
+			<input class="searchInput" placeholder="搜索班级" type="text" name="searchclass"/>
+			<button class="searchImgDiv" type="submit"><div class="searchImg"></div></button>
+		</form>
 
 		<div class="lInfoDiv">
 			<div class="lInfoText" th:text="'欢迎你！'+${student_name}+'同学'"> 欢迎你！罗源同学</div>

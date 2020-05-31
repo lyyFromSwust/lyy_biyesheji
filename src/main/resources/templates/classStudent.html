@@ -58,7 +58,7 @@
                     <td align="center" th:text="${item.u_identity==true?'老师':'学生'}">111</td>
                     <td align="center" th:text="${item.u_name}">nichen</td>
                     <td align="center" th:text="${#dates.format(item.u_registetime,'yyyy-MM-dd')}">zhuceshijian</td>
-                    <td align="center"><a th:href="@{/delete(id=${item.u_id})}" onclick="return confirm('确认删除该学生吗？')">删除</a></td>
+                    <td align="center"><a th:href="@{delete(id=${item.u_id})}" onclick="return confirm('确认删除该学生吗？')">删除</a></td>
                 </tr>
                 </tbody>
             </table>

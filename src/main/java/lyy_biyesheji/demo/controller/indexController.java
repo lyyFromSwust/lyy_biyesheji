@@ -60,6 +60,40 @@ public class indexController {
         return "index_visitor";
     }
 
+    /* 搜索请求 */
+    @PostMapping("/index_visitor/{nowpage}")
+    public String toVisitorPost(HttpServletRequest request,@PathVariable("nowpage")int nowpage, Model model) {
+
+        int pageNumber=3;
+        int page=nowpage-1;
+
+        List<MClass> mclassList=null;
+        String searchkey=request.getParameter("searchclass");
+        System.out.println("searchkey="+searchkey);
+        /*搜索班级*/
+        if(searchkey==null){
+            mclassList=classService.getClassList();
+        }
+        else{
+            mclassList=classService.findByC_classname(searchkey);
+        }
+
+        List<MClass>subMClass=mclassList.subList(page*pageNumber,pageNumber+page*pageNumber<mclassList.size()?pageNumber+page*pageNumber:mclassList.size());
+
+        int modPage=((mclassList.size()%pageNumber!=0)?1:0);
+        model.addAttribute("u_allPage",(mclassList.size()/pageNumber+modPage)<=0?1:mclassList.size()/pageNumber+modPage);
+        model.addAttribute("u_nowPage",nowpage);
+
+        /*获取教师姓名*/
+        List<MClass.send_MClass>send_subMClass=new ArrayList<MClass.send_MClass>();
+        for(int i=0;i<subMClass.size();i++)send_subMClass.add(
+                new MClass.send_MClass(
+                        subMClass.get(i),
+                        userService.getUser(subMClass.get(i).getC_teacherid()).getU_name()));
+        model.addAttribute("mclasslist",send_subMClass);
+        return "index_visitor";
+    }
+
     @GetMapping("/login")
     public String loginForm(Model model){
         model.addAttribute("user",new User());
