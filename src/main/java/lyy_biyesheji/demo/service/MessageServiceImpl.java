@@ -64,16 +64,24 @@ public class MessageServiceImpl {
         return messageRepository.findByM_buildidAndAndM_classidAndM_type(buildid,classid,type);
     }
 
-    /* 查询是否已经向数据库添加了学生申请加入的信息 */
+
+    /* 清楚指定用户的未读消息 把message的isread置为true */
     public void clearUserRead(int userId){
-        messageRepository.updateUser_isread(userId);
+        List<Message>unreadMessageList=messageRepository.findByM_aimidAndAndM_isread(userId,false);
+        for(Message message:unreadMessageList){
+            message.setM_isread(true);
+            messageRepository.save(message);
+        }
     }
 
-    /**/
+    /* 设定指定消息的处理结果 */
     public void setDealResult(int userId,int messageId,String dealState){
-        int dealStateNum=3;
-        if(dealState=="accept")dealStateNum=1;
-        if(dealState=="reject")dealStateNum=2;
-        messageRepository.updateMessageResult(userId);
+        int dealStateNum=4;
+        if(dealState=="accept")dealStateNum=2;
+        if(dealState=="reject")dealStateNum=1;
+        Message message=messageRepository.findById(messageId).get();
+        message.setM_solveresulte(dealStateNum);
+        messageRepository.save(message);
     }
+
 }
