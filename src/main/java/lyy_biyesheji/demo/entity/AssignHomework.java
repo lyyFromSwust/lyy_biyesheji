@@ -15,16 +15,20 @@ public class AssignHomework {
     @Column(nullable = false)
     private int ah_classid;
 
+    /* 作业名称 */
+    @Column(nullable = false)
+    private String ah_name;
+
     /*  作业开始时间  */
     @Column(nullable = false)
     private Date ah_starttime;
 
     /*  作业截止时间  */
-    @Column(nullable = false)
+    @Column
     private Date ah_endtime;
 
     /*  作业文本  */
-    @Column(nullable = false)
+    @Column
     private String ah_homework;
 
     /*  作业附件 通过url获取这个文件  */
@@ -40,6 +44,14 @@ public class AssignHomework {
 
     public void setAh_id(int ah_id) {
         this.ah_id = ah_id;
+    }
+
+    public String getAh_name() {
+        return ah_name;
+    }
+
+    public void setAh_name(String ah_name) {
+        this.ah_name = ah_name;
     }
 
     public int getAh_classid() {
@@ -82,15 +94,5 @@ public class AssignHomework {
         this.ah_homeworkurl = ah_homeworkurl;
     }
 
-    @Override
-    public String toString() {
-        return "AssignHomework{" +
-                "ah_id=" + ah_id +
-                ", ah_classid=" + ah_classid +
-                ", ah_starttime=" + ah_starttime +
-                ", ah_endtime=" + ah_endtime +
-                ", ah_homework='" + ah_homework + '\'' +
-                ", ah_homeworkurl='" + ah_homeworkurl + '\'' +
-                '}';
-    }
+
 }

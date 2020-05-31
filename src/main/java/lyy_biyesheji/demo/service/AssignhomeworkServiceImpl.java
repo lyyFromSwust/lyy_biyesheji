@@ -26,7 +26,7 @@ public class AssignhomeworkServiceImpl {
     }
 
     /*  布置作业 */
-    public AssignHomework insertAnswer(AssignHomework assignHomework){
+    public AssignHomework insertAssignhomework(AssignHomework assignHomework){
         assignHomework.setAh_starttime(new Date());
         return assignhomeworkRepository.save(assignHomework);
     }

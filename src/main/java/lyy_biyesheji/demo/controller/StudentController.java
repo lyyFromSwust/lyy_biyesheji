@@ -29,6 +29,8 @@ public class StudentController {
     private UploadfileServiceImpl uploadfileService;
     @Autowired
     private LeavemessageServiceImpl leavemessageService;
+    @Autowired
+    private AssignhomeworkServiceImpl assignhomeworkService;
 
     @GetMapping("/index")
     public String toStudentIndex(HttpServletRequest request, @CookieValue("userid") String userid,@RequestParam("nowpage")int nowpage, Model model) {
@@ -172,7 +174,7 @@ public class StudentController {
         model.addAttribute("user_name",userService.getUser(studentid).getU_name()+"同学");
         model.addAttribute("identy","student");
         /* 格式化日期格式 */
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         model.addAttribute("classname",mClass.getC_classname());
         model.addAttribute("classtime",simpleDateFormat.format(mClass.getC_buildtime()));
         User user=userService.getUser(mClass.getC_teacherid());
@@ -204,8 +206,11 @@ public class StudentController {
     }
 
     /* 进入作业界面 */
-    @GetMapping("/classHomeworkList/{c_id}")
-    public String classHomeworkList(HttpServletRequest request,@CookieValue("userid") String userid,@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("myClass/classHomeworkList/{c_id}")
+    public String classHomeworkList(@PathVariable("c_id") int c_id,Model model){
+        List<AssignHomework>assignHomeworkList=assignhomeworkService.findByAh_classid(c_id);
+        model.addAttribute("homeworklist",assignHomeworkList);
+        model.addAttribute("ahhomework",new AssignHomework());
         return "classHomeworkList";
     }
 
@@ -258,8 +263,6 @@ public class StudentController {
         int endShowNum=Math.max(maxShowNum,newNum);
         endShowNum=Math.min(endShowNum,messageList.size());
         messageList.subList(0,endShowNum);
-
-//        System.out.println(messageList.get(0).getm_);
 
         model.addAttribute("user_name",user.getU_name()+"同学");
         model.addAttribute("messageList",messageList);
