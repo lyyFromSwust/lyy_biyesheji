@@ -153,12 +153,13 @@ public class StudentController {
     /*  学生端展示班级信息  */
     @GetMapping("myClass/classInfo")
     public String classInfo(@CookieValue("userid") String userid, @RequestParam("c_id") int c_id,Model model){
+        System.out.println("输出班级信息：c_id"+c_id);
         int studentid=Integer.parseInt(userid);
         /* 如何得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
         System.out.println("获取从前端传过来的数据c_id：" +c_id);
 
-        model.addAttribute("user_name",userService.getUser(studentid).getU_name());
+        model.addAttribute("user_name",userService.getUser(studentid).getU_name()+"同学");
         model.addAttribute("identy","student");
         /* 格式化日期格式 */
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss");

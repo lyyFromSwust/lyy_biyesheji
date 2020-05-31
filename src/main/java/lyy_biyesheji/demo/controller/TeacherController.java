@@ -88,11 +88,18 @@ public class TeacherController {
         return "result";
     }
 
-    @GetMapping("/classInfo/{c_id}")
-    public String classInfo(@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("/classInfo")
+    public String classInfo(@CookieValue("userid") String userid,@RequestParam("c_id") String classId,Model model){
+        int c_id=Integer.parseInt(classId);
+        int u_id=Integer.parseInt(userid);
         /* 如何得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
         System.out.println("获取从前端传过来的数据c_id：" +c_id);
+
+        /*基本信息*/
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
+        model.addAttribute("identy","teacher");
+
         /* 格式化日期格式 */
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
         model.addAttribute("classname",mClass.getC_classname());
