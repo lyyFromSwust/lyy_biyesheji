@@ -32,7 +32,7 @@
         <div class="headTitle_bottomLine"></div>
         <br/>
         <button  th:if="${isTeacher} eq 1" class="loadStudentBtn" onclick="importStudent()">导入学生</button>
-        <button class="loadStudentBtn" onclick="exportStudent()">导出学生</button>
+<!--        <button class="loadStudentBtn" onclick="exportStudent()">导出学生</button>-->
         <br/><br/>
         <div class="headTitle_bottomLine"></div>
         <div class="contentDiv">
@@ -70,6 +70,8 @@
     <div class="uploadFileWindow" id="uploadFile" style="visibility: hidden">
         <div class="windowCloseBtn" onclick="importStudent()"></div>
         <form  method="post" enctype="multipart/form-data" >
+            <br>
+            <p>请将学号表头设置为‘学号’，只能导入csv文件</p>
             <input class="uploadFile_chooseFile" type="file" value="选择文件" name="file" accept=".csv"/>
             <input class="uploadFile_confirm" type="submit" value="提交"/>
         </form>

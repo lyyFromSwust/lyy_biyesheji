@@ -154,6 +154,7 @@ public class TeacherController {
 
     @PostMapping("/classStudent")
     public String classStudentInfo_Post(HttpServletRequest request,@CookieValue("userid") String userid, @RequestParam("c_id") int c_id, @RequestParam("file") MultipartFile file,Model model){
+        int u_id=Integer.parseInt(userid);
         String returnMsg="";
         if(file.isEmpty()){
             returnMsg="文件为空";
@@ -162,7 +163,9 @@ public class TeacherController {
             //设置文件路径
             String path = null;
             try {
-                returnMsg="邀请学生成功";
+                returnMsg=" 邀请学生成功 ";
+                List<String> inviteList=new ArrayList<String>();
+                List<String> inviteAns=new ArrayList<String>();
                 path = ResourceUtils.getURL("classpath:").getPath();
                 path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
 
@@ -183,15 +186,62 @@ public class TeacherController {
                             break;
                         }else if(j==titleId){
                             //进行一次邀请
+                            inviteList.add(splits[j]);
                             System.out.println("邀请了学号为"+splits[j]+"的学生");
+                            List<User> userList = userService.findByU_numAndAndU_identity(splits[j],false);
+                            if(userList.size() == 0){
+                                inviteAns.add("未找到该学生");
+                            }else {
+                                List<UserClass> usInfo = userclassService.findByUc_classidAndAndUc_userid(c_id,userList.get(0).getU_id());
+                                if(usInfo.size() != 0){
+                                    inviteAns.add("用户已加入班级");
+                                }else{
+                                    System.out.println("开始判断用户重复");
+
+                                    boolean userReply=false;
+                                    for(int k=0;k<inviteList.size()-1;k++){
+                                        if(inviteList.get(k).compareTo(splits[j])==0){
+                                            userReply=true;
+                                            break;
+                                        }
+                                    }
+                                    if(userReply){
+                                        inviteAns.add("重复用户");
+                                    }else{
+                                        inviteAns.add("邀请成功");
+                                        System.out.println("准备发送message");
+
+                                        Message message=new Message();
+                                        message.setM_buildid(u_id);
+                                        message.setM_aimid(userList.get(0).getU_id());
+                                        message.setM_classid(c_id);
+                                        message.setM_type(2);
+                                        message.setM_issolved(false);
+                                        message.setM_isread(false);
+                                        message.setM_solveresulte(1);
+                                        message.setM_message(userService.getUser(u_id).getU_name()+"老师邀请你加入"+classService.getClass(c_id).getC_classname());
+                                        messageService.insertMessage(message);
+                                        System.out.println("发送message完成");
+                                    }
+                                }
+                            }
                         }
                     }
                     if(titleId==-1) {
-                        returnMsg="未找到表头";
+                        returnMsg=" 未找到表头 ";
                         break;
                     }
                 }
-
+                returnMsg+=" 本次共处理了"+inviteList.size()+"个学号 ";
+                if(inviteList.size() != 0){
+                    for(int i=0;i<inviteList.size();i++){
+                        returnMsg+=",";
+                        returnMsg+=inviteList.get(i);
+                        returnMsg+=":";
+                        returnMsg+=inviteAns.get(i);
+                        returnMsg+=" ";
+                    }
+                }
                 bufferedReader.close();
                 dest.delete();
                 System.out.println("没有异常");
