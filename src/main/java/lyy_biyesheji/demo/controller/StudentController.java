@@ -40,6 +40,7 @@ public class StudentController {
         int studentid=Integer.parseInt(userid);
         User user=userService.getUser(studentid);
         List<MClass> mclassList=classService.getClassList();
+        Collections.reverse(mclassList);
         model.addAttribute("student_name",user.getU_name());
         model.addAttribute("mclasslist",mclassList);
         int newMessageNum=messageService.findByM_aimidAndAndM_isread(studentid,false).size();
@@ -81,6 +82,7 @@ public class StudentController {
         else{
             mclassList=classService.findByC_classname(searchkey);
         }
+        Collections.reverse(mclassList);
         model.addAttribute("student_name",user.getU_name());
         model.addAttribute("mclasslist",mclassList);
         int newMessageNum=messageService.findByM_aimidAndAndM_isread(studentid,false).size();
@@ -209,11 +211,9 @@ public class StudentController {
     /*  学生端展示班级信息  */
     @GetMapping("classInfo")
     public String classInfo(@CookieValue("userid") String userid, @RequestParam("c_id") int c_id,Model model){
-        System.out.println("输出班级信息：c_id"+c_id);
         int studentid=Integer.parseInt(userid);
         /* 如何得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
-        System.out.println("获取从前端传过来的数据c_id：" +c_id);
 
         model.addAttribute("user_name",userService.getUser(studentid).getU_name()+"同学");
         model.addAttribute("identy","student");
@@ -246,6 +246,8 @@ public class StudentController {
         model.addAttribute("classStudents",classStudents);
         model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
         model.addAttribute("class_name",mClass.getC_classname());
+        int classnum = userclassService.getClassUserNum(mClass.getC_id());
+        model.addAttribute("student_number",classnum);
         return "classStudent";
     }
 
@@ -378,8 +380,7 @@ public class StudentController {
                 userService.getUser(subLeaveMessage.get(i).getL_userid()).getU_name()
                 ));
         model.addAttribute("leaveMessageList",sendMsg);
-        System.out.println(subLeaveMessage.get(0).getL_leavemessage());
-        System.out.println(sendMsg.get(0).getL_leavemessage());
+
         return "classLeaveMessage";
     }
 
@@ -435,8 +436,6 @@ public class StudentController {
     @PostMapping("messageDeal")
     @ResponseBody
     public String MessageDeal(HttpServletRequest request, @CookieValue("userid") String userid,int messageId,String state, Model model){
-        System.out.println(messageId);
-        System.out.println(state);
         String returnString="未知错误";
         if(state.compareTo("accept") == 0){
             returnString="接受成功";

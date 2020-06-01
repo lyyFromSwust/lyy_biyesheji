@@ -47,6 +47,7 @@ public class TeacherController {
         int teacherid=Integer.parseInt(userid);
         User user=userService.getUser(teacherid);
         List<MClass>mclassList=classService.findByC_teacherid(teacherid);
+        Collections.reverse(mclassList);
 
         model.addAttribute("teacher_name",user.getU_name());
         model.addAttribute("mclasslist",mclassList);
@@ -102,7 +103,6 @@ public class TeacherController {
         int u_id=Integer.parseInt(userid);
         /* 如何得到当前这个班级 */
         MClass mClass=classService.getClass(c_id);
-        System.out.println("获取从前端传过来的数据c_id：" +c_id);
 
         /*基本信息*/
         model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
@@ -295,7 +295,7 @@ public class TeacherController {
         int studentid=Integer.parseInt(userid);
         leaveMessage.setL_userid(studentid);
         leaveMessage.setL_classid(c_id);
-        System.out.println(leaveMessage.getL_leavemessage());
+
         leavemessageService.insertLeavemessage(leaveMessage);
         model.addAttribute("msg","留言成功");
         return classMessage(request,userid,c_id,1,model);
@@ -328,8 +328,6 @@ public class TeacherController {
                 userService.getUser(subLeaveMessage.get(i).getL_userid()).getU_name()
         ));
         model.addAttribute("leaveMessageList",sendMsg);
-        System.out.println(subLeaveMessage.get(0).getL_leavemessage());
-        System.out.println(sendMsg.get(0).getL_leavemessage());
         return "classLeaveMessage";
     }
 
