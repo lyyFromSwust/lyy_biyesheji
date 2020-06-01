@@ -5,23 +5,39 @@
     <title>作业列表</title>
 <!--    <link rel="stylesheet" type="text/css" href="../static/css/index.css"/>-->
 <!--    <link rel="stylesheet" type="text/css" href="../static/css/classHomeworkList.css"/>-->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/classHomeworkList.css}"/>
 
 </head>
 <body>
-    <div class="headTitle">
-        <div class="headTitle_返回" onclick="returnIndex()">
-            <p>返回</p>
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
+
+            <span class="titleSpan" th:text="${class_name}">班级名称</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText" onclick="returnClass()">
+                    <span>返回班级</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
         </div>
-        <div class="headTitle_班级名称">
-            <p>班级名称</p>
-        </div>
-        <div class="headTitle_上传文件">
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <br/>
+        <div class="headTitle_newhomeWork">
             <p>发布新作业</p>
         </div>
-    </div>
-    <div class="homeworkListWindow">
+        <div class="headTitle_bottomLine"></div>
+
+        <div class="homeworkListWindow">
         <br/>
         <div class="homeworkBox">
             <div class="homeworkInfo" th:each="item:${homeworklist}">
@@ -32,9 +48,12 @@
             </div>
         </div>
     </div>
+    <br/><br/><br/><br/><br/>
+    </div>
+
 
 <!--    发布作业存到数据库-->
-    <form method="post" enctype="multipart/form-data" th:object="${ahhomework}" onclick="return sendhomework_click()">
+    <form id="newHomeworkFrame" method="post" enctype="multipart/form-data" th:object="${ahhomework}" onclick="return sendhomework_click()">
         <input th:field="*{ah_name}">作业名称</input>
         <p>截止日期</p>
         <input type="datetime-local" name="endtime"

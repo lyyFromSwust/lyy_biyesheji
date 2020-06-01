@@ -32,7 +32,7 @@
         <div class="headTitle_bottomLine"></div>
         <br/>
         <button class="loadStudentBtn" onclick="importStudent()">导入学生</button>
-        <button class="loadStudentBtn" onclick="exportStudent()">导出学生</button>
+        <button th:if="${isTeacher} eq 1" class="loadStudentBtn" onclick="exportStudent()">导出学生</button>
         <br/><br/>
         <div class="headTitle_bottomLine"></div>
         <div class="contentDiv">
