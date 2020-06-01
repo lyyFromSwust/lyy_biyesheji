@@ -247,8 +247,8 @@ public class TeacherController {
     }
 
     /* 进入作业页面 */
-    @GetMapping("/classHomeworkList/{c_id}")
-    public String classHomeworkList(@PathVariable("c_id") int c_id, Model model) {
+    @GetMapping("/classHomeworkList")
+    public String classHomeworkList(@RequestParam("c_id") int c_id, Model model) {
         List<AssignHomework> assignHomeworkList = assignhomeworkService.findByAh_classid(c_id);
         model.addAttribute("homeworklist", assignHomeworkList);
         model.addAttribute("ahhomework", new AssignHomework());
@@ -257,7 +257,7 @@ public class TeacherController {
 
     /* 布置作业 */
     @PostMapping("/classHomeworkList")
-    public String assignHomework(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
+    public String assignHomework(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("c_id") int c_id,
                                  @ModelAttribute AssignHomework assignHomework, @RequestParam("fileName") MultipartFile file,
                                  @RequestParam("endtime") String endtime, Model model) throws ParseException {
         int teacherid = Integer.parseInt(userid);

@@ -28,7 +28,7 @@ function classStudentClick(c_id) {
 }
 /*  跳转至班级作业  */
 function classHomeworkListClick(c_id) {
-    window.location.href="classHomeworkList/"+c_id;
+    window.location.href="classHomeworkList?c_id="+c_id;
 }
 /* 班级文件 */
 function classFileClick(c_id) {

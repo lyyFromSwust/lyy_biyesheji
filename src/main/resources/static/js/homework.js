@@ -1,17 +1,17 @@
 /* 上传作业 */
 function sendhomework_click() {
-    var ahname=document.getElementById("ahname");
-    var ahendtime=document.getElementById("ahendtime");
-
-    if(ahendtime.value&&ahname.value)return true;
-    return false;
+    // var ahname=document.getElementById("ahname");
+    // var ahendtime=document.getElementById("ahendtime");
+    //
+    // if(ahendtime.value&&ahname.value)
+    return true;
 }
 
 /* 提交作业 */
 function submithomework_click() {
 
     var shtext=document.getElementById("shtext");
-    var shfile=document.getElementById("shfile");
+    var shfile=document.getElementsByName("fileName")[0];
 
     if(shtext.value&&shfile.value)return true;
     return false;
