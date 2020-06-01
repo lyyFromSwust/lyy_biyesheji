@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>班级问答</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classQuestionAndAnswer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classInfo.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/classShowStyle.css}"/>
+
+</head>
+<body>
+<div class="mainDivBox">
+    <div class="mainDivBoxBg"></div>
+    <div class="headTitle noselect">
+        <img class="titleIcon" onclick="returnIndex()"/>
+
+        <span class="titleSpan" th:text="${class_name}">班级名称</span>
+
+        <div class="lInfoDiv">
+            <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+            <div class="infoText infoText_l lrText" th:onclick="returnQuestion([[${class_id}]])">
+                <span>返回问题</span>
+            </div>
+            <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+        </div>
+        <div class=""></div>
+    </div>
+    <div class="headTitle_bottomLine"></div>
+    <div class="headTitle_bottomLine"></div>
+    <div class="headTitle_bottomLine"></div>
+    <br/>
+
+    <div class="questionBox">
+        <p style="margin: 1%;font-size: 25px;">问题：</p>
+        <div class="aqInfo">
+                <p class="aqInfo_question" th:text="${q_question}">问题</p>
+                <div class="headTitle_bottomLine"></div>
+                <a th:text="${q_questionurl}"></a>
+                <div class="headTitle_bottomLine"></div>
+                <p class="aqInfo_name" th:text="'提问者：'+${q_username}">罗媛媛</p>
+                <p class="aqInfo_time" th:text="${#dates.format(q_sendtime,'提问时间：yyyy-MM-dd HH:mm:ss')}">2020-05-22 17：08</p>
+        </div>
+    </div>
+    <br/>
+    <!--  将留言做成表单提交  -->
+    <p id="replyBtn" style="margin:3px 11%;font-size: 25px;" onclick="clickReply()">回复：(点击展开)</p>
+    <form class="answerReply answerReply_hide" id="replyForm" method="post" th:object="${answerMessage}" onsubmit="return sendMsg_click()">
+        <textarea class="send_inputMsg" placeholder="回复这条提问" id="send_inputMsg" th:field="*{a_answer}" value=""></textarea>
+        <input type="file" value="选择上传的文件"  th:field="*{a_answerurl}"/>
+        <button class="send_sendMsg"  type="submit">回&emsp;复</button>
+    </form>
+    <br/><br/>
+
+    <div class="msgWindow" >
+        <div class="msgWindow_history">
+
+            <p style="margin: 1%;font-size: 25px;">回复列表：</p>
+            <div class="msgBox">
+                <div class="msgInfo" th:each="item:${answerList}">
+                    <span class="msgInfo_name" th:text="${item.a_username}">罗媛媛</span>
+                    <span class="msgInfo_time" th:text="${#dates.format(item.a_sendtime,'yyyy-MM-dd HH:mm:ss')}">2020-05-22 17：08</span>
+                    <span class="msgInfo_out">:</span>
+                    <p class="msgInfo_msg" th:text="${item.a_answer}">问题</p>
+                    <div class="headTitle_bottomLine"></div>
+                    <p th:text="${item.a_answerurl}"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <br/>
+    </div>
+    <br/>
+    <br/><br/><br/>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/returnEvent.js}"></script>
+<script th:src="@{/js/classAnswer.js}"></script>
+</body>
+</html>

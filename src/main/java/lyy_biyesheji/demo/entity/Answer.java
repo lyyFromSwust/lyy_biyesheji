@@ -33,6 +33,17 @@ public class Answer {
     public Answer() {
     }
 
+
+    public Answer(Answer answer) {
+        this.a_id=answer.a_id;
+        this.a_userid=answer.a_userid;
+        this.a_questionid=answer.a_questionid;
+        this.a_answer=answer.a_answer;
+        this.a_answerurl=answer.a_answerurl;
+        this.a_sendtime=answer.a_sendtime;
+    }
+
+
     public int getA_id() {
         return a_id;
     }
@@ -79,5 +90,21 @@ public class Answer {
 
     public void setA_sendtime(Date a_sendtime) {
         this.a_sendtime = a_sendtime;
+    }
+
+    static  public  class send_Answer extends Answer{
+        String a_username;
+        public send_Answer(Answer answer,String a_username){
+            super(answer);
+            this.a_username=a_username;
+        }
+
+        public String getA_username() {
+            return a_username;
+        }
+
+        public void setA_username(String a_username) {
+            this.a_username = a_username;
+        }
     }
 }

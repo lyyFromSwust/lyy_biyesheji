@@ -1,5 +1,7 @@
 package lyy_biyesheji.demo.entity;
 
+import org.thymeleaf.standard.expression.EqualsExpression;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -31,6 +33,14 @@ public class Question {
     private Date q_sendtime;
 
     public Question() {
+    }
+    public Question(Question question) {
+        this.q_id=question.q_id;
+        this.q_userid=question.q_userid;
+        this.q_classid=question.q_classid;
+        this.q_question=question.q_question;
+        this.q_questionurl=question.q_questionurl;
+        this.q_sendtime=question.q_sendtime;
     }
 
     public int getQ_id() {
@@ -81,4 +91,30 @@ public class Question {
         this.q_sendtime = q_sendtime;
     }
 
+
+    static  public  class send_Question extends Question{
+        String q_username;
+        int q_answerNumber;
+        public send_Question(Question question,String q_username,int q_answerNumber){
+            super(question);
+            this.q_username=q_username;
+            this.q_answerNumber=q_answerNumber;
+        }
+
+        public int getQ_answerNumber() {
+            return q_answerNumber;
+        }
+
+        public String getQ_username() {
+            return q_username;
+        }
+
+        public void setQ_username(String q_username) {
+            this.q_username = q_username;
+        }
+
+        public void setQ_answerNumber(int q_answerNumber) {
+            this.q_answerNumber = q_answerNumber;
+        }
+    }
 }

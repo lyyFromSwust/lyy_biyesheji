@@ -1,0 +1,126 @@
+.msgWindow{
+    /*background-color: aliceblue;*/
+    margin:0 10%;
+    width 100%;
+}
+
+.msgWindow_history{
+    width: 100%;
+}
+
+.msgBox{
+    /*border: 1px solid black;*/
+    background-color: aliceblue;
+}
+
+.msgInfo{
+    border: 1px solid black;
+    border-radius:15px;
+    padding:10px;
+    margin: 10px;
+    background:white;
+    cursor:pointer;
+}
+
+.msgInfo:hover{
+    background:#E8E8E8;
+}
+.msgInfo:active{
+    background:#E0E0E0;
+}
+
+.msgInfo_msg{
+    resize: none;
+    font-size:18px;
+    margin:5px;
+    font-family:"汉仪清芬体";
+}
+
+.msgInfo_name{
+
+}
+
+.msgInfo_time{
+
+}
+
+.msgWindow_send{
+    height: 100px;
+    width: 80%;
+    margin:0 10%;
+}
+
+.send_inputMsg{
+    padding:8px;
+    width:97%;
+    height:55%;
+    font-size: 18px;
+    resize: none;
+}
+
+.send_sendMsg{
+    padding:5px;
+    font-size: 18px;
+    border-radius: 5px;
+    outline: 0;
+    cursor:pointer;
+    float:right;
+    margin:0 3%;
+    margin-top:8px;
+}
+.questionBox{
+    margin:0 10%;
+}
+.aqInfo{
+    resize: none;
+    font-size:18px;
+    margin:5px;
+    font-family:"汉仪清芬体";
+    border:1px dashed;
+    background-color:white;
+}
+.aqInfo p{
+}
+.aqInfo a{
+    margin-left:10px;
+}
+.aqInfo_question{
+    font-size:18px;
+    margin:13px;
+}
+.aqInfo_name{
+    margin-left:10px;
+    font-size:15px;
+    font-family:"方正喵呜体";
+}
+.aqInfo_time{
+    margin-left:10px;
+    margin-bottom:10px;
+    font-size:12px;
+    font-family:"方正喵呜体";
+}
+
+#replyBtn{
+    cursor:pointer;
+}
+#replyBtn:hover{
+    color:rgba(155,216,200,1);
+}
+#replyBtn:active{
+    color:rgba(155,216,200,0.9);
+}
+
+.answerReply{
+    transition:all 0.5s;
+    width: 80%;
+    margin:0 10%;
+    overflow:hidden;
+}
+
+.answerReply_show{
+    height: 150px;
+}
+
+.answerReply_hide{
+    height: 0px;
+}

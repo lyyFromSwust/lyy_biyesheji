@@ -40,6 +40,11 @@ function classFileClick(c_id) {
 function classMessageClick(c_id) {
     window.location.href="classLeaveMessage?c_id="+c_id+"&nowpage=1";
 }
+/* 问答 */
+function classQandAClick(c_id) {
+	window.location.href="classQuestion?nowpage=1&c_id="+c_id;
+}
+
 
 
 
