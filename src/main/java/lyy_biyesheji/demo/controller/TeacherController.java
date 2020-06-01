@@ -154,40 +154,56 @@ public class TeacherController {
 
     @PostMapping("/classStudent")
     public String classStudentInfo_Post(HttpServletRequest request,@CookieValue("userid") String userid, @RequestParam("c_id") int c_id, @RequestParam("file") MultipartFile file,Model model){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        String path = null;
-        try {
-            path = ResourceUtils.getURL("classpath:").getPath();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
+        String returnMsg="";
+        if(file.isEmpty()){
+            returnMsg="文件为空";
+            System.out.println("文件为空");
+        }else{
+            //设置文件路径
+            String path = null;
+            try {
+                returnMsg="邀请学生成功";
+                path = ResourceUtils.getURL("classpath:").getPath();
+                path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
 
-        String oldfileName = file.getOriginalFilename();
-        Date date = new Date();
-        String format = simpleDateFormat.format(date);
-        String newfileName = format + oldfileName;
-        File dest = new File(path + newfileName);
-        if (!dest.getParentFile().exists()) { //判断文件父目录是否存在
-            dest.getParentFile().mkdir();
-        }
-        try {
-            file.transferTo(dest);
-            /* 读取学生信息 */
-            if(dest.exists()){
-                InputStream inputStream=new FileInputStream(dest);
-                byte[] data=new byte[1024];
-                int len= inputStream.read();
-                System.out.println(data);
-                System.out.println(new String(data,0,len));
+
+                String filePath = path+file.getOriginalFilename();
+                File dest=new File(filePath);
+                file.transferTo(dest);
+
+                String testTitle="学号";
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(dest), "GBK"));
+                String tempchar;
+                int titleId=-1;
+                for (int i=0;(tempchar = bufferedReader.readLine()) != null;i++) {
+                    String[] splits = tempchar.split(",");
+                    for(int j=0;j<splits.length;j++){
+                        if(i==0 && splits[j].compareTo(testTitle)==0){
+                            titleId=j;
+                            break;
+                        }else if(j==titleId){
+                            //进行一次邀请
+                            System.out.println("邀请了学号为"+splits[j]+"的学生");
+                        }
+                    }
+                    if(titleId==-1) {
+                        returnMsg="未找到表头";
+                        break;
+                    }
+                }
+
+                bufferedReader.close();
+                dest.delete();
+                System.out.println("没有异常");
+            } catch (Exception e) {
+                returnMsg="服务器异常 "+e.getMessage();
+                System.out.println("出现异常");
+                System.out.println( e.getMessage());
             }
-            model.addAttribute("msg", "导入学生信息成功！");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            model.addAttribute("msg", "导入学生信息失败！");
         }
-        return classStudentInfo(userid,c_id,model);
+        model.addAttribute("msg",returnMsg);
+        return "result";
+//        return classStudentInfo(userid,c_id,model);
     }
 
 
