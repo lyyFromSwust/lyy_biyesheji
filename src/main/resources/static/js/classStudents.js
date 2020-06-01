@@ -18,3 +18,9 @@ function uploadFile(){
 
     }
 }
+
+function del_student(u_id,c_id) {
+    if(confirm('确认删除该学生吗？')){
+        window.location.href=window.location.pathname+"/delete?u_id="+u_id+"&c_id="+c_id;
+    }
+}

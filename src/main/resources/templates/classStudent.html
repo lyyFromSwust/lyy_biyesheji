@@ -31,8 +31,8 @@
         <div class="headTitle_bottomLine"></div>
         <div class="headTitle_bottomLine"></div>
         <br/>
-        <button class="loadStudentBtn" onclick="importStudent()">导入学生</button>
-        <button th:if="${isTeacher} eq 1" class="loadStudentBtn" onclick="exportStudent()">导出学生</button>
+        <button th:if="${isTeacher} eq 1" class="loadStudentBtn" onclick="importStudent()">导入学生</button>
+        <button  class="loadStudentBtn" onclick="exportStudent()">导出学生</button>
         <br/><br/>
         <div class="headTitle_bottomLine"></div>
         <div class="contentDiv">
@@ -48,7 +48,7 @@
                     <th class="tableHead">身份</th>
                     <th class="tableHead">昵称</th>
                     <th class="tableHead">加入班级时间</th>
-                    <th class="tableHead">Delete</th>
+                    <th th:if="${isTeacher} eq 1" class="tableHead">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,7 @@
                     <td align="center" th:text="${item.u_identity==true?'老师':'学生'}">111</td>
                     <td align="center" th:text="${item.u_name}">nichen</td>
                     <td align="center" th:text="${#dates.format(item.u_registetime,'yyyy-MM-dd')}">zhuceshijian</td>
-                    <td align="center"><a th:href="@{delete(id=${item.u_id})}" onclick="return confirm('确认删除该学生吗？')">删除</a></td>
+                    <td align="center"><button th:if="${isTeacher} eq 1" th:onclick="del_student([[${item.u_id}]],[[${c_id}]])">删除</button></td>
                 </tr>
                 </tbody>
             </table>

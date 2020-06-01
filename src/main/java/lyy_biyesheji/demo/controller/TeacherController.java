@@ -147,50 +147,58 @@ public class TeacherController {
         model.addAttribute("class_name", mClass.getC_classname());
         int classnum = userclassService.getClassUserNum(mClass.getC_id());
         model.addAttribute("student_number", classnum);
+        model.addAttribute("c_id",c_id);
         return "classStudent";
     }
 
 
     @PostMapping("/classStudent")
     public String classStudentInfo_Post(HttpServletRequest request,@CookieValue("userid") String userid, @RequestParam("c_id") int c_id, @RequestParam("file") MultipartFile file,Model model){
-        if(file.isEmpty()){
-            System.out.println("文件为空");
-        }else{
-                //设置文件路径
-//                String path = null;
-//                try {
-//                    path = ResourceUtils.getURL("classpath:").getPath();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
-//
-//
-//                String filePath = path+file.getOriginalFilename();
-//                File dest=new File(filePath);
-//                file.transferTo(dest);
-//
-//                BufferedReader reader = new BufferedReader(new FileReader(dest));
-//                StringBuffer sbf = new StringBuffer();
-//                String tempStr;
-//                while ((tempStr = reader.readLine()) != null) {
-//                    sbf.append(tempStr);
-//                }
-//                reader.close();
-//                System.out.println(sbf);
-//                dest.delete();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String path = null;
+        try {
+            path = ResourceUtils.getURL("classpath:").getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
+
+        String oldfileName = file.getOriginalFilename();
+        Date date = new Date();
+        String format = simpleDateFormat.format(date);
+        String newfileName = format + oldfileName;
+        File dest = new File(path + newfileName);
+        if (!dest.getParentFile().exists()) { //判断文件父目录是否存在
+            dest.getParentFile().mkdir();
+        }
+        try {
+            file.transferTo(dest);
+            /* 读取学生信息 */
+            if(dest.exists()){
+                InputStream inputStream=new FileInputStream(dest);
+                byte[] data=new byte[1024];
+                int len= inputStream.read();
+                System.out.println(data);
+                System.out.println(new String(data,0,len));
+            }
+            model.addAttribute("msg", "导入学生信息成功！");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            model.addAttribute("msg", "导入学生信息失败！");
         }
         return classStudentInfo(userid,c_id,model);
     }
 
 
-//    @DeleteMapping("/delete")
-//    public String deleteClassStudent(@RequestParam("id")int u_id,@RequestParam("c_id")int c_id,Model model){
-//        List<UserClass> userClass=userclassService.findByUc_classidAndAndUc_userid(c_id,u_id);
-//        userclassService.deleteUserClass(userClass.get(0).getUc_id());
-//        System.out.println("删除成功");
-//        return "redirect:teacher/classStudent";
-//    }
+    @GetMapping("classStudent/delete")
+    public String deleteClassStudent(@RequestParam("u_id")int u_id,@RequestParam("c_id")int c_id,Model model){
+        List<UserClass> userClass=userclassService.findByUc_classidAndAndUc_userid(c_id,u_id);
+        userclassService.deleteUserClass(userClass.get(0).getUc_id());
+        System.out.println("删除成功");
+        model.addAttribute("msg","删除学生成功！");
+        return "result";
+    }
 
     /*  获得当前页面  */
     @GetMapping("/classFile")
