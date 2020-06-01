@@ -2,6 +2,7 @@ package lyy_biyesheji.demo.controller;
 
 import lyy_biyesheji.demo.entity.*;
 import lyy_biyesheji.demo.service.*;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -319,7 +320,7 @@ public class StudentController {
         }
         try {
             file.transferTo(dest);
-            submitHomework.setSh_homeworkurl(path +  newfileName);
+            submitHomework.setSh_homeworkurl(newfileName);
             if(sh_userandahid.size()==0){
                 submithomeworkService.insertSubmithomework(submitHomework);
             }
@@ -338,7 +339,6 @@ public class StudentController {
     }
 
 
-
     /*  进入文件面  */
     @GetMapping("classFile")
     public String classFile(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
@@ -354,6 +354,31 @@ public class StudentController {
         model.addAttribute("file_number",files.size());
         return "classFile";
     }
+
+    /* 下载文件 */
+    @GetMapping("classFile/download")
+    public void downloadFile(@RequestParam("f_fileurl")String f_fileurl,HttpServletRequest request, HttpServletResponse response){
+        String path = null;
+        try {
+            path = ResourceUtils.getURL("classpath:").getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
+        System.out.println("path = "+path);
+        //下载
+        try (InputStream inputStream = new FileInputStream(new File(path, f_fileurl ));
+             OutputStream outputStream = response.getOutputStream();) {
+
+            response.setContentType("application/x-download");
+            response.addHeader("Content-Disposition", "attachment;filename=" + f_fileurl);
+
+            IOUtils.copy(inputStream, outputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /* 留言显示 */
     @GetMapping("classLeaveMessage")

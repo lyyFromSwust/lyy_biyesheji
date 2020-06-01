@@ -2,6 +2,7 @@ package lyy_biyesheji.demo.controller;
 
 import lyy_biyesheji.demo.entity.*;
 import lyy_biyesheji.demo.service.*;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -180,14 +181,17 @@ public class TeacherController {
         model.addAttribute("class_name", mClass.getC_classname());
         model.addAttribute("user_name", userService.getUser(teacherid).getU_name() + "老师");
         model.addAttribute("file_number", files.size());
+        model.addAttribute("c_id",c_id);
         return "classFile";
     }
 
     /*  删除文件  */
-    @DeleteMapping("/classFile/{c_id}/file/{f_id}")
-    public String deleteFile(@PathVariable("c_id") int c_id, @PathVariable("f_id") int f_id) {
+    @GetMapping("/classFile/delete")
+    public String deleteFile(@RequestParam("f_id") int f_id,Model model) {
+        System.out.println(uploadfileService.getFile(f_id));
         uploadfileService.deleteFile(f_id);
-        return "redirect:/teacher/classFile/" + c_id;
+        model.addAttribute("msg","删除文件成功！");
+        return "result";
     }
 
     /**
@@ -227,7 +231,6 @@ public class TeacherController {
         /* 设置文件名，上传时间，下载此文件路径 */
         uploadFile.setF_filename(oldfileName);
         uploadFile.setF_uplodatime(date);
-        uploadFile.setF_fileurl(path + newfileName);
 
         System.out.println("newFilename = " + newfileName);
         File dest = new File(path + newfileName);
@@ -236,6 +239,7 @@ public class TeacherController {
         }
         try {
             file.transferTo(dest);
+            uploadFile.setF_fileurl(newfileName);
             uploadfileService.insertFile(uploadFile);
             model.addAttribute("msg", "上传文件成功！");
         } catch (Exception e) {
@@ -244,6 +248,30 @@ public class TeacherController {
             model.addAttribute("msg", "文件上传失败！");
         }
         return "result";
+    }
+
+    /* 下载文件 */
+    @GetMapping("classFile/download")
+    public void downloadFile(@RequestParam("f_fileurl")String f_fileurl,HttpServletRequest request, HttpServletResponse response){
+        String path = null;
+        try {
+            path = ResourceUtils.getURL("classpath:").getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
+        System.out.println("path = "+path);
+        //下载
+        try (InputStream inputStream = new FileInputStream(new File(path, f_fileurl ));
+             OutputStream outputStream = response.getOutputStream();) {
+
+            response.setContentType("application/x-download");
+            response.addHeader("Content-Disposition", "attachment;filename=" + f_fileurl);
+
+            IOUtils.copy(inputStream, outputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /* 进入作业页面 */
@@ -294,7 +322,7 @@ public class TeacherController {
         }
         try {
             file.transferTo(dest);
-            assignHomework.setAh_homeworkurl(path + newfileName);
+            assignHomework.setAh_homeworkurl(newfileName);
             assignhomeworkService.insertAssignhomework(assignHomework);
             model.addAttribute("msg", "布置作业成功！");
         } catch (Exception e) {

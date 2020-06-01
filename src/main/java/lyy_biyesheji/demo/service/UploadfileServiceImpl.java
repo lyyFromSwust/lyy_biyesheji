@@ -20,6 +20,7 @@ public class UploadfileServiceImpl {
 
     /*  查询单个文件----通过id查询 */
     public UploadFile getFile(int id){
+        System.out.println("id="+id);
         return uploadfileRepository.findById(id).get();
     }
 

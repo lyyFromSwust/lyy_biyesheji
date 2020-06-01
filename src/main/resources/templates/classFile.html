@@ -45,7 +45,7 @@
                     <th class="tableHead">文件名</th>
                     <th class="tableHead">上传时间</th>
                     <th class="tableHead">下载文件</th>
-                    <th class="tableHead">删除文件</th>
+                    <th th:if="${isTeacher} gt 0" class="tableHead">删除文件</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,8 +54,8 @@
                     <td th:text="${#strings.arraySplit(item.f_filename,'.')[1]}">txt</td>
                     <td th:text="${item.f_filename}">文件名</td>
                     <td th:text="${#dates.format(item.f_uplodatime,'yyyy-MM-dd HH:mm:ss')}">2020-05-20</td>
-                    <td ><button th:onclick="downloadFile([[${item.f_id}]])">下载</button></td>
-                    <td ><button th:attr="del_file=@{/item/}+${item.f_id}" onclick="return confirm('确认删除该文件吗？')">删除</button></td>
+                    <td ><button th:onclick="downloadFile([[${item.f_fileurl}]])">下载</button></td>
+                    <td ><button th:if="${isTeacher} gt 0" th:onclick="del_file([[${item.f_id}]])">删除</button></td>
                 </tbody>
             </table>
             <br/><br/><br/><br/><br/>
