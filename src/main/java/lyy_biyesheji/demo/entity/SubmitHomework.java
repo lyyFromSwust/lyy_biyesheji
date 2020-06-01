@@ -24,7 +24,7 @@ public class SubmitHomework {
     private Date sh_submittime;
 
     /*  提交作业文本  */
-    @Column(nullable = false)
+    @Column
     private String sh_homework;
 
     /*  提交作业附件 通过url获取这个文件  */

@@ -30,7 +30,7 @@ function classStudentInfoClick(c_id) {
 }
 
 function classHomeworkListClick(c_id) {
-    window.location.href="classHomeworkList/"+c_id;
+    window.location.href="classHomeworkList?c_id="+c_id;
 }
 
 function classFileClick(c_id) {

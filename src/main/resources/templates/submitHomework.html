@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生提交作业界面</title>
+</head>
+<body>
+<div>
+    <h2 th:text="'作业名称：'+${homeworkname}">作业名称：</h2>
+    <h2 th:text="'作业内容：'+${homeworktext}">作业内容：</h2>
+    <h2 type="file" th:text="'作业附件：'+${homeworkurl}">作业附件：</h2>
+    <h2 th:text="'开始时间：'+${starttime}">开始时间：</h2>
+    <h2 th:text="'截止时间：'+${endtime}">截止时间：</h2>
+    <h2 th:text="'作业状态：'+${homeworkstate}">已结束</h2>
+</div>
+<div>
+    <form method="post" enctype="multipart/form-data" th:object="${submithomework}" onclick="return submithomework_click()">
+        <h2>作业内容</h2>
+        <textarea id="shtext" th:field="*{sh_homework}"></textarea>
+        <h2>作业文件</h2>
+        <input type="file" id="shfile" value="上传作业附件" name="fileName"/>
+        <button type="submit">提交作业</button>
+    </form>
+</div>
+<script th:src="@{/js/homework.js}"></script>
+</body>
+</html>

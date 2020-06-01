@@ -176,9 +176,9 @@ public class TeacherController {
     /**
      * 实现文件上传
      * */
-    @PostMapping("/classFile/{c_id}")
+    @PostMapping("/classFile")
     public String classFileUpload(HttpServletRequest request,@CookieValue("userid") String userid,
-                                  @PathVariable("c_id") int c_id,@RequestParam("fileName") MultipartFile file ,Model model) {
+                                  @RequestParam("c_id") int c_id,@RequestParam("fileName") MultipartFile file ,Model model) {
 
         /*  创建新文件  */
         int teacherid=Integer.parseInt(userid);

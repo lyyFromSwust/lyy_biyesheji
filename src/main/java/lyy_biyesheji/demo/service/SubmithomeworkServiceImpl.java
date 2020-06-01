@@ -52,4 +52,15 @@ public class SubmithomeworkServiceImpl {
     public List<SubmitHomework>findBySh_assignhomeworkidAndAndSh_userid(int sh_ahid,int sh_userid) {
         return submithomeworkRepository.findBySh_assignhomeworkidAndAndSh_userid(sh_ahid,sh_userid);
     }
+
+    /* 更新学生作业提交情况 */
+    public SubmitHomework updateShbyahidanduserid(SubmitHomework submitHomework){
+        SubmitHomework submitHomework1=submithomeworkRepository.findById(submitHomework.getSh_id()).get();
+        if(submitHomework1==null)
+            return null;
+        submitHomework.setSh_homeworkurl(submitHomework.getSh_homeworkurl());
+        submitHomework1.setSh_homework(submitHomework.getSh_homework());
+        submitHomework1.setSh_submittime(new Date());
+        return submithomeworkRepository.save(submitHomework1);
+    }
 }

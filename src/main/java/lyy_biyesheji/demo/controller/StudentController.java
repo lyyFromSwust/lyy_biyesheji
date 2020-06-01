@@ -5,14 +5,15 @@ import lyy_biyesheji.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/student")
@@ -31,6 +32,8 @@ public class StudentController {
     private LeavemessageServiceImpl leavemessageService;
     @Autowired
     private AssignhomeworkServiceImpl assignhomeworkService;
+    @Autowired
+    private SubmithomeworkServiceImpl submithomeworkService;
 
     @GetMapping("/index")
     public String toStudentIndex(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("nowpage")int nowpage, Model model) {
@@ -247,13 +250,88 @@ public class StudentController {
     }
 
     /* 进入作业界面 */
-    @GetMapping("myClass/classHomeworkList/{c_id}")
-    public String classHomeworkList(@PathVariable("c_id") int c_id,Model model){
+    @GetMapping("classHomeworkList")
+    public String classHomeworkList(@RequestParam("c_id") int c_id,Model model){
         List<AssignHomework>assignHomeworkList=assignhomeworkService.findByAh_classid(c_id);
         model.addAttribute("homeworklist",assignHomeworkList);
         model.addAttribute("ahhomework",new AssignHomework());
         return "classHomeworkList";
     }
+
+    /*进入作业提交页面*/
+    @GetMapping("classHomeworkList/submitHomework")
+    public String classHomeworkSubmit(@RequestParam("ah_id")int ah_id,Model model){
+        AssignHomework assignHomework = assignhomeworkService.getAssignhomework(ah_id);
+        model.addAttribute("homeworkname",assignHomework.getAh_name());
+        model.addAttribute("homeworktext",assignHomework.getAh_homework());
+        model.addAttribute("homeworkurl",assignHomework.getAh_homeworkurl());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        model.addAttribute("starttime",simpleDateFormat.format(assignHomework.getAh_starttime()));
+        model.addAttribute("endtime",simpleDateFormat.format(assignHomework.getAh_endtime()));
+        boolean state=new Date().after(assignHomework.getAh_endtime());
+
+        System.out.println("当前日期是否比截止日期晚："+new Date().after(assignHomework.getAh_endtime()));
+        if(state){
+            model.addAttribute("homeworkstate","已结束");
+        }
+        else{
+            model.addAttribute("homeworkstate","进行中");
+        }
+        model.addAttribute("submithomework",new SubmitHomework());
+        return "submitHomework";
+    }
+
+    /* 作业提交 */
+    @PostMapping("classHomeworkList/submitHomework")
+    public String classHomeworkSubmitPost(HttpServletRequest request, @CookieValue("userid") String userid,
+                                          @ModelAttribute SubmitHomework submitHomework, @RequestParam("fileName") MultipartFile file,
+                                          @RequestParam("ah_id")int ah_id, Model model){
+        int studentid=Integer.parseInt(userid);
+        /* 获取此学生此问题的提交情况 */
+        List<SubmitHomework>sh_userandahid=submithomeworkService.findBySh_assignhomeworkidAndAndSh_userid(ah_id,studentid);
+        submitHomework.setSh_assignhomeworkid(ah_id);
+        submitHomework.setSh_userid(studentid);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String path= null;
+        try {
+            path = ResourceUtils.getURL("classpath:").getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        path=path.substring(0,path.length()-15)+"src/main/resources/static/uploadFile/";
+
+        String oldfileName = file.getOriginalFilename();
+        Date date=new Date();
+        String format=simpleDateFormat.format(date);
+        String newfileName = format+oldfileName;
+
+        System.out.println("newFilename = "+newfileName);
+        File dest = new File(path +  newfileName);
+        if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
+            dest.getParentFile().mkdir();
+        }
+        try {
+            file.transferTo(dest);
+            submitHomework.setSh_homeworkurl(path +  newfileName);
+            if(sh_userandahid.size()==0){
+                submithomeworkService.insertSubmithomework(submitHomework);
+            }
+            else{
+                submitHomework.setSh_id(sh_userandahid.get(0).getSh_id());
+                submithomeworkService.updateShbyahidanduserid(submitHomework);
+            }
+
+            model.addAttribute("msg","提交作业成功！");
+        }catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            model.addAttribute("msg","提交作业失败！");
+        }
+        return "result";
+    }
+
+
 
 
 

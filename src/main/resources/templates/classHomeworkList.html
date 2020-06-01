@@ -28,20 +28,7 @@
                 <span th:text="${item.ah_name}">作业名称</span>
                 <span>开始时间</span><span th:text="${#dates.format(item.ah_starttime,'yyyy-MM-dd HH:mm')}">开始时间</span>
                 <span>截止时间</span><span th:text="${#dates.format(item.ah_endtime,'yyyy-MM-dd HH:mm')}">截止时间</span>
-                <button>查看作业详情</button>
-<!--                <span class="homeworkInfo_title">作业发布时间：</span>-->
-<!--                <span class="homeworkInfo_context">2020-05-22 17:31</span>-->
-<!--                <br/><br/>-->
-<!--                <span class="homeworkInfo_title">作业截至时间：</span>-->
-<!--                <span class="homeworkInfo_context">2020-05-30 17:31</span>-->
-<!--                <br/><br/>-->
-<!--                <span class="homeworkInfo_title">作业内容：</span>-->
-<!--                <span class="homeworkInfo_context">完成课后1.5、1.6、1.7</span>-->
-<!--                <br/><br/>-->
-<!--                <span class="homeworkInfo_title">作业状态：</span>-->
-<!--                <span class="homeworkInfo_context homeworkInfo_state_1">进行中</span>-->
-<!--                <br/><br/>-->
-<!--                <button class="homeworkInfo_button">查看作业</button>-->
+                <button th:onclick="homeworkInfo_click([[${item.ah_id}]])">查看作业详情</button>
             </div>
         </div>
     </div>
@@ -59,6 +46,6 @@
     </form>
 
     <script th:src="@{/js/returnEvent.js}"></script>
-    <script th:src="@{/js/}"></script>
+    <script th:src="@{/js/homework.js}"></script>
 </body>
 </html>
