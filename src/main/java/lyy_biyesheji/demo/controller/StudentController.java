@@ -247,6 +247,7 @@ public class StudentController {
             classStudents.add(user);
         }
         MClass mClass=classService.getClass(c_id);
+        model.addAttribute("isTeacher", 0);
         model.addAttribute("classStudents",classStudents);
         model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
         model.addAttribute("class_name",mClass.getC_classname());
@@ -257,7 +258,13 @@ public class StudentController {
 
     /* 进入作业界面 */
     @GetMapping("classHomeworkList")
-    public String classHomeworkList(@RequestParam("c_id") int c_id,Model model){
+    public String classHomeworkList(@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
+        MClass mClass=classService.getClass(c_id);
+        int u_id=Integer.parseInt(userid);
+        model.addAttribute("isTeacher", 0);
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
+        model.addAttribute("class_name",mClass.getC_classname());
+
         List<AssignHomework>assignHomeworkList=assignhomeworkService.findByAh_classid(c_id);
         model.addAttribute("homeworklist",assignHomeworkList);
         model.addAttribute("ahhomework",new AssignHomework());

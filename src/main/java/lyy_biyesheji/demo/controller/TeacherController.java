@@ -2,12 +2,14 @@ package lyy_biyesheji.demo.controller;
 
 import lyy_biyesheji.demo.entity.*;
 import lyy_biyesheji.demo.service.*;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 import javax.servlet.http.Cookie;
@@ -136,6 +138,7 @@ public class TeacherController {
             User user = userService.getUser(userClass.getUc_userid());
             classStudents.add(user);
         }
+        model.addAttribute("isTeacher", 1);
         model.addAttribute("classStudents", classStudents);
         model.addAttribute("user_name", userService.getUser(u_id).getU_name() + "老师");
         model.addAttribute("class_name", mClass.getC_classname());
@@ -146,15 +149,33 @@ public class TeacherController {
 
 
     @PostMapping("/classStudent")
-    public String classStudentInfo_Post(@CookieValue("userid") String userid, @RequestParam("c_id") int c_id, @RequestParam("file") MultipartFile file,Model model){
+    public String classStudentInfo_Post(HttpServletRequest request,@CookieValue("userid") String userid, @RequestParam("c_id") int c_id, @RequestParam("file") MultipartFile file,Model model){
         if(file.isEmpty()){
             System.out.println("文件为空");
         }else{
-            try{
-
-            }catch (Exception e){
-
-            }
+                //设置文件路径
+//                String path = null;
+//                try {
+//                    path = ResourceUtils.getURL("classpath:").getPath();
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                path = path.substring(0, path.length() - 15) + "src/main/resources/static/uploadFile/";
+//
+//
+//                String filePath = path+file.getOriginalFilename();
+//                File dest=new File(filePath);
+//                file.transferTo(dest);
+//
+//                BufferedReader reader = new BufferedReader(new FileReader(dest));
+//                StringBuffer sbf = new StringBuffer();
+//                String tempStr;
+//                while ((tempStr = reader.readLine()) != null) {
+//                    sbf.append(tempStr);
+//                }
+//                reader.close();
+//                System.out.println(sbf);
+//                dest.delete();
         }
         return classStudentInfo(userid,c_id,model);
     }
