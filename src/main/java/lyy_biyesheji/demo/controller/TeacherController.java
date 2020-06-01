@@ -13,8 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -144,6 +143,22 @@ public class TeacherController {
         model.addAttribute("student_number", classnum);
         return "classStudent";
     }
+
+
+    @PostMapping("/classStudent")
+    public String classStudentInfo_Post(@CookieValue("userid") String userid, @RequestParam("c_id") int c_id, @RequestParam("file") MultipartFile file,Model model){
+        if(file.isEmpty()){
+            System.out.println("文件为空");
+        }else{
+            try{
+
+            }catch (Exception e){
+
+            }
+        }
+        return classStudentInfo(userid,c_id,model);
+    }
+
 
 //    @DeleteMapping("/delete")
 //    public String deleteClassStudent(@RequestParam("id")int u_id,@RequestParam("c_id")int c_id,Model model){

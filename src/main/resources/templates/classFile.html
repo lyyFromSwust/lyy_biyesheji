@@ -54,13 +54,14 @@
                     <td th:text="${#strings.arraySplit(item.f_filename,'.')[1]}">txt</td>
                     <td th:text="${item.f_filename}">文件名</td>
                     <td th:text="${#dates.format(item.f_uplodatime,'yyyy-MM-dd HH:mm:ss')}">2020-05-20</td>
-                    <td ><button >下载</button></td>
-                    <td ><button th:attr="del_file=@{/item/}+${item.f_id}" onclick="return confirm('确认删除该用户吗？')">删除</button></td>
+                    <td ><button th:onclick="downloadFile([[${item.f_id}]])">下载</button></td>
+                    <td ><button th:attr="del_file=@{/item/}+${item.f_id}" onclick="return confirm('确认删除该文件吗？')">删除</button></td>
                 </tbody>
             </table>
             <br/><br/><br/><br/><br/>
 
             <div class="uploadFileWindow" id="uploadFile" style="visibility: hidden">
+                <div class="windowCloseBtn" onclick="uploadBtn_Click()"></div>
                 <form  method="post" enctype="multipart/form-data" >
                     <input class="uploadFile_chooseFile" type="file" value="选择文件" name="fileName"/>
                     <input class="uploadFile_confirm" type="submit" value="提交"/>

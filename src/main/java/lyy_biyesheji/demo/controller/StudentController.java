@@ -339,9 +339,7 @@ public class StudentController {
 
 
 
-
-
-    /*  进入文件页面  */
+    /*  进入文件面  */
     @GetMapping("classFile")
     public String classFile(HttpServletRequest request,@CookieValue("userid") String userid,@RequestParam("c_id") int c_id,Model model){
         int u_id=Integer.parseInt(userid);

@@ -63,3 +63,22 @@ td button{
     padding: 4px;
     font-size: 18px;
 }
+
+.windowCloseBtn{
+	position: absolute;
+	top: -15px;
+	right: -15px;
+	width: 45px;
+	height: 45px;
+	background:url(../image/icon/timg.png);
+	background-size: 100%;
+	cursor: pointer;
+}
+
+.windowCloseBtn:hover{
+	transform: scale(1.1);
+}
+
+.windowCloseBtn:active{
+	transform: scale(0.9);
+}

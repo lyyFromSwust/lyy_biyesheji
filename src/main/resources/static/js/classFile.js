@@ -5,3 +5,7 @@ function uploadBtn_Click() {
     }else
         uploadFile_div.style.visibility = "hidden";
 }
+
+
+function downloadFile(){
+}
