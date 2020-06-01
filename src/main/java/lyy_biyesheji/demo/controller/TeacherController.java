@@ -256,7 +256,7 @@ public class TeacherController {
     }
 
     /* 布置作业 */
-    @PostMapping("/classHomeworkList/{c_id}")
+    @PostMapping("/classHomeworkList")
     public String assignHomework(HttpServletRequest request, @CookieValue("userid") String userid, @PathVariable("c_id") int c_id,
                                  @ModelAttribute AssignHomework assignHomework, @RequestParam("fileName") MultipartFile file,
                                  @RequestParam("endtime") String endtime, Model model) throws ParseException {

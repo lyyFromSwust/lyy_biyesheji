@@ -37,7 +37,7 @@
     <form method="post" enctype="multipart/form-data" th:object="${ahhomework}" onclick="return sendhomework_click()">
         <input th:field="*{ah_name}" id="ahname">作业名称</input>
         <p>截止日期</p>
-        <input type="datetime-local" id="ahendtime" name="endtime"
+        <input type="datetime-local" name="endtime"
                th:value="${#dates.format(ah_endtime,'yyyy-MM-dd')}+'T'+${#dates.format(ah_endtime,'HH:mm')}">
         <p>作业内容</p>
         <textarea th:field="*{ah_homework}"></textarea>
