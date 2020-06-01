@@ -46,6 +46,8 @@ public class TeacherController {
     private QuestionServiceImpl questionService;
     @Autowired
     private AnswerServiceImpl answerService;
+    @Autowired
+    private SubmithomeworkServiceImpl submithomeworkService;
 
 
     @GetMapping("/index")
@@ -298,7 +300,13 @@ public class TeacherController {
 
     /* 进入作业页面 */
     @GetMapping("/classHomeworkList")
-    public String classHomeworkList(@RequestParam("c_id") int c_id, Model model) {
+    public String classHomeworkList(@CookieValue("userid") String userid,@RequestParam("c_id") int c_id, Model model) {
+        MClass mClass=classService.getClass(c_id);
+        int u_id=Integer.parseInt(userid);
+        model.addAttribute("isTeacher", 1);
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
+        model.addAttribute("class_name",mClass.getC_classname());
+
         List<AssignHomework> assignHomeworkList = assignhomeworkService.findByAh_classid(c_id);
         model.addAttribute("homeworklist", assignHomeworkList);
         model.addAttribute("ahhomework", new AssignHomework());
@@ -337,7 +345,6 @@ public class TeacherController {
         String format = simpleDateFormat.format(date);
         String newfileName = format + oldfileName;
 
-        System.out.println("newFilename = " + newfileName);
         File dest = new File(path + newfileName);
         if (!dest.getParentFile().exists()) { //判断文件父目录是否存在
             dest.getParentFile().mkdir();
@@ -347,12 +354,66 @@ public class TeacherController {
             assignHomework.setAh_homeworkurl(newfileName);
             assignhomeworkService.insertAssignhomework(assignHomework);
             model.addAttribute("msg", "布置作业成功！");
+
+            Message message=new Message();
+            message.setM_buildid(teacherid);
+            message.setM_classid(c_id);
+            message.setM_type(6);
+            message.setM_issolved(false);
+            message.setM_isread(false);
+            message.setM_solveresulte(1);
+            message.setM_message("xxx班级发布了新的作业");
+            List<UserClass> allStudent=userclassService.findByUc_classid(c_id);
+            for(int i=0;i<allStudent.size();i++){
+                message.setM_aimid(allStudent.get(i).getUc_userid());
+                messageService.insertMessage(message);
+            }
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             model.addAttribute("msg", "布置作业失败！");
         }
         return "result";
+    }
+
+    /*进入作业提交页面*/
+    @GetMapping("classHomeworkList/submitHomework")
+    public String classHomeworkSubmit(@CookieValue("userid") String userid,@RequestParam("ah_id")int ah_id,Model model){
+        int u_id=Integer.parseInt(userid);
+        AssignHomework assignHomework = assignhomeworkService.getAssignhomework(ah_id);
+        model.addAttribute("homeworkname",assignHomework.getAh_name());
+        model.addAttribute("homeworktext",assignHomework.getAh_homework());
+        if(assignHomework.getAh_homeworkurl().indexOf(".") == -1) model.addAttribute("homeworkurl","无");
+        else model.addAttribute("homeworkurl",assignHomework.getAh_homeworkurl());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        model.addAttribute("starttime",simpleDateFormat.format(assignHomework.getAh_starttime()));
+        model.addAttribute("endtime",simpleDateFormat.format(assignHomework.getAh_endtime()));
+        boolean state=new Date().after(assignHomework.getAh_endtime());
+
+        System.out.println("当前日期是否比截止日期晚："+new Date().after(assignHomework.getAh_endtime()));
+        if(state){
+            model.addAttribute("homeworkstate","已结束");
+        }
+        else{
+            model.addAttribute("homeworkstate","进行中");
+        }
+        model.addAttribute("submithomework",new SubmitHomework());
+
+        model.addAttribute("isTeacher", 1);
+        model.addAttribute("c_id",assignHomework.getAh_classid());
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"老师");
+        model.addAttribute("class_name",classService.getClass(assignHomework.getAh_classid()).getC_classname());
+        model.addAttribute("submithomework",new SubmitHomework());
+
+        List<SubmitHomework> submitHomeworkList=submithomeworkService.findBySh_assignhomeworkid(ah_id);
+        List<SubmitHomework.send_SubmitHomework>subList=new ArrayList<SubmitHomework.send_SubmitHomework>();
+        for(int i=0;i<submitHomeworkList.size();i++)subList.add(new SubmitHomework.send_SubmitHomework(
+                submitHomeworkList.get(i),
+                userService.getUser(submitHomeworkList.get(i).getSh_userid()).getU_name()
+        ));
+        model.addAttribute("submitHomeworklist",subList);
+        return "submitHomework";
     }
 
     /* 留言发送 */

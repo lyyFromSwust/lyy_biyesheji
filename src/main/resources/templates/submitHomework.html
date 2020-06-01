@@ -3,25 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>学生提交作业界面</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mainBodyStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headtitleStyle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/submitHomework.css}"/>
 </head>
 <body>
-<div>
-    <h2 th:text="'作业名称：'+${homeworkname}">作业名称：</h2>
-    <h2 th:text="'作业内容：'+${homeworktext}">作业内容：</h2>
-    <h2 type="file" th:text="'作业附件：'+${homeworkurl}">作业附件：</h2>
-    <h2 th:text="'开始时间：'+${starttime}">开始时间：</h2>
-    <h2 th:text="'截止时间：'+${endtime}">截止时间：</h2>
-    <h2 th:text="'作业状态：'+${homeworkstate}">已结束</h2>
-</div>
-<div>
-    <form method="post" enctype="multipart/form-data" th:object="${submithomework}" onclick="return submithomework_click()">
-        <h2>作业内容</h2>
-        <textarea id="shtext" th:field="*{sh_homework}"></textarea>
-        <h2>作业文件</h2>
-        <input type="file" value="上传作业附件" name="fileName"/>
-        <button type="submit">提交作业</button>
-    </form>
-</div>
-<script th:src="@{/js/homework.js}"></script>
+    <div class="mainDivBox">
+        <div class="mainDivBoxBg"></div>
+        <div class="headTitle noselect">
+            <img class="titleIcon" onclick="returnIndex()"/>
+
+            <span class="titleSpan" th:text="${class_name}">班级名称</span>
+
+            <div class="lInfoDiv">
+                <div class="lInfoText" th:text="'欢迎你！'+${user_name}"> 欢迎你！罗源同学</div>
+                <div class="infoText infoText_l lrText" th:onclick="returnHomeworkList([[${c_id}]])">
+                    <span>返回作业</span>
+                </div>
+                <div class="infoText infoText_r lrText" onclick="returnIndex()">退出登录</div>
+            </div>
+            <div class=""></div>
+        </div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <div class="headTitle_bottomLine"></div>
+        <br/>
+        <div class="homeworkBox">
+            <p th:text="'作业名称：'+${homeworkname}">作业名称：</p>
+            <p th:text="'作业内容：'+${homeworktext}">作业内容：</p>
+            <p type="file" th:text="'作业附件：'+${homeworkurl}">作业附件：</p>
+            <p th:text="'开始时间：'+${starttime}">开始时间：</p>
+            <p th:text="'截止时间：'+${endtime}">截止时间：</p>
+            <p th:text="'作业状态：'+${homeworkstate}">已结束</p>
+
+        </div>
+        <br>
+        <div class="homeworkSubmitBox" th:if="${isTeacher} eq 0">
+            <form method="post" enctype="multipart/form-data" th:object="${submithomework}" onclick="return submithomework_click()">
+                <h2>作业内容</h2>
+                <textarea id="shtext" th:field="*{sh_homework}"></textarea>
+                <h2>作业文件</h2>
+                <input type="file" value="上传作业附件" name="fileName"/>
+                <button type="submit" class="homeworkSubmitBtn">提交作业</button>
+            </form>
+        </div>
+
+        <div class="homeworkListBox" th:if="${isTeacher} eq 1">
+            <div class="homeworkListItem" th:each="item:${submitHomeworklist}">
+                <p th:text="'上传学生：'+${item.username}">上传学生：</p>
+                <p th:text="'作业内容：'+${item.sh_homework}">作业内容：</p>
+                <p type="file" th:text="'作业附件：'+${item.sh_homeworkurl}">作业附件：</p>
+                <p th:text="'开始时间：'+${item.sh_submittime}">开始时间：</p>
+            </div>
+            <p style="font-size:40px;text-align:center;" id="hitText">无作业提交</p>
+        </div>
+        <br><br>
+    </div>
 </body>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/returnEvent.js}"></script>>
+    <script th:src="@{/js/submitHomework.js}"></script>
 </html>

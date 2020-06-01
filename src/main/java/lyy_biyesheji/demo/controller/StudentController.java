@@ -274,11 +274,13 @@ public class StudentController {
 
     /*进入作业提交页面*/
     @GetMapping("classHomeworkList/submitHomework")
-    public String classHomeworkSubmit(@RequestParam("ah_id")int ah_id,Model model){
+    public String classHomeworkSubmit(@CookieValue("userid") String userid,@RequestParam("ah_id")int ah_id,Model model){
+        int u_id=Integer.parseInt(userid);
         AssignHomework assignHomework = assignhomeworkService.getAssignhomework(ah_id);
         model.addAttribute("homeworkname",assignHomework.getAh_name());
         model.addAttribute("homeworktext",assignHomework.getAh_homework());
-        model.addAttribute("homeworkurl",assignHomework.getAh_homeworkurl());
+        if(assignHomework.getAh_homeworkurl().indexOf(".") == -1) model.addAttribute("homeworkurl","无");
+        else model.addAttribute("homeworkurl",assignHomework.getAh_homeworkurl());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         model.addAttribute("starttime",simpleDateFormat.format(assignHomework.getAh_starttime()));
         model.addAttribute("endtime",simpleDateFormat.format(assignHomework.getAh_endtime()));
@@ -291,6 +293,13 @@ public class StudentController {
         else{
             model.addAttribute("homeworkstate","进行中");
         }
+        model.addAttribute("submithomework",new SubmitHomework());
+
+        model.addAttribute("submitHomeworklist",new ArrayList<SubmitHomework>());
+        model.addAttribute("isTeacher", 0);
+        model.addAttribute("c_id",assignHomework.getAh_classid());
+        model.addAttribute("user_name",userService.getUser(u_id).getU_name()+"同学");
+        model.addAttribute("class_name",classService.getClass(assignHomework.getAh_classid()).getC_classname());
         model.addAttribute("submithomework",new SubmitHomework());
         return "submitHomework";
     }

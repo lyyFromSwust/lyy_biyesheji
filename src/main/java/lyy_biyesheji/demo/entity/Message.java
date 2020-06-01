@@ -29,6 +29,7 @@ public class Message {
     * (3) 加入班级成功通知；
     * (4) 有人留言通知；
 	* (5) 有人提问通知、有人回复通知
+    * (6) 布置了新的作业
     * */
     @Column(nullable = false)
     protected int m_type;

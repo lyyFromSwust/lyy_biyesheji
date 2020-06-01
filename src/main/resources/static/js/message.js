@@ -33,7 +33,7 @@
                 messageDeal.hide();
         }
 
-        if(mtypes[i].innerHTML =="4" || mtypes[i].innerHTML == "5"){
+        if(mtypes[i].innerHTML =="4" || mtypes[i].innerHTML == "5"|| mtypes[i].innerHTML == "6"){
             mtype.parent().addClass("messageItem_canSelect");
         }
 

@@ -34,6 +34,15 @@ public class SubmitHomework {
     public SubmitHomework() {
     }
 
+    public SubmitHomework(SubmitHomework submitHomework) {
+        this.sh_id=submitHomework.sh_id;
+        this.sh_assignhomeworkid=submitHomework.sh_assignhomeworkid;
+        this.sh_userid=submitHomework.sh_userid;
+        this.sh_submittime=submitHomework.sh_submittime;
+        this.sh_homework=submitHomework.sh_homework;
+        this.sh_homeworkurl=submitHomework.sh_homeworkurl;
+    }
+
     public int getSh_id() {
         return sh_id;
     }
@@ -80,5 +89,21 @@ public class SubmitHomework {
 
     public void setSh_homeworkurl(String sh_homeworkurl) {
         this.sh_homeworkurl = sh_homeworkurl;
+    }
+
+    public static class send_SubmitHomework extends SubmitHomework{
+        String username;
+        public send_SubmitHomework(SubmitHomework submitHomework,String username){
+            super(submitHomework);
+            this.username=username;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
     }
 }
