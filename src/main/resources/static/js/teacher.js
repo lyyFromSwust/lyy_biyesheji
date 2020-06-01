@@ -40,7 +40,7 @@ function classMessageClick(c_id) {
 }
 /* 问答 */
 function classQandAClick(c_id) {
-	window.location.href="classMessage?c_id="+c_id+"&nowpage=1";
+	window.location.href="classQuestion?nowpage=1&c_id="+c_id;
 }
 
 /*以下为页面管理*/

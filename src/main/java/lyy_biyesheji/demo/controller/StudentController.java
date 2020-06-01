@@ -34,6 +34,10 @@ public class StudentController {
     private AssignhomeworkServiceImpl assignhomeworkService;
     @Autowired
     private SubmithomeworkServiceImpl submithomeworkService;
+    @Autowired
+    private QuestionServiceImpl questionService;
+    @Autowired
+    private AnswerServiceImpl answerService;
 
     @GetMapping("/index")
     public String toStudentIndex(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("nowpage")int nowpage, Model model) {
@@ -450,4 +454,114 @@ public class StudentController {
     }
 
 
+    @GetMapping("/classQuestion")
+    public String classQandAClick(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("nowpage") int nowpage, @RequestParam("c_id") int c_id, Model model) {
+        User user = userService.getUser(Integer.parseInt(userid));
+        MClass mClass = classService.getClass(c_id);
+        model.addAttribute("class_name", mClass.getC_classname());
+        model.addAttribute("user_name", user.getU_name() + "同学");
+        model.addAttribute("isTeacher", 0);
+        model.addAttribute("questionMessage", new Question());
+
+        List<Question> questionList = questionService.findByQ_classid(c_id);
+        Collections.reverse(questionList);
+
+        int pageNumber = 4;
+        int page = nowpage - 1;
+        List<Question> subList = questionList.subList(page * pageNumber, pageNumber + page * pageNumber < questionList.size() ? pageNumber + page * pageNumber : questionList.size());
+
+        int modPage = ((questionList.size() % pageNumber != 0) ? 1 : 0);
+        model.addAttribute("u_allPage", (questionList.size() / pageNumber + modPage) <= 0 ? 1 : questionList.size() / pageNumber + modPage);
+        model.addAttribute("u_nowPage", nowpage);
+
+        List<Question.send_Question>send_subList=new ArrayList<Question.send_Question>();
+        for(int i=0;i<subList.size();i++)send_subList.add(new Question.send_Question(
+                subList.get(i),
+                userService.getUser(subList.get(i).getQ_userid()).getU_name(),
+                answerService.findByA_questionid(subList.get(i).getQ_id()).size()
+        ));
+        model.addAttribute("questionList", send_subList);
+
+        return "classQuestion";
+    }
+
+    @PostMapping("/classQuestion")
+    public String classQandAClick_Post(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("c_id") int c_id,
+                                       @ModelAttribute Question question, Model model) {
+        int u_id=Integer.parseInt(userid);
+        MClass mClass=classService.getClass(c_id);
+
+        System.out.println("post classQuestion");
+        System.out.println(c_id);
+        System.out.println(question.getQ_question());
+        System.out.println(question.getQ_questionurl());
+        question.setQ_userid(u_id);
+        question.setQ_classid(c_id);
+
+        questionService.insertMessage(question);
+
+        /*向老师发送提问消息*/
+        Message message=new Message();
+        message.setM_buildid(u_id);
+        message.setM_aimid(mClass.getC_teacherid());
+        message.setM_classid(c_id);
+        message.setM_type(5);
+        message.setM_issolved(false);
+        message.setM_solveresulte(1);
+        message.setM_isread(false);
+        message.setM_message(userService.getUser(u_id).getU_name()+"在"+mClass.getC_classname()+"问答中向你提问");
+        messageService.insertMessage(message);
+
+        return classQandAClick(request, userid, 1, c_id, model);
+    }
+
+    @GetMapping("/classAnswer")
+    public String classAnswer(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("q_id") int q_id, Model model) {
+        User user = userService.getUser(Integer.parseInt(userid));
+        Question mQuestion=questionService.getQuestion(q_id);
+        int c_id=mQuestion.getQ_classid();
+        MClass mClass = classService.getClass(c_id);
+        model.addAttribute("class_name", mClass.getC_classname());
+        model.addAttribute("user_name", user.getU_name() + "同学");
+        model.addAttribute("class_id", c_id);
+        model.addAttribute("q_question", mQuestion.getQ_question());
+        model.addAttribute("q_username", userService.getUser(mQuestion.getQ_userid()).getU_name());
+        model.addAttribute("q_sendtime", mQuestion.getQ_sendtime());
+        model.addAttribute("q_questionurl", mQuestion.getQ_questionurl());
+
+        model.addAttribute("answerMessage", new Answer());
+        List<Answer>answerList = answerService.findByA_questionid(q_id);
+        List<Answer.send_Answer>subAnswer = new ArrayList<Answer.send_Answer>();
+        for(int i=0;i<answerList.size();i++)subAnswer.add(new Answer.send_Answer(answerList.get(i),
+                userService.getUser(answerList.get(i).getA_userid()).getU_name()
+                ));
+        model.addAttribute("answerList", subAnswer);
+        return "classAnswer";
+    }
+
+    @PostMapping("/classAnswer")
+    public String classAnswer_Post(HttpServletRequest request, @CookieValue("userid") String userid, @RequestParam("q_id") int q_id,
+                                   @ModelAttribute Answer answer, Model model) {
+        int u_id=Integer.parseInt(userid);
+        answer.setA_userid(u_id);
+        answer.setA_questionid(q_id);
+        answerService.insertAnswer(answer);
+
+        Question question=questionService.getQuestion(q_id);
+        if(question.getQ_userid() != u_id)
+        {
+            //不是自己回复自己
+            Message message=new Message();
+            message.setM_buildid(u_id);
+            message.setM_aimid(question.getQ_userid());
+            message.setM_classid(question.getQ_classid());
+            message.setM_type(5);
+            message.setM_issolved(false);
+            message.setM_solveresulte(1);
+            message.setM_isread(false);
+            message.setM_message(userService.getUser(u_id).getU_name()+"回复了你的问题“"+question.getQ_question().substring(0,3)+"”");
+            messageService.insertMessage(message);
+        }
+        return classAnswer(request,userid,q_id,model);
+    }
 }
